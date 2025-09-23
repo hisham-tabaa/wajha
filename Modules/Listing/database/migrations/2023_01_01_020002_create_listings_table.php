@@ -27,12 +27,9 @@ return new class extends Migration
             $table->json('images')->default('[]');
             $table->json('attributes')->nullable();
             $table->boolean('featured')->default(false);
-            $table->integer('view_count')->default(0);
             $table->boolean('is_negotiable')->default(false);
-            $table->string('area')->nullable();
             $table->timestamp('published_at')->nullable();
             $table->integer('images_count')->default(0);
-            $table->integer('favorites_count')->default(0);
             $table->timestamps();
 
             $table->foreign('seller_id')->references('id')->on('users')->onDelete('cascade');
