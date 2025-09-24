@@ -47,13 +47,6 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        // User enums
-        Schema::create('user_roles', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->timestamps();
-        });
-
         Schema::create('verification_statuses', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -129,7 +122,12 @@ return new class extends Migration
             $table->string('name');
             $table->timestamps();
         });
-
+Schema::create('nationalties', function (Blueprint $table) {
+            $table->id();
+            $table->string('name_ar');
+            $table->string('name_en');
+            $table->timestamps();
+        });
         // Insert enum values
         $this->insertEnumValues();
     }
@@ -148,10 +146,6 @@ return new class extends Migration
             ['name' => 'email_change_token_current'], ['name' => 'phone_change_token']
         ]);
 
-        // User enums
-        DB::table('user_roles')->insert([
-            ['name' => 'user'], ['name' => 'seller'], ['name' => 'admin'], ['name' => 'moderator']
-        ]);
         DB::table('verification_statuses')->insert([
             ['name' => 'none'], ['name' => 'pending'], ['name' => 'approved'], ['name' => 'rejected']
         ]);
@@ -165,6 +159,28 @@ return new class extends Migration
         ]);
         DB::table('furnished_types')->insert([
             ['name' => 'furnished'], ['name' => 'semi_furnished'], ['name' => 'unfurnished']
+        ]);
+          DB::table('nationalties')->insert([
+            ['name_en' => 'Saudi', 'name_ar' => 'سعودي'],
+            ['name_en' => 'Egyptian', 'name_ar' => 'مصري'],
+            ['name_en' => 'Emirati', 'name_ar' => 'إماراتي'],
+            ['name_en' => 'Jordanian', 'name_ar' => 'أردني'],
+            ['name_en' => 'Kuwaiti', 'name_ar' => 'كويتي'],
+            ['name_en' => 'Bahraini', 'name_ar' => 'بحريني'],
+            ['name_en' => 'Qatari', 'name_ar' => 'قطري'],
+            ['name_en' => 'Omani', 'name_ar' => 'عماني'],
+            ['name_en' => 'Yemeni', 'name_ar' => 'يمني'],
+            ['name_en' => 'Iraqi', 'name_ar' => 'عراقي'],
+            ['name_en' => 'Syrian', 'name_ar' => 'سوري'],
+            ['name_en' => 'Lebanese', 'name_ar' => 'لبناني'],
+            ['name_en' => 'Palestinian', 'name_ar' => 'فلسطيني'],
+            ['name_en' => 'American', 'name_ar' => 'أمريكي'],
+            ['name_en' => 'British', 'name_ar' => 'بريطاني'],
+            ['name_en' => 'Canadian', 'name_ar' => 'كندي'],
+            ['name_en' => 'Australian', 'name_ar' => 'أسترالي'],
+            ['name_en' => 'Indian', 'name_ar' => 'هندي'],
+            ['name_en' => 'Pakistani', 'name_ar' => 'باكستاني'],
+            ['name_en' => 'Filipino', 'name_ar' => 'فلبيني'],
         ]);
         DB::table('listing_statuses')->insert([
             ['name' => 'draft'], ['name' => 'pending'], ['name' => 'published'],
@@ -218,12 +234,12 @@ return new class extends Migration
         Schema::dropIfExists('fuel_types');
         Schema::dropIfExists('employment_types');
         Schema::dropIfExists('verification_statuses');
-        Schema::dropIfExists('user_roles');
         Schema::dropIfExists('one_time_token_types');
         Schema::dropIfExists('oauth_registration_types');
         Schema::dropIfExists('factor_types');
         Schema::dropIfExists('factor_statuses');
         Schema::dropIfExists('code_challenge_methods');
         Schema::dropIfExists('aal_levels');
+        Schema::dropIfExists('nationalties');
     }
 };

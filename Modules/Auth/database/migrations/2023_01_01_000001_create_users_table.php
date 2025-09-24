@@ -4,6 +4,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use League\CommonMark\Reference\Reference;
 
 return new class extends Migration
 {
@@ -11,42 +12,25 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('instance_id')->nullable();
-            $table->string('aud')->nullable();
-            $table->string('role')->nullable();
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('avatar')->nullable();
+            $table->enum('gender',['male','female']);
+            $table->unsignedBigInteger('role_id');
             $table->string('email')->nullable();
-            $table->string('encrypted_password')->nullable();
-            $table->timestamp('email_confirmed_at')->nullable();
-            $table->timestamp('invited_at')->nullable();
-            $table->string('confirmation_token')->nullable();
-            $table->timestamp('confirmation_sent_at')->nullable();
-            $table->string('recovery_token')->nullable();
-            $table->timestamp('recovery_sent_at')->nullable();
-            $table->string('email_change_token_new')->nullable();
-            $table->string('email_change')->nullable();
-            $table->timestamp('email_change_sent_at')->nullable();
+            $table->string('password')->nullable();
             $table->timestamp('last_sign_in_at')->nullable();
-            $table->json('raw_app_meta_data')->nullable();
-            $table->json('raw_user_meta_data')->nullable();
-            $table->boolean('is_super_admin')->default(false);
+            $table->unsignedBigInteger('nationalty_id');
+            $table->timestamp('birthday')->nullable();
             $table->string('phone')->unique()->nullable();
-            $table->timestamp('phone_confirmed_at')->nullable();
-            $table->string('phone_change')->default('');
-            $table->string('phone_change_token')->default('');
-            $table->timestamp('phone_change_sent_at')->nullable();
             $table->timestamp('confirmed_at')->nullable();
-            $table->string('email_change_token_current')->default('');
-            $table->smallInteger('email_change_confirm_status')->default(0);
-            $table->timestamp('banned_until')->nullable();
-            $table->string('reauthentication_token')->default('');
-            $table->timestamp('reauthentication_sent_at')->nullable();
-            $table->boolean('is_sso_user')->default(false);
-            $table->softDeletes();
-            $table->boolean('is_anonymous')->default(false);
             $table->timestamps();
+            $table->softDeletes();
 
-            $table->index('instance_id');
+            $table->foreign('role_id')->references('id')->on('roles')->cascadeOnDelete();
+            $table->foreign('nationalty_id')->references('id')->on('nationalties')->cascadeOnDelete();
             $table->index('email');
+            $table->index('role_id');
         });
     }
 
