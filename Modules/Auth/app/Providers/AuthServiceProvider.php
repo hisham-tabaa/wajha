@@ -7,6 +7,8 @@ use Illuminate\Support\ServiceProvider;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use Modules\Auth\Services\GoogleAuthService;
+use Modules\Auth\Services\Interfaces\IGoogleAuthService;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -36,6 +38,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
+
+        // Bind interfaces → implementations for DI
+        $this->app->bind(IGoogleAuthService::class, GoogleAuthService::class);
     }
 
     /**
