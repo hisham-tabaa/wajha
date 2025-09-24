@@ -1,0 +1,115 @@
+    <!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Firebase Google ID Token Helper</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 20px; }
+    label { display:block; margin-top: 10px; font-weight: 600; }
+    input[type=text] { width: 100%; padding: 8px; margin-top: 4px; }
+    button { margin-top: 12px; padding: 10px 14px; cursor: pointer; }
+    pre { white-space: pre-wrap; word-wrap: break-word; background: #f6f8fa; padding: 12px; border-radius: 6px; border: 1px solid #e1e4e8; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .row > div { min-width: 0; }
+  </style>
+</head>
+<body>
+  <h1>Firebase Google ID Token Helper</h1>
+  <p>Fill your Firebase web app config, click Sign in with Google, then copy the Firebase ID token. You can also send it to your backend endpoint.</p>
+
+  <div class="row">
+    <div>
+      <label>apiKey</label>
+      <input id="apiKey" type="text" placeholder="AIza..." />
+    </div>
+    <div>
+      <label>authDomain</label>
+      <input id="authDomain" type="text" placeholder="your-project.firebaseapp.com" />
+    </div>
+    <div>
+      <label>projectId</label>
+      <input id="projectId" type="text" placeholder="your-project-id" />
+    </div>
+    <div>
+      <label>Backend URL (POST)</label>
+      <input id="backendUrl" type="text" value="http://127.0.0.1:8000/api/auth/google" />
+    </div>
+  </div>
+
+  <button id="initBtn">Initialize Firebase</button>
+  <button id="googleBtn" disabled>Sign in with Google</button>
+  <button id="sendBtn" disabled>Send token to backend</button>
+
+  <h3>Firebase ID token</h3>
+  <pre id="tokenOut">(no token yet)</pre>
+
+  <h3>Backend response</h3>
+  <pre id="respOut">(no response yet)</pre>
+
+  <!-- Compat SDKs for quick testing -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script>
+    let app = null;
+    let auth = null;
+    let idToken = null;
+
+    function $(id) { return document.getElementById(id); }
+
+    $('initBtn').onclick = () => {
+      try {
+        const config = {
+          apiKey: $('apiKey').value.trim(),
+          authDomain: $('authDomain').value.trim(),
+          projectId: $('projectId').value.trim(),
+        };
+        if (!config.apiKey || !config.authDomain || !config.projectId) {
+          alert('Please fill apiKey, authDomain, and projectId');
+          return;
+        }
+        if (firebase.apps && firebase.apps.length) {
+          // already initialized
+        } else {
+          firebase.initializeApp(config);
+        }
+        auth = firebase.auth();
+        $('googleBtn').disabled = false;
+        alert('Firebase initialized. You can sign in now.');
+      } catch (e) {
+        console.error(e); alert('Init error: ' + e.message);
+      }
+    };
+
+    $('googleBtn').onclick = async () => {
+      try {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        const result = await auth.signInWithPopup(provider);
+        idToken = await result.user.getIdToken(true); // force refresh
+        $('tokenOut').textContent = idToken;
+        $('sendBtn').disabled = false;
+        console.log('ID token:', idToken);
+      } catch (e) {
+        console.error(e); alert('Sign-in error: ' + e.message);
+      }
+    };
+
+    $('sendBtn').onclick = async () => {
+      const url = $('backendUrl').value.trim();
+      if (!url) { alert('Please provide backend URL'); return; }
+      if (!idToken) { alert('Get a token first'); return; }
+      try {
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id_token: idToken })
+        });
+        const txt = await res.text();
+        $('respOut').textContent = `HTTP ${res.status}\n` + txt;
+      } catch (e) {
+        console.error(e); $('respOut').textContent = 'Request error: ' + e;
+      }
+    };
+  </script>
+</body>
+</html>
