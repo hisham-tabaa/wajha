@@ -3,29 +3,58 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Modules\User\Models\User;
+use Illuminate\Http\Request;
+use Modules\Auth\Models\User;
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class CheckPermission
 {
-    public function handle($request, Closure $next, $names)
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure                 $next
+     * @param  string                   $names  Permission names separated by |
+     * @return mixed
+     */
+    public function handle(Request $request, Closure $next, $names)
     {
         $user = User::find(Auth::id());
 
-        // حول البرميشنات من string إلى array
+        if (!$user) {
+            Log::warning('Unauthorized access attempt', [
+                'ip' => $request->ip(),
+                'route' => $request->path(),
+            ]);
+
+            return (new Controller())->errorResponse(
+                null,
+                401,
+                'غير مسجل الدخول'
+            );
+        }
+
         $permissions = explode('|', $names);
-        // Log::info('CheckPermission@permissions', $permissions);
         foreach ($permissions as $name) {
             if ($user->role && $user->role->hasPermissionTo(trim($name))) {
                 return $next($request);
             }
         }
 
-        return response()->json([
-            'data' => [],
-            'status' => 403,
-            'message' => 'غير مصرح للدخول'
-        ], 403);
+        Log::warning('Forbidden access attempt', [
+            'user_id' => $user->id,
+            'role' => $user->role ? $user->role->name : null,
+            'required_permissions' => $permissions,
+            'ip' => $request->ip(),
+            'route' => $request->path(),
+        ]);
+
+        return (new Controller())->errorResponse(
+            null,
+            403,
+            'غير مصرح بالدخول'
+        );
     }
 }

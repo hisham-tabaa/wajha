@@ -13,14 +13,15 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('first_name');
-            $table->string('last_name');
+            $table->string('last_name')->nullable();
+            $table->string('google_id')->nullable();
             $table->string('avatar')->nullable();
-            $table->enum('gender',['male','female']);
+            $table->enum('gender', ['male', 'female'])->nullable();
             $table->unsignedBigInteger('role_id');
             $table->string('email')->nullable();
             $table->string('password')->nullable();
             $table->timestamp('last_sign_in_at')->nullable();
-            $table->unsignedBigInteger('nationalty_id');
+            $table->unsignedBigInteger('nationalty_id')->nullable();
             $table->timestamp('birthday')->nullable();
             $table->string('phone')->unique()->nullable();
             $table->timestamp('confirmed_at')->nullable();
