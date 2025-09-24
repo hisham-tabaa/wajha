@@ -1,17 +1,17 @@
 <?php
 
-namespace Modules\Auth\Services;
+namespace Modules\Auth\Services\GoogleAuth;
 
-use App\Models\User;
-use Firebase\Auth\Token\Verifier;
-use Firebase\Auth\Token\Exception\InvalidToken;
 use Illuminate\Http\Request;
+use Modules\Auth\Models\User;
+use Firebase\Auth\Token\Verifier;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Log;
-use Modules\Auth\Services\Interfaces\IGoogleAuthService;
+use Firebase\Auth\Token\Exception\InvalidToken;
 
 class GoogleAuthService implements IGoogleAuthService
 {
-    public function login(string $role, Request $request): array
+    public function login(Request $request): array
     {
         $idToken = $request->input('id_token');
         if (!$idToken) {
@@ -26,33 +26,41 @@ class GoogleAuthService implements IGoogleAuthService
             $email = $verifiedIdToken->getClaim('email');
             $name = $verifiedIdToken->getClaim('name');
             $picture = $verifiedIdToken->getClaim('picture');
-
+            $role = Role::where('name', 'default')->first();
             // Create or get user
             $user = User::firstOrCreate(
                 ['email' => $email],
                 [
-                    'name' => $name,
+                    'first_name' => $name,
+                    'last_name' => null,
+                    'avatar' => null,
+                    'gender' => null,
+                    'last_sign_in_at' => now(),
+                    'nationalty_id' => null,
+                    'birthday' => null,
+                    'phone' => null,
+                    'confirmed_at' => now(),
                     'google_id' => $uid,
-                    'avatar' => $picture,
-                    'password' => bcrypt(str()->random(16)),
+                    'role_id' => $role->id,
+                    'password' => str()->random(16),
                 ]
             );
+            $user->assignRole($role->name);
+            $user->load(['role', 'permissions']);
 
             // Token strategy: if Sanctum installed, issue token; otherwise return null
             $token = null;
             if (method_exists($user, 'createToken')) {
-                $token = $user->createToken('auth_token')->plainTextToken;
+                $token = $user->createToken('wejha-token-plain-text')->plainTextToken;
             }
 
-            $extra = ['role' => $role];
-
-            return [true, compact('user', 'token', 'extra'), 200, 'Authenticated successfully'];
+            return [true, ['user' => $user, 'token' => $token], 200, 'Authenticated successfully'];
         } catch (InvalidToken $e) {
             return [false, ['error' => 'Invalid token'], 401, 'Invalid token'];
         } catch (\InvalidArgumentException $e) {
             return [false, ['error' => 'Malformed token'], 401, 'Malformed token'];
         } catch (\Throwable $e) {
-            Log::error('Google auth error: '.$e->getMessage(), ['trace' => $e->getTraceAsString()]);
+            Log::error('Google auth error: ' . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
             return [false, ['error' => 'Server error'], 500, 'Server error'];
         }
     }

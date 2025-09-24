@@ -2,13 +2,13 @@
 
 namespace Modules\Auth\Providers;
 
+use RecursiveIteratorIterator;
+use RecursiveDirectoryIterator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Nwidart\Modules\Traits\PathNamespace;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
-use Modules\Auth\Services\GoogleAuthService;
-use Modules\Auth\Services\Interfaces\IGoogleAuthService;
+use Modules\Auth\Services\GoogleAuth\GoogleAuthService;
+use Modules\Auth\Services\GoogleAuth\IGoogleAuthService;
 
 class AuthServiceProvider extends ServiceProvider
 {
