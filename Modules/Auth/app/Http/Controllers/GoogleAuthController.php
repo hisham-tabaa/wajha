@@ -5,7 +5,7 @@ namespace Modules\Auth\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
-use Modules\Auth\Transformers\UserResource;
+use Modules\Auth\Transformers\UserResource\UserResource;
 use Modules\Auth\Services\GoogleAuth\IGoogleAuthService;
 
 class GoogleAuthController extends Controller
