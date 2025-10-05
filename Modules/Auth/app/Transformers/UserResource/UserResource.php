@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Auth\Transformers;
+namespace Modules\Auth\Transformers\UserResource;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
