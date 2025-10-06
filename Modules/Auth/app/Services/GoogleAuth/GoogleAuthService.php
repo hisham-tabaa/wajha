@@ -54,7 +54,7 @@ class GoogleAuthService implements IGoogleAuthService
                 $token = $user->createToken('wejha-token-plain-text')->plainTextToken;
             }
 
-            return [true, ['user' => $user, 'token' => $token], 200, 'Authenticated successfully'];
+            return [true, ['user' => $user, 'token' => $token], 201, 'Authenticated successfully'];
         } catch (InvalidToken $e) {
             return [false, ['error' => 'Invalid token'], 401, 'Invalid token'];
         } catch (\InvalidArgumentException $e) {
