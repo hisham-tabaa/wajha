@@ -9,6 +9,8 @@ use Illuminate\Support\ServiceProvider;
 use Nwidart\Modules\Traits\PathNamespace;
 use Modules\Auth\Services\GoogleAuth\GoogleAuthService;
 use Modules\Auth\Services\GoogleAuth\IGoogleAuthService;
+use Modules\Auth\Services\Login\LoginService;
+use Modules\Auth\Services\Login\ILoginService;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -41,6 +43,7 @@ class AuthServiceProvider extends ServiceProvider
 
         // Bind interfaces → implementations for DI
         $this->app->bind(IGoogleAuthService::class, GoogleAuthService::class);
+        $this->app->bind(ILoginService::class, LoginService::class);
     }
 
     /**

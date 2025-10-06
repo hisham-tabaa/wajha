@@ -10,9 +10,12 @@ use Modules\Auth\Services\GoogleAuth\IGoogleAuthService;
 
 class GoogleAuthController extends Controller
 {
-    public function __construct(
-        private IGoogleAuthService $googleAuthService,
-    ) {}
+        private IGoogleAuthService $googleAuthService;
+
+    public function __construct( IGoogleAuthService $googleAuthService) {
+        $this->googleAuthService=$googleAuthService;
+
+    }
 
     public function login(Request $request): JsonResponse
     {
