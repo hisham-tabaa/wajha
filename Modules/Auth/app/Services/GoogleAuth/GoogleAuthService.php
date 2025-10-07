@@ -31,7 +31,6 @@ class GoogleAuthService implements IGoogleAuthService
             if (!$role) {
                 return [false, [], 400, "The Role(default) not found"];
             }
-
             $user = User::where(['email' => $email])->first();
             if (!$user) {
                 $user = User::create(
