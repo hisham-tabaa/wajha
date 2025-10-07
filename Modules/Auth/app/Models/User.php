@@ -21,11 +21,10 @@ class User extends Authenticatable implements BaseModelInterface
     use SoftDeletes;
     use BaseFilterable;
 
-    // Adjust table/primary key to match your migration (UUID primary key)
+
     protected $table = 'users';
 
     protected $fillable = [
-        'id',
         'first_name',
         'last_name',
         'avatar',

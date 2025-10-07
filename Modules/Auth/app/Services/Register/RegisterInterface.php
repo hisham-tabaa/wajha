@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\Auth\Interfaces;
+namespace Modules\Auth\Services\Register;
 
 use Modules\Auth\Models\User;
 
-interface UserServiceInterface
+interface RegisterInterface
 {
     public function register(array $data): User;
 }

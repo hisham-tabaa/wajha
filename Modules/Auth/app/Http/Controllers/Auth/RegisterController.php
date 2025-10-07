@@ -1,17 +1,17 @@
 <?php
 
-namespace Modules\Auth\Http\Controllers;
+namespace Modules\Auth\Http\Controllers\Auth;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Modules\Auth\Http\Requests\RegisterRequest;
-use Modules\Auth\Interfaces\UserServiceInterface;
+use Modules\Auth\Services\Register\RegisterInterface;
 
-class UserRegisterController extends Controller
+class RegisterController extends Controller
 {
-    protected UserServiceInterface $userService;
+    protected RegisterInterface $userService;
 
-    public function __construct(UserServiceInterface $userService)
+    public function __construct(RegisterInterface $userService)
     {
         $this->userService = $userService;
     }

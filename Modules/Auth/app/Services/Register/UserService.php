@@ -1,12 +1,11 @@
 <?php
 
-namespace Modules\Auth\Services;
+namespace Modules\Auth\Services\Register;
 
 use Illuminate\Support\Str;
-use Modules\Auth\Interfaces\UserServiceInterface;
 use Modules\Auth\Models\User;
 
-class UserService implements UserServiceInterface
+class RegisterService implements RegisterInterface
 {
     public function register(array $data): User
     {
