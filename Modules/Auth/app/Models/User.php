@@ -25,6 +25,7 @@ class User extends Authenticatable implements BaseModelInterface
     protected $table = 'users';
 
     protected $fillable = [
+        'id',
         'first_name',
         'last_name',
         'avatar',
