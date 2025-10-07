@@ -10,9 +10,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('media', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
             $table->string('model_type');
-            $table->uuid('model_id');
+            $table->unsignedBigInteger('model_id');
             $table->string('collection_name')->default('default');
             $table->string('file_name');
             $table->string('mime_type');

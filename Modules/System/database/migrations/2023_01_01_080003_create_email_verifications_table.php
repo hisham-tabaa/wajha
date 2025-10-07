@@ -10,7 +10,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('email_verifications', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
             $table->string('email');
             $table->string('code');
             $table->timestamp('expires_at');

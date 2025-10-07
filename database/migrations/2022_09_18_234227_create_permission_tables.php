@@ -26,6 +26,10 @@ return new class extends Migration
             $table->string('name')->unique();       // For MyISAM use string('name', 225); // (or 166 for InnoDB with Redundant/Compact row format)
             $table->string('name_ar')->unique();
             $table->string('name_en')->unique();
+            $table->string('group')->unique();
+            $table->string('group_ar')->unique();
+            $table->string('group_en')->unique();
+            $table->integer('order');
             $table->string('guard_name'); // For MyISAM use string('guard_name', 25);
             $table->timestamps();
             $table->unique(['name', 'guard_name']);
@@ -41,6 +45,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('name_ar')->unique();
             $table->string('name_en')->unique();
+            $table->boolean('can_delete')->default(1);
             $table->string('policy')->nullable();    // For MyISAM use string('name', 225); // (or 166 for InnoDB with Redundant/Compact row format)
             $table->string('guard_name'); // For MyISAM use string('guard_name', 25);
             $table->timestamps();

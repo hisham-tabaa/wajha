@@ -10,8 +10,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('listings', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->uuid('seller_id');
+            $table->id();
+            $table->unsignedBigInteger('seller_id');
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('subcategory_id')->nullable();
             $table->unsignedBigInteger('listing_type_id');

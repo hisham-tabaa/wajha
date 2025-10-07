@@ -10,8 +10,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('product_details', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->uuid('listing_id')->unique();
+            $table->id();
+            $table->unsignedBigInteger('listing_id')->unique();
             $table->string('sku')->nullable();
             $table->integer('stock_quantity')->nullable();
             $table->decimal('weight', 10, 2)->nullable();

@@ -10,8 +10,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('property_details', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->uuid('listing_id')->unique();
+            $table->id();
+            $table->unsignedBigInteger('listing_id')->unique();
             $table->decimal('area_m2', 10, 2)->nullable();
             $table->integer('rooms_count')->nullable();
             $table->integer('bathrooms_count')->nullable();

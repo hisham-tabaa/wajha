@@ -10,8 +10,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tender_details', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->uuid('listing_id')->unique();
+            $table->id();
+            $table->unsignedBigInteger('listing_id')->unique();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->json('attachments')->default('[]');

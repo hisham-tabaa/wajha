@@ -2,7 +2,7 @@
 return [
     'permissions' => [
         //User
-        ['name' => 'update_profile', 'group' => '', 'group_en' => '', 'group_ar' => '', 'order' => 0, 'name_en' => '', 'name_ar' => ''],
+        ['name' => 'update_profile', 'group' => 'user', 'group_en' => 'user', 'group_ar' => 'مستخدم', 'order' => 0, 'name_en' => 'update profile', 'name_ar' => 'تعديل الملف السخصي'],
 
     ],
     'roles' => [
@@ -12,5 +12,5 @@ return [
     ],
 
 
-    'User' => ['update_profile'],
+    'user' => ['update_profile'],
 ];
