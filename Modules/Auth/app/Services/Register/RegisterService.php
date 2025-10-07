@@ -15,7 +15,10 @@ class RegisterService implements RegisterInterface
     {
         try {
             $data = $request->validated();
-            $data['role_id'] = Role::where('name', 'default')->first()->id;
+            $role = Role::where('name', 'default')->first();
+            $data['role_id'] = $role->id;
+            // TODO validation if role not found     Note:From Awad TO RANIA
+            // return [false,[],400,"The Role(default) not found"]; 
             $user =  User::create($data);
             return [true, ['user' => $user], 201, 'Register done successfully'];
         } catch (Exception $e) {

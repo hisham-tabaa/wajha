@@ -6,6 +6,8 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterRequest extends FormRequest
 {
+
+    // TODO Validation from Migration the coulmns   Note:From Awad TO RANIA
     public function authorize(): bool
     {
         return true;
