@@ -10,10 +10,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('conversations', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->uuid('listing_id')->nullable();
-            $table->uuid('participant1_id');
-            $table->uuid('participant2_id');
+            $table->id();
+            $table->unsignedBigInteger('listing_id')->nullable();
+            $table->unsignedBigInteger('participant1_id');
+            $table->unsignedBigInteger('participant2_id');
             $table->string('subject')->nullable();
             $table->timestamp('last_message_at')->useCurrent();
             $table->timestamps();

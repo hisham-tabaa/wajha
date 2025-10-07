@@ -5,18 +5,21 @@ namespace Modules\Auth\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
+use Modules\Auth\Services\Login\ILoginService;
 use Modules\Auth\Transformers\UserResource\UserResource;
-use Modules\Auth\Services\GoogleAuth\IGoogleAuthService;
 
-class GoogleAuthController extends Controller
+class LoginController extends Controller
 {
-    public function __construct(
-        private IGoogleAuthService $googleAuthService,
-    ) {}
+    private ILoginService $loginService;
+
+    public function __construct(ILoginService $loginService)
+    {
+        $this->loginService = $loginService;
+    }
 
     public function login(Request $request): JsonResponse
     {
-        [$status, $data, $code, $message] = $this->googleAuthService->login($request);
+        [$status, $data, $code, $message] = $this->loginService->login($request);
 
         return $status ?
             $this->successResponse(new UserResource($data), $code, $message)

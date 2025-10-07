@@ -3,12 +3,15 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Auth\Http\Controllers\AuthController;
 use Modules\Auth\Http\Controllers\GoogleAuthController;
+<<<<<<< HEAD
 use Modules\Auth\Http\Controllers\UserRegisterController;
 
+=======
+use Modules\Auth\Http\Controllers\LoginController;
+>>>>>>> development
 
-Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
-    Route::apiResource('auths', AuthController::class)->names('auth');
-});
+// Login route (no auth required)
+Route::post('login', [LoginController::class, 'login']);
 
 // Role-aware Google auth route (matches your pattern)
 Route::post('{role}/auth/google', [GoogleAuthController::class, 'login']);

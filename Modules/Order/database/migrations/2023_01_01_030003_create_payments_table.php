@@ -10,8 +10,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('payments', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->uuid('order_id');
+            $table->id();
+            $table->unsignedBigInteger('order_id');
             $table->string('gateway');
             $table->string('gateway_transaction_id')->nullable();
             $table->json('gateway_response_json')->nullable();

@@ -111,7 +111,10 @@ class BaseFilter
             $this->filters['search'] = $request->search;
         }
     }
-
+/**
+ 
+ *
+ */
     /**
      * Apply filters and return a query builder.
      *

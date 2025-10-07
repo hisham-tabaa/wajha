@@ -11,5 +11,5 @@ interface IGoogleAuthService
      *
      * Returns [bool $success, mixed $data, int $statusCode, string $message]
      */
-    public function login(Request $request): array;
+    public function loginWithGoogleToken(Request $request): array;
 }

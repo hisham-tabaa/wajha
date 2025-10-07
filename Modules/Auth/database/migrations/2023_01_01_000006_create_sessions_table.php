@@ -10,19 +10,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('sessions', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->uuid('user_id');
-            $table->uuid('factor_id')->nullable();
-            $table->unsignedBigInteger('aal_level_id')->nullable();
-            $table->timestamp('not_after')->nullable();
-            $table->timestamp('refreshed_at')->nullable();
+            $table->string('id')->primary();
+            $table->foreignId('user_id')->nullable()->index();
+            $table->string('ip_address', 45)->nullable();
             $table->text('user_agent')->nullable();
-            $table->string('ip', 45)->nullable();
-            $table->string('tag')->nullable();
-            $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('aal_level_id')->references('id')->on('aal_levels');
+            $table->longText('payload');
+            $table->integer('last_activity')->index();
         });
     }
 
