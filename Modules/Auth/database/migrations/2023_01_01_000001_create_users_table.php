@@ -18,12 +18,12 @@ return new class extends Migration
             $table->string('avatar')->nullable();
             $table->enum('gender', ['male', 'female'])->nullable();
             $table->unsignedBigInteger('role_id');
-            $table->string('email')->nullable();
-            $table->string('password')->nullable();
+            $table->string('email');
+            $table->string('password');
             $table->timestamp('last_sign_in_at')->nullable();
             $table->unsignedBigInteger('nationalty_id')->nullable();
             $table->timestamp('birthday')->nullable();
-            $table->string('phone')->unique()->nullable();
+            $table->string('phone')->nullable();
             $table->timestamp('confirmed_at')->nullable();
             $table->timestamps();
             $table->softDeletes();

@@ -7,14 +7,12 @@ use RecursiveDirectoryIterator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Nwidart\Modules\Traits\PathNamespace;
-use Modules\Auth\Services\GoogleAuth\GoogleAuthService;
-use Modules\Auth\Services\GoogleAuth\IGoogleAuthService;
-// use Modules\Auth\App\Interfaces\AuthServiceInterface;
-// use Modules\Auth\App\Services\AuthService;
-use Modules\Auth\Interfaces\UserServiceInterface;
-use Modules\Auth\Services\UserService;
 use Modules\Auth\Services\Login\LoginService;
 use Modules\Auth\Services\Login\ILoginService;
+use Modules\Auth\Services\Register\RegisterService;
+use Modules\Auth\Services\Register\RegisterInterface;
+use Modules\Auth\Services\GoogleAuth\GoogleAuthService;
+use Modules\Auth\Services\GoogleAuth\IGoogleAuthService;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -49,7 +47,7 @@ class AuthServiceProvider extends ServiceProvider
         // Bind interfaces → implementations for DI
         $this->app->bind(IGoogleAuthService::class, GoogleAuthService::class);
         // 
-         $this->app->bind(UserServiceInterface::class, UserService::class);
+         $this->app->bind(RegisterInterface::class, RegisterService::class);
 
         $this->app->bind(ILoginService::class, LoginService::class);
     }
