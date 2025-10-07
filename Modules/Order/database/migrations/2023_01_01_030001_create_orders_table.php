@@ -10,14 +10,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
             $table->string('order_number')->unique();
-            $table->uuid('buyer_id');
-            $table->uuid('seller_id');
+            $table->unsignedBigInteger('buyer_id');
+            $table->unsignedBigInteger('seller_id');
             $table->unsignedBigInteger('status_id')->default(1);
             $table->decimal('total_amount', 15, 2);
             $table->string('currency')->default('SYP');
-            $table->uuid('shipping_address_id')->nullable();
+            $table->unsignedBigInteger('shipping_address_id')->nullable();
             $table->string('payment_method')->nullable();
             $table->unsignedBigInteger('payment_status_id')->default(1);
             $table->text('notes')->nullable();

@@ -10,9 +10,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('reports', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->uuid('reporter_id');
-            $table->uuid('listing_id');
+            $table->id();
+            $table->unsignedBigInteger('reporter_id');
+            $table->unsignedBigInteger('listing_id');
             $table->string('reason_code');
             $table->text('description')->nullable();
             $table->unsignedBigInteger('status_id')->default(1);

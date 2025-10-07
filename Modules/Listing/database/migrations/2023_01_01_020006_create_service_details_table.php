@@ -10,8 +10,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('service_details', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->uuid('listing_id')->unique();
+            $table->id();
+            $table->unsignedBigInteger('listing_id')->unique();
             $table->string('delivery_time')->nullable();
             $table->string('service_area')->nullable();
             $table->integer('service_duration_minutes')->nullable();

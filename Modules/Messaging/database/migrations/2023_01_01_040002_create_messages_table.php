@@ -10,9 +10,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('messages', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->uuid('conversation_id');
-            $table->uuid('sender_id');
+            $table->id();
+            $table->unsignedBigInteger('conversation_id');
+            $table->unsignedBigInteger('sender_id');
             $table->text('body');
             $table->json('attachments')->default('[]');
             $table->timestamp('read_at')->nullable();

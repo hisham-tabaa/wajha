@@ -10,8 +10,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('addresses', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->uuid('user_id');
+            $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->string('label')->default('home');
             $table->string('city');
             $table->string('street')->nullable();

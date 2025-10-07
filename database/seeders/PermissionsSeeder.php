@@ -29,6 +29,7 @@ class PermissionsSeeder extends Seeder
                     [
                         'name_ar' => $permission['name_ar'],
                         'name_en' => $permission['name_en'],
+                        'order' => $permission['order'],
                         'group' => $permission['group'],
                         'group_en' => $permission['group_en'],
                         'group_ar' => $permission['group_ar'],

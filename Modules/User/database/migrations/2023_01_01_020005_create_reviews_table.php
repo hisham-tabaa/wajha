@@ -10,10 +10,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('reviews', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->uuid('listing_id')->nullable();
-            $table->uuid('seller_id')->nullable();
-            $table->uuid('reviewer_id');
+            $table->id();
+            $table->unsignedBigInteger('listing_id')->nullable();
+            $table->unsignedBigInteger('seller_id')->nullable();
+            $table->unsignedBigInteger('reviewer_id');
             $table->integer('rating')->check('rating >= 1 AND rating <= 5');
             $table->string('title')->nullable();
             $table->text('body')->nullable();

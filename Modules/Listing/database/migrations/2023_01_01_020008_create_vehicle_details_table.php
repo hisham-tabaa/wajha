@@ -10,8 +10,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('vehicle_details', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->uuid('listing_id')->unique();
+            $table->id();
+            $table->unsignedBigInteger('listing_id')->unique();
             $table->string('brand')->nullable();
             $table->string('model')->nullable();
             $table->integer('year')->nullable();
