@@ -7,6 +7,7 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Modules\Auth\Services\GoogleAuth\IGoogleAuthService;
 use Modules\Auth\Transformers\UserResource\UserResource;
+use Modules\Auth\Http\Requests\Google\GoogleLoginRequest;
 
 class GoogleAuthController extends Controller
 {
@@ -16,11 +17,8 @@ class GoogleAuthController extends Controller
         $this->googleAuthService = $googleAuthService;
     }
 
-    public function loginWithGoogleToken(Request $request): JsonResponse
+    public function loginWithGoogleToken(GoogleLoginRequest $request): JsonResponse
     {
-        $request->validate([
-            'id_token' => 'required|string',
-        ]);
         [$status, $data, $code, $message] = $this->googleAuthService->loginWithGoogleToken($request);
 
         return $status ?
