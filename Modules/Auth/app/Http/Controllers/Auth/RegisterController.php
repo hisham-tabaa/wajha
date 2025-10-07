@@ -6,6 +6,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Modules\Auth\Http\Requests\RegisterRequest;
 use Modules\Auth\Services\Register\RegisterInterface;
+use Modules\Auth\Transformers\UserResource\UserResource;
 
 class RegisterController extends Controller
 {
@@ -18,11 +19,9 @@ class RegisterController extends Controller
 
     public function register(RegisterRequest $request): JsonResponse
     {
-        $user = $this->userService->register($request->validated());
-
-        return response()->json([
-            'message' => 'User registered successfully.',
-            'data' => $user,
-        ], 201);
+        [$status, $data, $code, $message] = $this->userService->register($request);
+        return $status ?
+            $this->successResponse(new UserResource($data), $code, $message)
+            : $this->errorResponse($data, $code, $message);
     }
 }
