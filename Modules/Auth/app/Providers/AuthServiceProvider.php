@@ -13,6 +13,8 @@ use Modules\Auth\Services\Register\RegisterService;
 use Modules\Auth\Services\Register\RegisterInterface;
 use Modules\Auth\Services\GoogleAuth\GoogleAuthService;
 use Modules\Auth\Services\GoogleAuth\IGoogleAuthService;
+use Modules\Auth\Services\Verify\VerifyEmailInterface;
+use Modules\Auth\Services\Verify\VerifyEmailService;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -50,6 +52,8 @@ class AuthServiceProvider extends ServiceProvider
          $this->app->bind(RegisterInterface::class, RegisterService::class);
 
         $this->app->bind(ILoginService::class, LoginService::class);
+        $this->app->bind(VerifyEmailInterface::class, VerifyEmailService::class);
+
     }
 
     /**

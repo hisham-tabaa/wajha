@@ -12,7 +12,7 @@ class RegisterRequest extends FormRequest
     {
         return true;
     }
-
+    
     public function rules(): array
     {
         return [
@@ -21,9 +21,12 @@ class RegisterRequest extends FormRequest
             'gender'           => 'nullable|in:male,female',
             'email'            => 'required|email|max:255|unique:users,email',
             'password'         => 'required|string|min:6',
-            'nationalty_id'    => 'nullable|exists:nationalties,id',
             'birthday'         => 'nullable|date',
             'phone'            => 'nullable|string|max:20|unique:users,phone',
+
         ];
     }
+
+
+    
 }
