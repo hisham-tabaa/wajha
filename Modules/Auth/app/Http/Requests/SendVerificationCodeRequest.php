@@ -4,7 +4,7 @@ namespace Modules\Auth\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegisterRequest extends FormRequest
+class SendVerificationCodeRequest extends FormRequest
 {
 
     public function authorize(): bool
@@ -18,14 +18,12 @@ class RegisterRequest extends FormRequest
             'email' => 'required|email|max:100',
         ];
     }
-
-
     public function messages(): array
     {
         return [
-            'email.required'=>'The Email is required',
-            'email.email'=>'The Field Shoud Be Email',
-            'email.max'=>'The Email Must Be Less Than 100 Character ',
+            'email.required'=>'The email field is required',
+            'email.email'=>'The email must be a valid email address',
+            'email.max'=>'The email must be less than 100 character ',
         ];
     }
 }

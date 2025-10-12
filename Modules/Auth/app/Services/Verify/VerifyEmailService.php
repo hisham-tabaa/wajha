@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Carbon;
 use Modules\Auth\Http\Requests\VerifyEmailRequest;
 use Illuminate\Support\Facades\Log;
+use Modules\Auth\Mail\Sendverificationcode;
+
 class VerifyEmailService implements VerifyEmailInterface
 {
     public function verify(VerifyEmailRequest $request): array
@@ -59,7 +61,7 @@ class VerifyEmailService implements VerifyEmailInterface
                 'code' => $code,
                 'expires_at' => now()->addMinutes(10),
             ]);
-            Mail::to($user->email)->send(new SendVerificationCode($code));
+    Mail::to($user->email)->queue(new Sendverificationcode($code));
 
                 return [true,[],201,'Code Sent Successfully'];
         }

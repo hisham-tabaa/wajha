@@ -9,4 +9,5 @@ interface VerifyEmailInterface
 {
     public function verify(VerifyEmailRequest $request): array;
     public function resendVerificationCode(string $email): array;
+  
 }

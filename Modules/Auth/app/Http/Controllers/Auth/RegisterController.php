@@ -6,7 +6,9 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Modules\Auth\Http\Requests\RegisterRequest;
 use Modules\Auth\Services\Register\RegisterInterface;
+use Modules\Auth\Services\Register\RegisterService;
 use Modules\Auth\Transformers\UserResource\UserResource;
+use Modules\Auth\Services\Verify\VerifyEmailService;
 
 class RegisterController extends Controller
 {

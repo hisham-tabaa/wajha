@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Log;
 use Modules\Auth\Http\Requests\RegisterRequest;
 use Modules\Auth\Mail\SendVerificationCode;
 use Illuminate\Support\Facades\Mail;
+use Modules\Auth\Services\Verify\VerifyEmailService;
 
 class RegisterService implements RegisterInterface
 {
@@ -25,8 +26,9 @@ class RegisterService implements RegisterInterface
             } 
             $user =  User::create($data);
             if($user){
-            (new VerifyEmailService())->resendVerificationCode($user->email);
-
+            // (new VerifyEmailService())->resendverificationcode($user->email);
+            (new VerifyEmailService())->resendVerificationCode($user->email); 
+            
             }
             return [true, ['user' => $user], 201, 'Register done successfully'];
 
