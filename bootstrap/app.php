@@ -17,7 +17,6 @@ return Application::configure(basePath: dirname(__DIR__))
             'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
             'checkPermission' => \App\Http\Middleware\CheckPermission::class,
             'throttle.custom' => \App\Http\Middleware\CustomThrottle::class,
-
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

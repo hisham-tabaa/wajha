@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Support\Facades\RateLimiter;
@@ -24,7 +25,7 @@ class CustomThrottle
 
         $identifier = Auth::id() ?? $request->ip();
         $key = $identifier . '|' . $request->path();
-
+        Log::info("awad = ", [$key]);
         // نعمل الـ limiter
         if (RateLimiter::tooManyAttempts($key, $maxAttempts)) {
             $seconds = RateLimiter::availableIn($key);
