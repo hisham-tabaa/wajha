@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\Auth\Models\User;
 use Illuminate\Http\Request;
 use Modules\Auth\Http\Controllers\AuthController;
+use Modules\Auth\Http\Controllers\Auth\VerificationController;
 
 
 Route::get('login/google', function () {
@@ -17,7 +18,6 @@ Route::get('awad',function(Request $request){
 
     return User::filter($request)->first();
 });
-
 
 /**
  * {

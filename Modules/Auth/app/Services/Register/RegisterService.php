@@ -5,9 +5,13 @@ namespace Modules\Auth\Services\Register;
 use Exception;
 use Illuminate\Support\Str;
 use Modules\Auth\Models\User;
+use Modules\Auth\Models\EmailVerification;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Log;
 use Modules\Auth\Http\Requests\RegisterRequest;
+use Modules\Auth\Mail\SendVerificationCode;
+use Illuminate\Support\Facades\Mail;
+use Modules\Auth\Services\Verify\VerifyEmailService;
 
 class RegisterService implements RegisterInterface
 {
@@ -17,10 +21,17 @@ class RegisterService implements RegisterInterface
             $data = $request->validated();
             $role = Role::where('name', 'default')->first();
             $data['role_id'] = $role->id;
-            // TODO validation if role not found     Note:From Awad TO RANIA  
-            // return [false,[],400,"The Role(default) not found"]; 
+       if (!$role) {
+                return [false, [], 404, "The Role(default) not found"];
+            } 
             $user =  User::create($data);
+            if($user){
+            // (new VerifyEmailService())->resendverificationcode($user->email);
+            (new VerifyEmailService())->resendVerificationCode($user->email); 
+            
+            }
             return [true, ['user' => $user], 201, 'Register done successfully'];
+
         } catch (Exception $e) {
             Log::error("RegisterService@register", [
                 'File' => $e->getFile(),
