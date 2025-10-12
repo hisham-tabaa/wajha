@@ -7,5 +7,6 @@
     "Notification": true,
     "Media": true,
     "Report": true,
-    "System": true
+    "System": true,
+    "Mail": true
 }

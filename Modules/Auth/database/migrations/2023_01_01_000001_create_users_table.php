@@ -26,8 +26,9 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->timestamp('confirmed_at')->nullable();
             $table->timestamps();
-            $table->softDeletes();
 
+            $table->softDeletes();
+            
             $table->foreign('role_id')->references('id')->on('roles')->cascadeOnDelete();
             $table->foreign('nationalty_id')->references('id')->on('nationalties')->cascadeOnDelete();
             $table->index('email');
