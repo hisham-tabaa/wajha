@@ -21,12 +21,11 @@ class RegisterService implements RegisterInterface
             $data = $request->validated();
             $role = Role::where('name', 'default')->first();
             $data['role_id'] = $role->id;
-       if (!$role) {
+            if (!$role) {
                 return [false, [], 404, "The Role(default) not found"];
-            } 
+            }
             $user =  User::create($data);
             if($user){
-            // (new VerifyEmailService())->resendverificationcode($user->email);
             (new VerifyEmailService())->resendVerificationCode($user->email); 
             
             }
