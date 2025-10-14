@@ -22,13 +22,11 @@ class CheckPermission
     public function handle(Request $request, Closure $next, $names)
     {
         $user = User::find(Auth::id());
-
         if (!$user) {
             Log::warning('Unauthorized access attempt', [
                 'ip' => $request->ip(),
                 'route' => $request->path(),
             ]);
-
             return (new Controller())->errorResponse(
                 null,
                 401,

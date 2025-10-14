@@ -15,16 +15,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements BaseModelInterface
-{
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+{   use HasRoles;
+    use HasApiTokens, HasFactory, Notifiable;
     use Notifiable;
     use SoftDeletes;
     use BaseFilterable;
 
-    // Adjust table/primary key to match your migration (UUID primary key)
+
     protected $table = 'users';
-    public $incrementing = false;
-    protected $keyType = 'string';
 
     protected $fillable = [
         'first_name',

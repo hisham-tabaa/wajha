@@ -24,7 +24,7 @@ class RolesSeeder extends Seeder
                         'name_en' => $roleData['name_en'],
                     ];
 
-                    if (in_array($roleData['name'], ['super-admin', 'student', 'assistant', 'default', 'teacher'])) {
+                    if (in_array($roleData['name'], ['admin','default'])) {
                         $newRoleData['can_delete'] = false;
                     }
 

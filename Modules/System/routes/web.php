@@ -2,7 +2,5 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\System\Http\Controllers\SystemController;
+use Modules\System\Http\Controllers\API\Role\RoleController;
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::resource('systems', SystemController::class)->names('system');
-});

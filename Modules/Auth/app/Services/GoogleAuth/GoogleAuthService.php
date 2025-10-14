@@ -2,6 +2,9 @@
 
 namespace Modules\Auth\Services\GoogleAuth;
 
+use Exception;
+use Google_Client;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Modules\Auth\Models\User;
 use Firebase\Auth\Token\Verifier;
@@ -11,57 +14,58 @@ use Firebase\Auth\Token\Exception\InvalidToken;
 
 class GoogleAuthService implements IGoogleAuthService
 {
-    public function login(Request $request): array
+    public function loginWithGoogleToken(Request $request): array
     {
-        $idToken = $request->input('id_token');
-        if (!$idToken) {
-            return [false, ['error' => 'id_token is required'], 422, 'Validation error'];
-        }
-
         try {
-            $verifier = new Verifier(env('FIREBASE_PROJECT_ID'));
-            $verifiedIdToken = $verifier->verifyIdToken($idToken);
+            $client = new Google_Client(['client_id' => env('GOOGLE_CLIENT_ID')]); // verify the same client_id
+            $payload = $client->verifyIdToken($request->id_token);
 
-            $uid = $verifiedIdToken->getClaim('sub');
-            $email = $verifiedIdToken->getClaim('email');
-            $name = $verifiedIdToken->getClaim('name');
-            $picture = $verifiedIdToken->getClaim('picture');
+            if (!$payload) {
+                return [false,  [], 401, 'Invalid Google token'];
+            }
+
+            $uid = $payload['sub'];
+            $email = $payload['email'];
+            $name = $payload['name'];
             $role = Role::where('name', 'default')->first();
-            // Create or get user
-            $user = User::firstOrCreate(
-                ['email' => $email],
-                [
-                    'first_name' => $name,
-                    'last_name' => null,
-                    'avatar' => null,
-                    'gender' => null,
-                    'last_sign_in_at' => now(),
-                    'nationalty_id' => null,
-                    'birthday' => null,
-                    'phone' => null,
-                    'confirmed_at' => now(),
-                    'google_id' => $uid,
-                    'role_id' => $role->id,
-                    'password' => str()->random(16),
-                ]
-            );
-            $user->assignRole($role->name);
+            if (!$role) {
+                return [false, [], 404, "The Role(default) not found"];
+            }
+            $user = User::where(['email' => $email])->first();
+            if (!$user) {
+                $user = User::create(
+                    [
+                        'email' => $email,
+                        'first_name' => $name,
+                        'last_name' => null,
+                        'avatar' => null,
+                        'gender' => null,
+                        'last_sign_in_at' => now(),
+                        'nationalty_id' => null,
+                        'birthday' => null,
+                        'phone' => null,
+                        'confirmed_at' => now(),
+                        'google_id' => $uid,
+                        'role_id' => $role->id,
+                        'password' => str()->random(16),
+                    ]
+                );
+                $user->assignRole($role->name);
+            }
+            Log::info('user,role', [$user, $role]);
             $user->load(['role', 'permissions']);
 
             // Token strategy: if Sanctum installed, issue token; otherwise return null
             $token = null;
-            if (method_exists($user, 'createToken')) {
-                $token = $user->createToken('wejha-token-plain-text')->plainTextToken;
-            }
-
+            $token = $user->createToken('wejha-token-plain-text')->plainTextToken;
             return [true, ['user' => $user, 'token' => $token], 201, 'Authenticated successfully'];
-        } catch (InvalidToken $e) {
-            return [false, ['error' => 'Invalid token'], 401, 'Invalid token'];
-        } catch (\InvalidArgumentException $e) {
-            return [false, ['error' => 'Malformed token'], 401, 'Malformed token'];
-        } catch (\Throwable $e) {
-            Log::error('Google auth error: ' . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
-            return [false, ['error' => 'Server error'], 500, 'Server error'];
+        } catch (Exception $e) {
+            Log::error('Custom error message', [
+                'file' => $e->getFile(),     // اسم الملف اللي حصل فيه الخطأ
+                'line' => $e->getLine(),     // رقم السطر
+                'message' => $e->getMessage() // رسالة الخطأ
+            ]);
+            return [false, [], 500, 'Google authentication failed'];
         }
     }
 }

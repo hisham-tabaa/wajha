@@ -1,11 +1,5 @@
 {
-    "User": true,
     "Auth": true,
-    "Listing": true,
-    "Order": true,
-    "Messaging": true,
-    "Notification": true,
-    "Media": true,
-    "Report": true,
-    "System": true
+    "System": true,
+    "Mail": true
 }
