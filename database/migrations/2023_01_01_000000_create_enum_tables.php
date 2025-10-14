@@ -10,157 +10,27 @@ return new class extends Migration
 {
     public function up()
     {
-        // Auth enums
-        Schema::create('aal_levels', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->timestamps();
-        });
-
-        Schema::create('code_challenge_methods', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->timestamps();
-        });
-
-        Schema::create('factor_statuses', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->timestamps();
-        });
-
-        Schema::create('factor_types', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->timestamps();
-        });
-
-        Schema::create('oauth_registration_types', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->timestamps();
-        });
-
-        Schema::create('one_time_token_types', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->timestamps();
-        });
-
-        Schema::create('verification_statuses', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->timestamps();
-        });
-
-        // Listing enums
-        Schema::create('employment_types', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->timestamps();
-        });
-
-        Schema::create('fuel_types', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->timestamps();
-        });
-
-        Schema::create('furnished_types', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->timestamps();
-        });
-
-        Schema::create('listing_statuses', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->timestamps();
-        });
-
-        Schema::create('listing_types', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->timestamps();
-        });
-
-        Schema::create('transmission_types', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->timestamps();
-        });
-
-        // Order enums
-        Schema::create('order_statuses', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->timestamps();
-        });
-
-        Schema::create('payment_statuses', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->timestamps();
-        });
-
-        // Report enums
-        Schema::create('report_statuses', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->timestamps();
-        });
-
-        // Realtime enums
-        Schema::create('realtime_actions', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->timestamps();
-        });
-
-        Schema::create('realtime_equality_ops', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->timestamps();
-        });
-Schema::create('nationalties', function (Blueprint $table) {
+        Schema::create('nationalties', function (Blueprint $table) {
             $table->id();
             $table->string('name_ar');
             $table->string('name_en');
             $table->timestamps();
         });
-        // Insert enum values
+
+        Schema::create('phone_codes', function (Blueprint $table) {
+            $table->id();
+            $table->string('country_name_en');
+            $table->string('country_name_ar');
+            $table->string('phone_code');
+            $table->timestamps();
+        });
+
         $this->insertEnumValues();
     }
 
     private function insertEnumValues()
     {
-        // Auth enums
-        DB::table('aal_levels')->insert([['name' => 'aal1'], ['name' => 'aal2'], ['name' => 'aal3']]);
-        DB::table('code_challenge_methods')->insert([['name' => 's256'], ['name' => 'plain']]);
-        DB::table('factor_statuses')->insert([['name' => 'unverified'], ['name' => 'verified']]);
-        DB::table('factor_types')->insert([['name' => 'totp'], ['name' => 'webauthn'], ['name' => 'phone']]);
-        DB::table('oauth_registration_types')->insert([['name' => 'dynamic'], ['name' => 'manual']]);
-        DB::table('one_time_token_types')->insert([
-            ['name' => 'confirmation_token'], ['name' => 'reauthentication_token'],
-            ['name' => 'recovery_token'], ['name' => 'email_change_token_new'],
-            ['name' => 'email_change_token_current'], ['name' => 'phone_change_token']
-        ]);
-
-        DB::table('verification_statuses')->insert([
-            ['name' => 'none'], ['name' => 'pending'], ['name' => 'approved'], ['name' => 'rejected']
-        ]);
-
-        // Listing enums
-        DB::table('employment_types')->insert([
-            ['name' => 'full_time'], ['name' => 'part_time'], ['name' => 'contract'], ['name' => 'freelance']
-        ]);
-        DB::table('fuel_types')->insert([
-            ['name' => 'petrol'], ['name' => 'diesel'], ['name' => 'electric'], ['name' => 'hybrid']
-        ]);
-        DB::table('furnished_types')->insert([
-            ['name' => 'furnished'], ['name' => 'semi_furnished'], ['name' => 'unfurnished']
-        ]);
-          DB::table('nationalties')->insert([
+        DB::table('nationalties')->insert([
             ['name_en' => 'Saudi', 'name_ar' => 'سعودي'],
             ['name_en' => 'Egyptian', 'name_ar' => 'مصري'],
             ['name_en' => 'Emirati', 'name_ar' => 'إماراتي'],
@@ -182,64 +52,34 @@ Schema::create('nationalties', function (Blueprint $table) {
             ['name_en' => 'Pakistani', 'name_ar' => 'باكستاني'],
             ['name_en' => 'Filipino', 'name_ar' => 'فلبيني'],
         ]);
-        DB::table('listing_statuses')->insert([
-            ['name' => 'draft'], ['name' => 'pending'], ['name' => 'published'],
-            ['name' => 'archived'], ['name' => 'flagged'], ['name' => 'removed']
-        ]);
-        DB::table('listing_types')->insert([
-            ['name' => 'product'], ['name' => 'property'], ['name' => 'vehicle'],
-            ['name' => 'service'], ['name' => 'job'], ['name' => 'tender'], ['name' => 'request']
-        ]);
-        DB::table('transmission_types')->insert([
-            ['name' => 'manual'], ['name' => 'automatic']
-        ]);
 
-        // Order enums
-        DB::table('order_statuses')->insert([
-            ['name' => 'pending'], ['name' => 'confirmed'], ['name' => 'shipped'],
-            ['name' => 'delivered'], ['name' => 'cancelled']
-        ]);
-        DB::table('payment_statuses')->insert([
-            ['name' => 'pending'], ['name' => 'completed'], ['name' => 'failed'], ['name' => 'refunded']
-        ]);
-
-        // Report enums
-        DB::table('report_statuses')->insert([
-            ['name' => 'open'], ['name' => 'processing'], ['name' => 'resolved']
-        ]);
-
-        // Realtime enums
-        DB::table('realtime_actions')->insert([
-            ['name' => 'INSERT'], ['name' => 'UPDATE'], ['name' => 'DELETE'],
-            ['name' => 'TRUNCATE'], ['name' => 'ERROR']
-        ]);
-        DB::table('realtime_equality_ops')->insert([
-            ['name' => 'eq'], ['name' => 'neq'], ['name' => 'lt'],
-            ['name' => 'lte'], ['name' => 'gt'], ['name' => 'gte'], ['name' => 'in']
+        DB::table('phone_codes')->insert([
+            ['country_name_en' => 'Saudi Arabia', 'country_name_ar' => 'السعودية', 'phone_code' => '+966'],
+            ['country_name_en' => 'Egypt', 'country_name_ar' => 'مصر', 'phone_code' => '+20'],
+            ['country_name_en' => 'United Arab Emirates', 'country_name_ar' => 'الإمارات', 'phone_code' => '+971'],
+            ['country_name_en' => 'Jordan', 'country_name_ar' => 'الأردن', 'phone_code' => '+962'],
+            ['country_name_en' => 'Kuwait', 'country_name_ar' => 'الكويت', 'phone_code' => '+965'],
+            ['country_name_en' => 'Bahrain', 'country_name_ar' => 'البحرين', 'phone_code' => '+973'],
+            ['country_name_en' => 'Qatar', 'country_name_ar' => 'قطر', 'phone_code' => '+974'],
+            ['country_name_en' => 'Oman', 'country_name_ar' => 'عمان', 'phone_code' => '+968'],
+            ['country_name_en' => 'Yemen', 'country_name_ar' => 'اليمن', 'phone_code' => '+967'],
+            ['country_name_en' => 'Iraq', 'country_name_ar' => 'العراق', 'phone_code' => '+964'],
+            ['country_name_en' => 'Syria', 'country_name_ar' => 'سوريا', 'phone_code' => '+963'],
+            ['country_name_en' => 'Lebanon', 'country_name_ar' => 'لبنان', 'phone_code' => '+961'],
+            ['country_name_en' => 'Palestine', 'country_name_ar' => 'فلسطين', 'phone_code' => '+970'],
+            ['country_name_en' => 'United States', 'country_name_ar' => 'الولايات المتحدة', 'phone_code' => '+1'],
+            ['country_name_en' => 'United Kingdom', 'country_name_ar' => 'المملكة المتحدة', 'phone_code' => '+44'],
+            ['country_name_en' => 'Canada', 'country_name_ar' => 'كندا', 'phone_code' => '+1'],
+            ['country_name_en' => 'Australia', 'country_name_ar' => 'أستراليا', 'phone_code' => '+61'],
+            ['country_name_en' => 'India', 'country_name_ar' => 'الهند', 'phone_code' => '+91'],
+            ['country_name_en' => 'Pakistan', 'country_name_ar' => 'باكستان', 'phone_code' => '+92'],
+            ['country_name_en' => 'Philippines', 'country_name_ar' => 'الفلبين', 'phone_code' => '+63'],
         ]);
     }
 
     public function down()
     {
-        // Drop in reverse order
-        Schema::dropIfExists('realtime_equality_ops');
-        Schema::dropIfExists('realtime_actions');
-        Schema::dropIfExists('report_statuses');
-        Schema::dropIfExists('payment_statuses');
-        Schema::dropIfExists('order_statuses');
-        Schema::dropIfExists('transmission_types');
-        Schema::dropIfExists('listing_types');
-        Schema::dropIfExists('listing_statuses');
-        Schema::dropIfExists('furnished_types');
-        Schema::dropIfExists('fuel_types');
-        Schema::dropIfExists('employment_types');
-        Schema::dropIfExists('verification_statuses');
-        Schema::dropIfExists('one_time_token_types');
-        Schema::dropIfExists('oauth_registration_types');
-        Schema::dropIfExists('factor_types');
-        Schema::dropIfExists('factor_statuses');
-        Schema::dropIfExists('code_challenge_methods');
-        Schema::dropIfExists('aal_levels');
         Schema::dropIfExists('nationalties');
+        Schema::dropIfExists('phone_codes');
     }
 };

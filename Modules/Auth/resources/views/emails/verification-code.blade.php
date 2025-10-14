@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl">
 
 <head>
+    <meta charset="UTF-8">
+    <title>رمز التحقق</title>
     <meta charset="UTF-8">
     <title>رمز التحقق</title>
 </head>
@@ -76,3 +79,4 @@
 </body>
 
 </html>
+
