@@ -29,7 +29,7 @@ class RoleController extends Controller
     {
         $this->role_service = $role_service;
 
-        // $this->middleware(CheckPermission::class . ':read_all_roles', ['only' => ['index', 'show']]);
+        $this->middleware(CheckPermission::class . ':read_all_roles', ['only' => ['index', 'show']]);
         $this->middleware(CheckPermission::class . ':create_role', ['only' => ['store']]);
         $this->middleware(CheckPermission::class . ':update_role', ['only' => ['update']]);
         $this->middleware(CheckPermission::class . ':delete_role', ['only' => ['destroy']]);

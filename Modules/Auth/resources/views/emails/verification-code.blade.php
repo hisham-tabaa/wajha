@@ -1,60 +1,78 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar" dir="rtl">
 
 <head>
-    <title>Verification Code</title>
+    <meta charset="UTF-8">
+    <title>رمز التحقق</title>
 </head>
 
 <body
-    style="margin: 0; padding: 0; background-color: #f8fafc; font-family: Arial, sans-serif; line-height: 1.6; color: #334155;">
-    <div
-        style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); border: 1px solid #e2e8f0;">
-        <!-- Header -->
-        <div
-            style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 30px; text-align: center; color: white;">
-            <div style="font-size: 24px; font-weight: 700; color: white; margin-bottom: 16px;">Wajha</div>
-            <h1 style="font-size: 28px; font-weight: 700; margin-bottom: 8px;">Verify Your Email</h1>
-            <p style="font-size: 16px; font-weight: 300; opacity: 0.9;">Complete your registration process</p>
-        </div>
-        <div style="padding: 40px 30px;">
-            <p style="font-size: 18px; color: #475569; margin-bottom: 24px; text-align: center;">Hello,</p>
-            <p style="text-align: center; color: #64748b; margin-bottom: 30px;">
-                Thank you for joining Wajha! Use the verification code below to complete your registration.
-            </p>
-            <div
-                style="background: linear-gradient(135deg, #f0f4ff 0%, #f8faff 100%); border: 2px dashed #c7d2fe; border-radius: 12px; padding: 30px; text-align: center; margin: 30px 0;">
-                <p style="color: #64748b; margin-bottom: 15px; font-size: 14px;">Your verification code:</p>
+    style="margin: 0; padding: 0; background-color: #ffffff; font-family: 'Cairo', Arial, sans-serif; color: #1e293b; line-height: 1.4;">
+
+    <table width="100%" cellpadding="0" cellspacing="0"
+        style="max-width: 480px; margin: 20px auto; background: #f8fafc; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
+        <tr>
+            <td style="padding: 24px 20px; text-align: center; color: #1e293b;">
+
+                <!-- Logo -->
+                <div style="margin-bottom: 12px;">
+                    <img src="{{ asset('images/wajha.png') }}" alt="تطبيق وجهة"
+                        style="max-width: 100%; border-radius: 8px;">
+
+                </div>
+
+                <!-- Title -->
+                <h1 style="font-size: 20px; font-weight: 700; margin: 0 0 12px;">تحقق من بريدك الإلكتروني</h1>
+                <p style="font-size: 14px; margin: 0 0 6px;">أكمل عملية التسجيل الخاصة بك</p>
+
+                <!-- Greeting -->
+                <p style="font-size: 15px; margin: 0 0 6px;">مرحباً {{ $email }}</p>
+
+                <!-- Message -->
+                <p style="font-size: 14px; margin: 0 0 16px;">
+                    شكرًا لانضمامك إلى <strong>وجهة</strong>! الرجاء استخدام رمز التحقق أدناه لإتمام عملية التسجيل.
+                </p>
+
+                <!-- Verification Code Box -->
                 <div
-                    style="font-size: 42px; font-weight: 700; color: #4f46e5; letter-spacing: 8px; text-shadow: 0 2px 4px rgba(79, 70, 229, 0.1);">
-                    {{ $code }}</div>
-            </div>
-            <div
-                style="background: #fff7ed; border: 1px solid #fed7aa; border-radius: 8px; padding: 16px; text-align: center; margin: 20px 0;">
-                <p style="color: #c2410c; font-weight: 500; margin: 0;">⏰ This code will expire in 10 minutes</p>
-            </div>
-            <div style="background: #f8fafc; border-radius: 8px; padding: 20px; margin: 25px 0;">
-                <h3 style="color: #374151; margin-bottom: 12px; font-size: 16px;">📝 How to use this code:</h3>
-                <ul style="list-style: none; padding: 0;">
-                    <li style="padding: 8px 0; padding-left: 24px; position: relative;">
-                        <span style="color: #4f46e5; font-weight: bold; position: absolute; left: 8px;">•</span>
-                        Copy the verification code above
-                    </li>
-                    <li style="padding: 8px 0; padding-left: 24px; position: relative;">
-                        <span style="color: #4f46e5; font-weight: bold; position: absolute; left: 8px;">•</span>
-                        Return to the Wajha application
-                    </li>
-                    <li style="padding: 8px 0; padding-left: 24px; position: relative;">
-                        <span style="color: #4f46e5; font-weight: bold; position: absolute; left: 8px;">•</span>
-                        Enter the code in the verification field
-                    </li>
-                    <li style="padding: 8px 0; padding-left: 24px; position: relative;">
-                        <span style="color: #4f46e5; font-weight: bold; position: absolute; left: 8px;">•</span>
-                        Complete your registration process
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
+                    style="margin: 20px 0; background-color: #e0f2fe; border: 2px dashed #0284c7; border-radius: 10px; padding: 16px;">
+                    <p style="margin: 0 0 6px; font-size: 13px;">رمز التحقق الخاص بك هو:</p>
+                    <div style="font-size: 28px; font-weight: bold; color: #0284c7; letter-spacing: 6px;">
+                        {{ $code }}</div>
+                </div>
+
+                <!-- Expiry Box -->
+                <div
+                    style="background-color: #fff7ed; border: 1px solid #fdba74; border-radius: 6px; padding: 12px; margin: 16px 0;">
+                    <p style="margin: 0; color: #ea580c; font-weight: 500; font-size: 13px;">⏰ هذا الرمز سينتهي خلال 10
+                        دقائق</p>
+                </div>
+
+                <!-- Instructions -->
+                <div style="text-align: right; margin-top: 16px;">
+                    <h3 style="font-size: 14px; margin: 0 0 8px;">📌 طريقة الاستخدام:</h3>
+                    <ul style="padding: 0; margin: 0; list-style: none; text-align: right;">
+                        <li style="margin-bottom: 4px; position: relative; padding-right: 16px; font-size: 13px;">
+                            <span style="position: absolute; right: 0; color: #2563eb;">•</span> انسخ رمز التحقق أعلاه.
+                        </li>
+                        <li style="margin-bottom: 4px; position: relative; padding-right: 16px; font-size: 13px;">
+                            <span style="position: absolute; right: 0; color: #2563eb;">•</span> افتح تطبيق
+                            <strong>وجهة</strong>.
+                        </li>
+                        <li style="margin-bottom: 4px; position: relative; padding-right: 16px; font-size: 13px;">
+                            <span style="position: absolute; right: 0; color: #2563eb;">•</span> أدخل الرمز في خانة
+                            التحقق.
+                        </li>
+                        <li style="position: relative; padding-right: 16px; font-size: 13px;">
+                            <span style="position: absolute; right: 0; color: #2563eb;">•</span> أكمل عملية التسجيل.
+                        </li>
+                    </ul>
+                </div>
+
+            </td>
+        </tr>
+    </table>
+
 </body>
 
 </html>
