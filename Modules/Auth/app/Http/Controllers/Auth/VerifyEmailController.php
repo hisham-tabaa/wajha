@@ -31,7 +31,6 @@ class VerifyEmailController extends Controller
      public function sendVerificationCode(SendVerificationCodeRequest $request): JsonResponse
     {
         $request->validated();
-        // [$status, $data, $code, $message] = $this->verifyService->resendVerificationCode($request->email);
            [$status, $data, $code, $message] = $this->verifyService->resendVerificationCode($request->email); 
 
         return $status

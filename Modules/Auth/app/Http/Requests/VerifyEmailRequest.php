@@ -18,15 +18,16 @@ class VerifyEmailRequest extends FormRequest
             'code' => 'required|string',
         ];
     }
-        public function messages(): array
+
+    public function messages(): array
     {
         return [
-            'email.required' => 'The email field is required',
-            'email.max'=>'The email must be less than 100 character ',
-            'email.email' => 'The email must be a valid email address',
-            'email.exists' => 'This email is not registered in our system',
-            'code.required' => 'The verification code is required',
-            'code.string' => 'The verification code must be a string',
+            'email.required' => 'حقل البريد الإلكتروني مطلوب.',
+            'email.max' => 'يجب ألا يتجاوز البريد الإلكتروني 100 حرف.',
+            'email.email' => 'يجب أن يكون البريد الإلكتروني بصيغة صحيحة.',
+            'email.exists' => 'هذا البريد الإلكتروني غير مسجل لدينا.',
+            'code.required' => 'رمز التحقق مطلوب.',
+            'code.string' => 'يجب أن يكون رمز التحقق نصيًا.',
         ];
     }
 }
