@@ -56,7 +56,7 @@ class AuthServiceProvider extends ServiceProvider
 
     /**
      * Register command Schedules.
-     */
+     */ 
     protected function registerCommandSchedules(): void
     {
         // $this->app->booted(function () {
