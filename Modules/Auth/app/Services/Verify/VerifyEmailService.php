@@ -77,7 +77,7 @@ class VerifyEmailService implements VerifyEmailInterface
             ]);
 
             // ✉️ إرسال البريد الإلكتروني
-            Mail::to($user->email)->queue(new Sendverificationcode($code));
+            Mail::to($user->email)->queue(new Sendverificationcode($code,$user->email));
 
             return [true, [], 201, 'تم إرسال رمز التحقق بنجاح إلى بريدك الإلكتروني.'];
         } catch (Exception $e) {
