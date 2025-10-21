@@ -15,6 +15,8 @@ use Modules\Auth\Services\GoogleAuth\GoogleAuthService;
 use Modules\Auth\Services\GoogleAuth\IGoogleAuthService;
 use Modules\Auth\Services\Verify\VerifyEmailInterface;
 use Modules\Auth\Services\Verify\VerifyEmailService;
+use Modules\Auth\Services\PasswordReset\PasswordResetInterface;
+use Modules\Auth\Services\PasswordReset\PasswordResetService;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -40,7 +42,7 @@ class AuthServiceProvider extends ServiceProvider
     /**
      * Register the service provider.
      */
-    
+
     public function register(): void
     {
         $this->app->register(EventServiceProvider::class);
@@ -48,11 +50,12 @@ class AuthServiceProvider extends ServiceProvider
 
         // Bind interfaces → implementations for DI
         $this->app->bind(IGoogleAuthService::class, GoogleAuthService::class);
-        // 
+        //
          $this->app->bind(RegisterInterface::class, RegisterService::class);
 
         $this->app->bind(ILoginService::class, LoginService::class);
         $this->app->bind(VerifyEmailInterface::class, VerifyEmailService::class);
+        $this->app->bind(PasswordResetInterface::class, PasswordResetService::class);
 
     }
 
@@ -66,7 +69,7 @@ class AuthServiceProvider extends ServiceProvider
 
     /**
      * Register command Schedules.
-     */ 
+     */
     protected function registerCommandSchedules(): void
     {
         // $this->app->booted(function () {
