@@ -1,24 +1,26 @@
 <?php
 
-namespace Modules\Auth\Models;
+namespace Modules\Auth\App\Models;
 
+use App\Models\Concerns\BaseFilterable;
 use App\Models\Nationalty;
+use App\Services\BaseModelInterface;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Models\Role;
-use App\Services\BaseModelInterface;
-use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Traits\HasRoles;
-use App\Models\Concerns\BaseFilterable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements BaseModelInterface
-{   use HasRoles;
-    use HasApiTokens, HasFactory, Notifiable;
+{
+    use HasApiTokens;
+    use HasFactory;
     use Notifiable;
     use SoftDeletes;
+    use HasRoles;
     use BaseFilterable;
 
 

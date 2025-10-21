@@ -57,6 +57,10 @@ class AuthServiceProvider extends ServiceProvider
         $this->app->bind(VerifyEmailInterface::class, VerifyEmailService::class);
         $this->app->bind(PasswordResetInterface::class, PasswordResetService::class);
 
+        $this->app->bind(
+            \Modules\Auth\Services\UpdateProfile\ProfileServiceInterface::class,
+            \Modules\Auth\Services\UpdateProfile\ProfileService::class
+        );
     }
 
     /**
