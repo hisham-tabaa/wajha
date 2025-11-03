@@ -39,6 +39,8 @@ class User extends Authenticatable implements BaseModelInterface
         'birthday',
         'phone',
         'confirmed_at',
+        'google_id',
+        'is_choiced_account',
     ];
 
     public function getAllowColumnsFilter(): array

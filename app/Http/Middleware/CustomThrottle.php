@@ -25,7 +25,6 @@ class CustomThrottle
 
         $identifier = Auth::id() ?? $request->ip();
         $key = $identifier . '|' . $request->path();
-        Log::info("awad = ", [$key]);
         // نعمل الـ limiter
         if (RateLimiter::tooManyAttempts($key, $maxAttempts)) {
             $seconds = RateLimiter::availableIn($key);
