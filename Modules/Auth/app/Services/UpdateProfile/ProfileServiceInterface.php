@@ -6,5 +6,5 @@ use Modules\Auth\App\Models\User;
 
 interface ProfileServiceInterface
 {
-    public function updateProfile(User $user, array $data): User;
+    public function updateProfile(User $user, array $data): array;
 }

@@ -2,15 +2,27 @@
 
 namespace Modules\Auth\Services\UpdateProfile;
 
+use Illuminate\Support\Facades\Log;
 use Modules\Auth\App\Models\User;
 
 class ProfileService implements ProfileServiceInterface
 {
-    public function updateProfile(User $user, array $data): User
+    public function updateProfile(User $user, array $data): array
     {
-        $user->update($data);
+        try {
+            $user->update($data);
+            $user = $user->fresh(['role.permissions']);
 
-        return $user;
+            return [true, ['user' => $user], 200, 'Profile updated successfully'];
+        } catch (\Exception $exception) {
+            Log::error('ProfileService@updateProfile', [
+                'File' => $exception->getFile(),
+                'Line' => $exception->getLine(),
+                'Message' => $exception->getMessage(),
+            ]);
+
+            return [false, [], 500, 'Failed to update profile'];
+        }
     }
 }
 
