@@ -3,7 +3,7 @@
 namespace Modules\RealEstate\Models;
 
 use App\Models\BaseModel;
-use Modules\Auth\App\Models\User;
+use Modules\Auth\Models\User;
 use Modules\RealEstate\Models\Feature;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -30,7 +30,7 @@ class RealEstate extends BaseModel
         'lan',
         'price',
         'payment_type',
-        'rant_type',
+        'rent_type',
         'rate_allowed_for',
         'city',
         'space',

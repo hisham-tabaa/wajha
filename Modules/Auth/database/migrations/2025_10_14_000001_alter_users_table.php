@@ -1,4 +1,3 @@
-// database/migrations/Auth/2023_01_01_000001_create_users_table.php
 <?php
 
 use Illuminate\Database\Migrations\Migration;

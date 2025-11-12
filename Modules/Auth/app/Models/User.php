@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Auth\App\Models;
+namespace Modules\Auth\Models;
 
 use App\Models\Concerns\BaseFilterable;
 use App\Models\Nationalty;

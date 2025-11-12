@@ -1,4 +1,3 @@
-// database/migrations/System/2023_01_01_080001_create_audit_logs_table.php
 <?php
 
 use Illuminate\Database\Migrations\Migration;

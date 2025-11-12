@@ -1,4 +1,3 @@
-// database/migrations/System/2023_01_01_080004_create_password_resets_table.php
 <?php
 
 use Illuminate\Database\Migrations\Migration;

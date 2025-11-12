@@ -31,7 +31,7 @@ return new class extends Migration
             // Pricing and payment details
             $table->decimal('price', 15, 2)->nullable();
             $table->string('payment_type')->nullable(); // e.g., "cash", "installment"
-            $table->string('rant_type')->nullable(); // e.g., "monthly", "yearly"
+            $table->string('rent_type')->nullable(); // e.g., "monthly", "yearly"
 
             // Other information
             $table->string('rate_allowed_for')->nullable(); // e.g., "families", "bachelors"
