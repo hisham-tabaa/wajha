@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Modules\Auth\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Modules\Auth\Database\Seeders\AdminUserSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             // Required for publication
             PermissionsSeeder::class,
             RolesSeeder::class,
+            AdminUserSeeder::class,
         ]);
     }
 }

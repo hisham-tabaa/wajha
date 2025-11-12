@@ -1,4 +1,3 @@
-// database/migrations/2023_01_01_000000_create_enum_tables.php
 <?php
 
 use Illuminate\Support\Facades\DB;

@@ -2,7 +2,7 @@
 
 namespace Modules\Auth\App\Transformers\UserResource;
 
-use Modules\Auth\App\Models\User;
+use Modules\Auth\Models\User;
 
 class UserTransformer
 {

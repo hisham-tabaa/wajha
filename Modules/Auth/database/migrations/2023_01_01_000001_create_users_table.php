@@ -1,4 +1,3 @@
-// database/migrations/Auth/2023_01_01_000001_create_users_table.php
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -28,7 +27,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->softDeletes();
-            
+
             $table->foreign('role_id')->references('id')->on('roles')->cascadeOnDelete();
             $table->foreign('nationalty_id')->references('id')->on('nationalties')->cascadeOnDelete();
             $table->index('email');

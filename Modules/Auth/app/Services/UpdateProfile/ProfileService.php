@@ -2,8 +2,7 @@
 
 namespace Modules\Auth\Services\UpdateProfile;
 
-use Illuminate\Support\Facades\Log;
-use Modules\Auth\App\Models\User;
+use Modules\Auth\Models\User;
 
 class ProfileService implements ProfileServiceInterface
 {

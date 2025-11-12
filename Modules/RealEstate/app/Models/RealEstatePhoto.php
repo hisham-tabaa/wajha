@@ -3,7 +3,7 @@
 namespace Modules\RealEstate\Models;
 
 use App\Models\BaseModel;
-use Modules\Auth\App\Models\User;
+use Modules\Auth\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Modules\RealEstate\Models\RealEstate;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

@@ -2,7 +2,7 @@
 
 namespace Modules\Auth\Services\UpdateProfile;
 
-use Modules\Auth\App\Models\User;
+use Modules\Auth\Models\User;
 
 interface ProfileServiceInterface
 {
