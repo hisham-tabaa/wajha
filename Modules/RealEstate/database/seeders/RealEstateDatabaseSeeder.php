@@ -11,6 +11,9 @@ class RealEstateDatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // $this->call([]);
-    }
+    {
+        $this->call([
+            FeaturesSeeder::class,
+        ]);
+    }    }
 }

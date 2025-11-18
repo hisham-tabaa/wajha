@@ -2,55 +2,127 @@
 
 namespace Modules\RealEstate\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use App\Http\Controllers\Controller;
+use Modules\RealEstate\Models\RealEstate;
+use Modules\RealEstate\Services\RealEstateServiceInterface;
+use Modules\RealEstate\Http\Requests\RealEstateRequest;
+use Illuminate\Support\Facades\Auth;
 
 class RealEstateController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    private RealEstateServiceInterface $realEstateService;
+
+    public function __construct(RealEstateServiceInterface $realEstateService)
     {
-        return view('realestate::index');
+        $this->realEstateService = $realEstateService;
     }
 
     /**
-     * Show the form for creating a new resource.
+     * عرض جميع العقارات (للمستخدمين والبائعين والمشرفين)
      */
-    public function create()
+    public function index(Request $request): JsonResponse
     {
-        return view('realestate::create');
+        $filters = $request->only(['offer_type', 'city', 'type', 'min_price', 'max_price']);
+
+        $realEstates = $this->realEstateService->getAllRealEstates($filters);
+
+        return $this->successResponse($realEstates, 200, 'تم جلب العقارات بنجاح');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * عرض عقارات البائع الخاصة به فقط
      */
-    public function store(Request $request) {}
-
-    /**
-     * Show the specified resource.
-     */
-    public function show($id)
+    public function myRealEstates(Request $request): JsonResponse
     {
-        return view('realestate::show');
+        $this->authorize('viewAnyMy', RealEstate::class);
+
+        $filters = $request->only(['offer_type', 'city', 'type']);
+        $userId = Auth::id();
+
+        $realEstates = $this->realEstateService->getMyRealEstates($userId, $filters);
+
+        return $this->successResponse($realEstates, 200, 'تم جلب عقاراتك بنجاح');
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * عرض عقار محدد
      */
-    public function edit($id)
+    public function show($id): JsonResponse
     {
-        return view('realestate::edit');
+        [$status, $data, $code, $message] = $this->realEstateService->getRealEstateById($id);
+
+        if (!$status) {
+            return $this->errorResponse($data, $code, $message);
+        }
+
+        $this->authorize('view', $data);
+
+        return $this->successResponse($data, $code, $message);
     }
 
     /**
-     * Update the specified resource in storage.
+     * إنشاء عقار جديد
      */
-    public function update(Request $request, $id) {}
+    public function store(RealEstateRequest $request): JsonResponse
+    {
+        $this->authorize('create', RealEstate::class);
+
+        $userId = Auth::id();
+
+        [$status, $data, $code, $message] = $this->realEstateService->createRealEstate($request, $userId);
+
+        return $status ?
+            $this->successResponse($data, $code, $message) :
+            $this->errorResponse($data, $code, $message);
+    }
 
     /**
-     * Remove the specified resource from storage.
+     * تحديث عقار
      */
-    public function destroy($id) {}
+    public function update(RealEstateRequest $request, $id): JsonResponse
+    {
+        // أولاً: جلب العقار
+        [$status, $realEstate, $code, $message] = $this->realEstateService->getRealEstateById($id);
+
+        if (!$status) {
+            return $this->errorResponse($realEstate, $code, $message);
+        }
+
+        // ثانياً: التحقق من الصلاحية
+        $this->authorize('update', $realEstate);
+
+        // ثالثاً: التحديث
+        $userId = Auth::id();
+        [$status, $data, $code, $message] = $this->realEstateService->updateRealEstate($request, $id, $userId);
+
+        return $status ?
+            $this->successResponse($data, $code, $message) :
+            $this->errorResponse($data, $code, $message);
+    }
+
+    /**
+     * حذف عقار
+     */
+    public function destroy($id): JsonResponse
+    {
+        // أولاً: جلب العقار
+        [$status, $realEstate, $code, $message] = $this->realEstateService->getRealEstateById($id);
+
+        if (!$status) {
+            return $this->errorResponse($realEstate, $code, $message);
+        }
+
+        // ثانياً: التحقق من الصلاحية
+        $this->authorize('delete', $realEstate);
+
+        // ثالثاً: الحذف
+        $userId = Auth::id();
+        [$status, $data, $code, $message] = $this->realEstateService->deleteRealEstate($id, $userId);
+
+        return $status ?
+            $this->successResponse($data, $code, $message) :
+            $this->errorResponse($data, $code, $message);
+    }
 }
