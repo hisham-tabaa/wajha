@@ -1,23 +1,26 @@
 <?php
 
-namespace Modules\Auth\App\Transformers\UserResource;
+namespace Modules\Auth\Transformers\UserResource;
+
 
 use Modules\Auth\Models\User;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Request;
 
-class UserTransformer
+class UserResource extends JsonResource
 {
-    public static function transform(User $user): array
+    public function toArray(Request $request): array
     {
         return [
-            'id'            => $user->id,
-            'first_name'    => $user->first_name,
-            'last_name'     => $user->last_name,
-            'email'         => $user->email,
-            'avatar'        => $user->avatar,
-            'gender'        => $user->gender,
-            'birthday'      => $user->birthday,
-            'phone'         => $user->phone,
-            'nationalty_id' => $user->nationalty_id,
+            'id'            => $this->id,
+            'first_name'    => $this->first_name,
+            'last_name'     => $this->last_name,
+            'email'         => $this->email,
+            'avatar'        => $this->avatar,
+            'gender'        => $this->gender,
+            'birthday'      => $this->birthday,
+            'phone'         => $this->phone,
+            'nationalty_id' => $this->nationalty_id,
         ];
     }
 }

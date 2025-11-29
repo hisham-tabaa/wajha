@@ -37,7 +37,7 @@ class PasswordResetService implements PasswordResetInterface
                 ]
             );
 
-            Mail::to($email)->queue(new SendVerificationCode((string) $code));
+            Mail::to($email)->queue(new SendVerificationCode((string) $code, $email));
 
             return [true, [], 200, 'Password reset code sent successfully.'];
         } catch (Exception $exception) {

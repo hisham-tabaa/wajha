@@ -45,6 +45,8 @@ class RealEstateServiceProvider extends ServiceProvider
         $this->app->register(RouteServiceProvider::class);
         $this->app->register(AuthServiceProvider::class);
 
+        $this->app->bind(IRealEstateRentService::class, RealEstateRentService::class);
+        $this->app->bind(IRealEstateSaleService::class, RealEstateSaleService::class);
     }
 
     /**
@@ -98,7 +100,6 @@ class RealEstateServiceProvider extends ServiceProvider
                     $config_key = str_replace([DIRECTORY_SEPARATOR, '.php'], ['.', ''], $config);
                     $segments = explode('.', $this->nameLower.'.'.$config_key);
 
-                    // Remove duplicated adjacent segments
                     $normalized = [];
                     foreach ($segments as $segment) {
                         if (end($normalized) !== $segment) {
@@ -106,6 +107,7 @@ class RealEstateServiceProvider extends ServiceProvider
                         }
                     }
 
+                    /** @var string $key */
                     $key = ($config === 'config.php') ? $this->nameLower : implode('.', $normalized);
 
                     $this->publishes([$file->getPathname() => config_path($config)], 'config');
@@ -120,10 +122,10 @@ class RealEstateServiceProvider extends ServiceProvider
      */
     protected function merge_config_from(string $path, string $key): void
     {
-        $existing = config($key, []);
+        $existing = config($key, []) ?? [];
         $module_config = require $path;
 
-        config([$key => array_replace_recursive($existing, $module_config)]);
+        config([$key => array_replace_recursive($existing, (array) $module_config)]);
     }
 
     /**
