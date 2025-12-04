@@ -22,22 +22,21 @@ class RegisterService implements RegisterInterface
             $role = Role::where('name', 'default')->first();
             $data['role_id'] = $role->id;
             if (!$role) {
-                return [false, [], 404, "The Role(default) not found"];
+                return [false, [], 404, __('auth::messages.role_not_found')];
             }
             $user =  User::create($data);
-            if($user){
-            (new VerifyEmailService())->resendVerificationCode($user->email); 
-            
+            if ($user) {
+                (new VerifyEmailService())->resendVerificationCode($user->email);
             }
-            return [true, ['user' => $user], 201, 'Register done successfully'];
-
+            // return [true, ['user' => $user], 201, 'Register done successfully'];
+            return [true, ['user' => $user], 201, __('auth::messages.register_success')];
         } catch (Exception $e) {
             Log::error("RegisterService@register", [
                 'File' => $e->getFile(),
                 'Line' => $e->getLine(),
                 'Message' => $e->getMessage(),
             ]);
-            return [false, [], 500, 'Failed to Register'];
+            return [false, [], 500, __('auth::messages.register_failed')];
         }
     }
 }
