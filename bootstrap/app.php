@@ -19,6 +19,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'checkPermission' => \App\Http\Middleware\CheckPermission::class,
             'throttle.custom' => \App\Http\Middleware\CustomThrottle::class,
         ]);
+        $middleware->api(\App\Http\Middleware\SetLocale::class);
+        $middleware->web(\App\Http\Middleware\SetLocale::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

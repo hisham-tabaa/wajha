@@ -1,16 +1,19 @@
 <?php
 
-namespace Modules\Auth\Http\Middleware;
+namespace App\Http\Middleware;
+
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
 
 class SetLocale
 {
-  public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
 
-         $locale = $request->header('Accept-Language');
+        Log::info('SetLocale is work...!');
+        $locale = $request->header('Accept-Language');
 
         if (!$locale) {
             $locale = $request->query('lang');
@@ -22,14 +25,11 @@ class SetLocale
 
         $supported = ['en', 'ar'];
         if (!$locale || !in_array($locale, $supported)) {
-            $locale = config('app.fallback_locale', 'en');
+            return __('error.setLocale');
         }
 
         App::setLocale($locale);
 
         return $next($request);
-
     }
-
-
 }

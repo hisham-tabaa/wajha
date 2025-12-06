@@ -9,21 +9,17 @@ use Modules\Auth\Http\Controllers\Auth\VerifyEmailController;
 use Modules\Auth\Http\Controllers\Auth\PasswordResetController;
 
 Route::middleware(['throttle.custom'])->group(function () {
-    Route::middleware('set.locale')->group(function () {
-        Route::post('/register-users', [RegisterController::class, 'register']);
-        Route::post('/verify-email', [VerifyEmailController::class, 'verify']);
-        Route::post('/send-verification-code', [VerifyEmailController::class, 'sendVerificationCode']);
-        Route::post('/password-reset/request', [PasswordResetController::class, 'requestReset']);
-        Route::post('/password-reset/verify-code', [PasswordResetController::class, 'verifyCode']);
-        Route::post('/password-reset/reset', [PasswordResetController::class, 'reset']);
-        Route::post('google/token', [GoogleAuthController::class, 'loginWithGoogleToken']);
-    });
+    Route::post('/register-users', [RegisterController::class, 'register']);
+    Route::post('/verify-email', [VerifyEmailController::class, 'verify']);
+    Route::post('/send-verification-code', [VerifyEmailController::class, 'sendVerificationCode']);
+    Route::post('/password-reset/request', [PasswordResetController::class, 'requestReset']);
+    Route::post('/password-reset/verify-code', [PasswordResetController::class, 'verifyCode']);
+    Route::post('/password-reset/reset', [PasswordResetController::class, 'reset']);
+    Route::post('google/token', [GoogleAuthController::class, 'loginWithGoogleToken']);
 
 
     Route::middleware(['auth:sanctum'])->group(function () {
-        Route::middleware('set.locale')->group(function () {
-            Route::get('/roles', [UserController::class, 'getRoles']);
-            Route::patch('/users/change-role', [UserController::class, 'changeRole']);
-        });
+        Route::get('/roles', [UserController::class, 'getRoles']);
+        Route::patch('/users/change-role', [UserController::class, 'changeRole']);
     });
 });
