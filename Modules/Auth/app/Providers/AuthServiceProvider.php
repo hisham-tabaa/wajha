@@ -38,7 +38,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
         $router = $this->app['router'];
-        $router->aliasMiddleware('set.locale', \Modules\Auth\Http\Middleware\SetLocale::class);
+        // $router->aliasMiddleware('set.locale', \Modules\Auth\Http\Middleware\SetLocale::class);
     }
 
     /**
