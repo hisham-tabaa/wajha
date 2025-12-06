@@ -10,11 +10,8 @@ use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use Illuminate\Support\Facades\Gate;
-use Modules\RealEstate\Services\RealEstateRent\IRealEstateRentService;
-use Modules\RealEstate\Services\RealEstateRent\RealEstateRentService;
-use Modules\RealEstate\Services\RealEstateSale\IRealEstateSaleService;
-use Modules\RealEstate\Services\RealEstateSale\RealEstateSaleService;
-
+use Modules\RealEstate\Services\RealEstateService;
+use Modules\RealEstate\Services\RealEstateServiceInterface;
 
 class RealEstateServiceProvider extends ServiceProvider
 {
@@ -43,6 +40,7 @@ class RealEstateServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->bind(RealEstateServiceInterface::class, RealEstateService::class);
         $this->app->register(EventServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
         $this->app->register(AuthServiceProvider::class);

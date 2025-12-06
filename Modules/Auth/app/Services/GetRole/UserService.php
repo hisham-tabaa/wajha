@@ -18,14 +18,14 @@ class UserService implements UserInterface
         try {
             $roles = Role::whereIn('name', ['user', 'seller'])->get();
 
-            return [true, $roles, 200, 'تم جلب الأدوار بنجاح'];
+            return [true, $roles, 200,  __('auth::messages.roles_retrieved_successfully')];
         } catch (Exception $e) {
             Log::error(" UserService@getRoles", [
                 'File' => $e->getFile(),
                 'Line' => $e->getLine(),
                 'Message' => $e->getMessage(),
             ]);
-            return [false, [], 500, 'حدث خطأ أثناء جلب الأدوار'];
+            return [false, [], 500, __('auth::messages.roles_retrieve_failed')];
         }
     }
     //  public function changeRole(int $userId, string $newRole)
@@ -36,16 +36,16 @@ class UserService implements UserInterface
         try {
             $user = User::find(Auth::id());
             if (!$user) {
-                return [false, null, 404, 'المستخدم غير موجود.'];
+                return [false, null, 404, __('auth::messages.user_not_found')];
             }
             if (!$user->is_choiced_account) {
-                return [false, null, 400, 'هذا المستخدم قد غير حسابه من قبل.'];
+                return [false, null, 400, __('auth::messages.choiced_account')];
             }
 
             // جلب الرول من جدول الأدوار
             $role = Role::find($request->role_id)->first();
             if (!$role) {
-                return [false, null, 404, 'الرول غير موجود.'];
+                return [false, null, 404, __('auth::messages.role_not_found')];
             }
 
             // إزالة الرول القديم (default) وتعيين الجديد
@@ -57,14 +57,14 @@ class UserService implements UserInterface
             $user->is_choiced_account = true;
             $user->save();
 
-            return [true, $user, 200, 'تم تغيير الرول بنجاح.'];
+            return [true, $user, 200,  __('auth::messages.role_changed_successfully')];
         } catch (Exception $e) {
             Log::error("UserService@changeUserRole", [
                 'File' => $e->getFile(),
                 'Line' => $e->getLine(),
                 'Message' => $e->getMessage(),
             ]);
-            return [false, null, 500, 'فشل في تغيير الرول.'];
+            return [false, null, 500,  __('auth::messages.role_change_failed')];
         }
     }
 }

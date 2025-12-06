@@ -15,8 +15,8 @@ class UpdateProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name'    => 'required|string|max:255',
-            'last_name'     => 'nullable|string|max:255',
+            'first_name'    => 'required|string|max:100',
+            'last_name'     => 'nullable|string|max:100',
             'avatar'        => 'nullable|url', // or 'image' if uploading
             'gender'        => 'nullable|in:male,female',
             'email'         => [
@@ -32,28 +32,29 @@ class UpdateProfileRequest extends FormRequest
 
     public function messages(): array
     {
+
         return [
-            'first_name.required' => 'First name is required',
-            'first_name.string'   => 'First name must be a string',
-            'first_name.max'      => 'First name must not exceed 255 characters',
+            'first_name.required' => __('auth::validation.first_name_required'),
+            'first_name.string'   => __('auth::validation.first_name_string'),
+            'first_name.max'      => __('auth::validation.first_name_max', ['max' => 100]),
 
-            'last_name.string'    => 'Last name must be a string',
-            'last_name.max'       => 'Last name must not exceed 255 characters',
+            'last_name.string'    => __('auth::validation.last_name_string'),
+            'last_name.max'       => __('auth::validation.last_name_max', ['max' => 100]),
 
-            'avatar.url'          => 'Avatar must be a valid URL',
+            'avatar.url'          => __('auth::validation.avatar_url'),
 
-            'gender.in'           => 'Gender must be either male or female',
+            'gender.in'           => __('auth::validation.gender_in'),
 
-            'email.required'      => 'Email is required',
-            'email.email'         => 'Email must be a valid email address',
-            'email.unique'        => 'This email is already taken',
+            'email.required'      => __('auth::validation.email_required'),
+            'email.email'         => __('auth::validation.email_email'),
+            'email.unique'        => __('auth::validation.email_unique_update'),
 
-            'birthday.date'       => 'Birthday must be a valid date',
+            'birthday.date'       => __('auth::validation.birthday_date'),
 
-            'phone.string'        => 'Phone number must be a string',
-            'phone.max'           => 'Phone number must not exceed 20 characters',
+            'phone.string'        => __('auth::validation.phone_string'),
+            'phone.max'           => __('auth::validation.phone_max', ['max' => 20]),
 
-            'nationalty_id.exists' => 'Selected nationality is invalid',
+            'nationality_id.exists' => __('auth::validation.nationality_exists'),
         ];
     }
 }

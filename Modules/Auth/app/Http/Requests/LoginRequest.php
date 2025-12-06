@@ -4,7 +4,7 @@ namespace Modules\Auth\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class VerifyEmailRequest extends FormRequest
+class LoginRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -14,20 +14,20 @@ class VerifyEmailRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|max:255|email|exists:users,email',
-            'code' => 'required|string',
+            'email' => 'required|email|max:255|exists:users,email',
+            'password' => 'required|string|min:8',
         ];
     }
 
-    public function messages(): array
+    public function messages()
     {
         return [
             'email.required' => __('auth::validation.email_required'),
-            'email.max' => __('auth::validation.email_max', ['max' => 255]),
             'email.email' => __('auth::validation.email_email'),
+            'email.max' => __('auth::validation.email_max', ['max' => 255]),
             'email.exists' => __('auth::validation.email_not_exists'),
-            'code.required' => __('auth::validation.code_required'),
-            'code.string' => __('auth::validation.code_string'),
+            'password.required' => __('auth::validation.password_required'),
+            'password.min' => __('auth::validation.password_min', ['min' => 8]),
         ];
     }
 }
