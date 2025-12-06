@@ -1,0 +1,232 @@
+{
+  "info": {
+    "_postman_id": "vehicles-api-collection",
+    "name": "Vehicles API",
+    "description": "Complete CRUD API for Vehicles Module",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get All Vehicles",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/v1/vehicles?per_page=15",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "vehicles"
+          ],
+          "query": [
+            {
+              "key": "per_page",
+              "value": "15",
+              "description": "Number of items per page (optional, default: 15)"
+            }
+          ]
+        },
+        "description": "Retrieve all vehicles with pagination"
+      },
+      "response": []
+    },
+    {
+      "name": "Create Vehicle",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"offer_type\": \"sale\",\n  \"main_address\": \"123 Main St, Cairo\",\n  \"price\": 150000,\n  \"brand\": \"Toyota\",\n  \"model\": \"Corolla\",\n  \"publisher\": \"Ahmed Ali\",\n  \"lat\": 30.0444,\n  \"lan\": 31.2357,\n  \"payment_type\": \"cash\",\n  \"rent_type\": null,\n  \"city\": \"Cairo\",\n  \"year\": 2020,\n  \"color\": \"Silver\",\n  \"transmission\": \"automatic\",\n  \"fuel_type\": \"petrol\",\n  \"mileage\": 45000,\n  \"condition\": \"used\",\n  \"body_type\": \"sedan\",\n  \"number_of_seats\": 5,\n  \"number_of_doors\": 4,\n  \"description\": \"Well-maintained Toyota Corolla with low mileage\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/vehicles",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "vehicles"
+          ]
+        },
+        "description": "Create a new vehicle"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Vehicle by ID",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/v1/vehicles/1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "vehicles",
+            "1"
+          ]
+        },
+        "description": "Retrieve a specific vehicle by ID"
+      },
+      "response": []
+    },
+    {
+      "name": "Update Vehicle",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"price\": 140000,\n  \"mileage\": 50000,\n  \"condition\": \"used\",\n  \"description\": \"Updated: Low mileage vehicle with complete service history\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/vehicles/1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "vehicles",
+            "1"
+          ]
+        },
+        "description": "Update an existing vehicle"
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Vehicle",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/v1/vehicles/1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "vehicles",
+            "1"
+          ]
+        },
+        "description": "Delete a vehicle"
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000/api",
+      "type": "string",
+      "description": "Base URL for API (update with your local or server URL)"
+    },
+    {
+      "key": "token",
+      "value": "your_sanctum_token_here",
+      "type": "string",
+      "description": "Bearer token from Sanctum authentication"
+    }
+  ]
+}
