@@ -14,24 +14,25 @@ class PasswordResetRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email|max:255',
+            'email' => 'required|email|max:255|exists:users,email',
             'code' => 'required|string',
-            'password' => 'required|string|min:6|confirmed',
+            'password' => 'required|string|min:8|confirmed',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'email.required' => 'The email field is required.',
-            'email.email' => 'The email must be a valid email address.',
-            'email.max' => 'The email may not be greater than 255 characters.',
-            'code.required' => 'The reset code is required.',
-            'code.string' => 'The reset code must be a string.',
-            'password.required' => 'The password field is required.',
-            'password.string' => 'The password must be a string.',
-            'password.min' => 'The password must be at least 6 characters.',
-            'password.confirmed' => 'The password confirmation does not match.',
+            'email.required' => __('auth::validation.email_required'),
+            'email.email' => __('auth::validation.email_email'),
+            'email.max' => __('auth::validation.email_max', ['max' => 255]),
+            'email.exists' => __('auth::validation.email_not_exists'),
+            'code.required' => __('auth::validation.code_required'),
+            'code.string' => __('auth::validation.code_string'),
+            'password.required' => __('auth::validation.password_required'),
+            'password.string' => __('auth::validation.password_string'),
+            'password.min' => __('auth::validation.password_min', ['min' => 8]),
+            'password.confirmed' => __('auth::validation.password_confirmed'),
         ];
     }
 }

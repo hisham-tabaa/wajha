@@ -3,6 +3,7 @@
 namespace Modules\Auth\Services\Login;
 
 use Illuminate\Http\Request;
+use Modules\Auth\Http\Requests\LoginRequest;
 
 interface ILoginService
 {
@@ -11,5 +12,5 @@ interface ILoginService
      *
      * Returns [bool $success, mixed $data, int $statusCode, string $message]
      */
-    public function login(Request $request): array;
+    public function login(LoginRequest $request): array;
 }

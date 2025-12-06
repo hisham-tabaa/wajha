@@ -2,41 +2,84 @@
 
 namespace Modules\Auth\Services\Login;
 
-use Illuminate\Http\Request;
-use Modules\Auth\Models\User;
+use Exception;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Modules\Auth\Models\User;
+use Modules\Auth\Http\Requests\LoginRequest;
 
 class LoginService implements ILoginService
 {
-    public function login(Request $request): array
+    public function login(LoginRequest $request): array
     {
-        // TODO try and catch and logg if error filr,line,message   Note:From Awad TO ABD
-        $email = $request->input('email');
-        $password = $request->input('password');
+        try {
+            $validated = $request->validated();
+            $email = $validated['email'];
+            $password = $validated['password'];
 
-        // TODO Validations from Request not here as 'GoogleLoginRequest'   Note:From Awad TO ABD
-        if (!$email || !$password) {
-            return [false, ['error' => 'Email and password are required'], 422, 'Validation error'];
+            // Find user by email
+            $user = User::where('email', $email)->first();
+
+            // Check if user exists validate email
+            if (!$user) {
+                return [
+                    false,
+                    ['error' => __('auth::messages.email_incorrect')],
+                    401,
+                    __('auth::messages.email_incorrect')
+                ];
+            }
+
+            // Check if password is correct
+            if (!Hash::check($password, $user->password)) {
+                return [
+                    false,
+                    ['error' => __('auth::messages.password_incorrect')],
+                    401,
+                    __('auth::messages.password_incorrect')
+                ];
+            }
+
+            // Check if email is verified (if required)
+            // if (!$user->hasVerifiedEmail()) {
+            //     return [
+            //         false,
+            //         [],
+            //         403,
+            //         __('auth::messages.email_not_verified')
+            //     ];
+            // }
+
+            // Load role and permissions
+            $user->load(['role', 'permissions']);
+
+            // Create token
+            $token = $user->createToken('wejha-token-plain-text')->plainTextToken;
+
+            return [
+                true,
+                [
+                    'user' => $user,
+                    'token' => $token,
+                    'token_type' => 'Bearer'
+                ],
+                200,
+                __('auth::messages.login_success')
+            ];
+        } catch (Exception $e) {
+            Log::error("LoginService@login", [
+                'File' => $e->getFile(),
+                'Line' => $e->getLine(),
+                'Message' => $e->getMessage(),
+            ]);
+
+            return [
+                false,
+                [],
+                500,
+                __('auth::messages.login_failed')
+            ];
         }
-
-        // Find user by email
-        $user = User::where('email', $email)->first();
-        //  TODO  Validation if user have virification email    Note:From Awad TO ABD
-        // TODO Return Code is 400 -> it bad request not user not auth     Note:From Awad TO ABD
-
-        if (!$user || !Hash::check($password, $user->password)) {
-            return [false, ['error' => 'Invalid credentials'], 401, 'Invalid credentials'];
-        }
-
-        // Load role and permissions
-        $user->load(['role', 'permissions']);
-
-        //  TODO use wejha-token-plain-text insted of wejha-token     Note:From Awad TO ABD
-        // Create token
-        $token = $user->createToken('wejha-token')->plainTextToken;
-
-        // TODO Return Code is 201 ->alter on database     Note:From Awad TO ABD
-        return [true, ['user' => $user, 'token' => $token], 200, 'Login successful'];
     }
 }

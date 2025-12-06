@@ -29,13 +29,23 @@ class VerifyEmailService implements VerifyEmailInterface
             ])->where('expires_at', '>', Carbon::now())->first();
 
             if (!$verification) {
-                return [false, [], 400, 'رمز التحقق غير صالح أو منتهي الصلاحية.'];
+                return [
+                    false,
+                    [],
+                    400,
+                    __('auth::messages.invalid_or_expired_code')
+                ];
             }
 
             // 🧍‍♂️ التحقق من وجود المستخدم
             $user = User::where('email', $email)->first();
             if (!$user) {
-                return [false, [], 404, 'المستخدم غير موجود.'];
+                return [
+                    false,
+                    [],
+                    404,
+                    __('auth::messages.user_not_found')
+                ];
             }
 
             // ✅ تحديث حالة تأكيد الحساب
@@ -43,15 +53,24 @@ class VerifyEmailService implements VerifyEmailInterface
 
             // 🧹 حذف الكود بعد نجاح التحقق
             $verification->delete();
-
-            return [true, [], 201, 'تم تأكيد البريد الإلكتروني بنجاح.'];
+            return [
+                true,
+                [],
+                201,
+                __('auth::messages.email_verified_successfully')
+            ];
         } catch (Exception $e) {
             Log::error('VerifyEmailService@verify', [
                 'Message' => $e->getMessage(),
                 'File' => $e->getFile(),
                 'Line' => $e->getLine(),
             ]);
-            return [false, [], 500, 'فشل في التحقق من البريد الإلكتروني.'];
+            return [
+                false,
+                [],
+                500,
+                __('auth::messages.verification_failed')
+            ];
         }
     }
 
@@ -64,7 +83,12 @@ class VerifyEmailService implements VerifyEmailInterface
             $user = User::where('email', $email)->first();
 
             if (!$user) {
-                return [false, [], 404, 'هذا البريد الإلكتروني غير موجود.'];
+                return [
+                    false,
+                    [],
+                    404,
+                    __('auth::messages.user_not_found')
+                ];
             }
 
             // 🔢 إنشاء رمز تحقق جديد
@@ -77,16 +101,25 @@ class VerifyEmailService implements VerifyEmailInterface
             ]);
 
             // ✉️ إرسال البريد الإلكتروني
-            Mail::to($user->email)->queue(new Sendverificationcode($code,$user->email));
-
-            return [true, [], 201, 'تم إرسال رمز التحقق بنجاح إلى بريدك الإلكتروني.'];
+            Mail::to($user->email)->queue(new Sendverificationcode($code, $user->email));
+            return [
+                true,
+                [],
+                201,
+                __('auth::messages.verification_code_sent')
+            ];
         } catch (Exception $e) {
             Log::error('VerifyEmailService@resendVerificationCode', [
                 'Message' => $e->getMessage(),
                 'File' => $e->getFile(),
                 'Line' => $e->getLine(),
             ]);
-            return [false, [], 500, 'فشل في لرسال كود التحقق من البريد الإلكتروني.'];
+            return [
+                false,
+                [],
+                500,
+                __('auth::messages.failed_to_send_code')
+            ];
         }
     }
 }

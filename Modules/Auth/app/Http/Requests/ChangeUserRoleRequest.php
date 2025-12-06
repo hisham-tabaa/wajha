@@ -27,15 +27,17 @@ class ChangeUserRoleRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'role_id.required' => 'حقل الدور مطلوب.',
-            'role_id.exists'   => 'يجب أن يكون الدور المحدد إما مستخدم أو بائع.',
+
+            'role_id.required' => __('auth::validation.role_id_required'),
+            'role_id.exists' => __('auth::validation.role_id_exists'),
+
         ];
     }
 
     public function attributes(): array
     {
         return [
-            'role_id' => 'الدور',
+            'role_id' => __('auth::validation.attributes.role_id'),
         ];
     }
 }
