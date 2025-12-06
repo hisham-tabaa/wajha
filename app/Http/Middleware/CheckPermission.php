@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use App\Response\AppResponse;
 use Modules\Auth\Models\User;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
@@ -27,10 +28,14 @@ class CheckPermission
                 'ip' => $request->ip(),
                 'route' => $request->path(),
             ]);
-            return (new Controller())->errorResponse(
-                null,
-                401,
-                'غير مسجل الدخول'
+            return response()->json(
+                new AppResponse(
+                    'failed',
+                    null,
+                    401,
+                    __('errors.not_logged_in')
+                ),
+                401
             );
         }
 
