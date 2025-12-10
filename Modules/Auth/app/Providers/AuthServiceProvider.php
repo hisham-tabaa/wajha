@@ -2,21 +2,21 @@
 
 namespace Modules\Auth\Providers;
 
-use RecursiveIteratorIterator;
-use RecursiveDirectoryIterator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Nwidart\Modules\Traits\PathNamespace;
-use Modules\Auth\Services\Login\LoginService;
-use Modules\Auth\Services\Login\ILoginService;
-use Modules\Auth\Services\Register\RegisterService;
-use Modules\Auth\Services\Register\RegisterInterface;
 use Modules\Auth\Services\GoogleAuth\GoogleAuthService;
 use Modules\Auth\Services\GoogleAuth\IGoogleAuthService;
-use Modules\Auth\Services\Verify\VerifyEmailInterface;
-use Modules\Auth\Services\Verify\VerifyEmailService;
+use Modules\Auth\Services\Login\ILoginService;
+use Modules\Auth\Services\Login\LoginService;
 use Modules\Auth\Services\PasswordReset\PasswordResetInterface;
 use Modules\Auth\Services\PasswordReset\PasswordResetService;
+use Modules\Auth\Services\Register\RegisterInterface;
+use Modules\Auth\Services\Register\RegisterService;
+use Modules\Auth\Services\Verify\VerifyEmailInterface;
+use Modules\Auth\Services\Verify\VerifyEmailService;
+use Nwidart\Modules\Traits\PathNamespace;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -42,7 +42,6 @@ class AuthServiceProvider extends ServiceProvider
     /**
      * Register the service provider.
      */
-
     public function register(): void
     {
         $this->app->register(EventServiceProvider::class);
@@ -51,7 +50,7 @@ class AuthServiceProvider extends ServiceProvider
         // Bind interfaces → implementations for DI
         $this->app->bind(IGoogleAuthService::class, GoogleAuthService::class);
         //
-         $this->app->bind(RegisterInterface::class, RegisterService::class);
+        $this->app->bind(RegisterInterface::class, RegisterService::class);
 
         $this->app->bind(ILoginService::class, LoginService::class);
         $this->app->bind(VerifyEmailInterface::class, VerifyEmailService::class);
@@ -154,7 +153,7 @@ class AuthServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->nameLower);
 
-        Blade::componentNamespace(config('modules.namespace').'\\' . $this->name . '\\View\\Components', $this->nameLower);
+        Blade::componentNamespace(config('modules.namespace').'\\'.$this->name.'\\View\\Components', $this->nameLower);
     }
 
     /**

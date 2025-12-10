@@ -2,14 +2,14 @@
 
 namespace Modules\Auth\Services\Verify;
 
+use Exception;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Modules\Auth\Http\Requests\VerifyEmailRequest;
+use Modules\Auth\Mail\Sendverificationcode;
 use Modules\Auth\Models\EmailVerification;
 use Modules\Auth\Models\User;
-use Exception;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Carbon;
-use Modules\Auth\Http\Requests\VerifyEmailRequest;
-use Illuminate\Support\Facades\Log;
-use Modules\Auth\Mail\Sendverificationcode;
 
 class VerifyEmailService implements VerifyEmailInterface
 {
@@ -28,13 +28,13 @@ class VerifyEmailService implements VerifyEmailInterface
                 'code' => $code,
             ])->where('expires_at', '>', Carbon::now())->first();
 
-            if (!$verification) {
+            if (! $verification) {
                 return [false, [], 400, 'رمز التحقق غير صالح أو منتهي الصلاحية.'];
             }
 
             // 🧍‍♂️ التحقق من وجود المستخدم
             $user = User::where('email', $email)->first();
-            if (!$user) {
+            if (! $user) {
                 return [false, [], 404, 'المستخدم غير موجود.'];
             }
 
@@ -51,6 +51,7 @@ class VerifyEmailService implements VerifyEmailInterface
                 'File' => $e->getFile(),
                 'Line' => $e->getLine(),
             ]);
+
             return [false, [], 500, 'فشل في التحقق من البريد الإلكتروني.'];
         }
     }
@@ -63,7 +64,7 @@ class VerifyEmailService implements VerifyEmailInterface
         try {
             $user = User::where('email', $email)->first();
 
-            if (!$user) {
+            if (! $user) {
                 return [false, [], 404, 'هذا البريد الإلكتروني غير موجود.'];
             }
 
@@ -77,7 +78,7 @@ class VerifyEmailService implements VerifyEmailInterface
             ]);
 
             // ✉️ إرسال البريد الإلكتروني
-            Mail::to($user->email)->queue(new Sendverificationcode($code,$user->email));
+            Mail::to($user->email)->queue(new Sendverificationcode($code, $user->email));
 
             return [true, [], 201, 'تم إرسال رمز التحقق بنجاح إلى بريدك الإلكتروني.'];
         } catch (Exception $e) {
@@ -86,6 +87,7 @@ class VerifyEmailService implements VerifyEmailInterface
                 'File' => $e->getFile(),
                 'Line' => $e->getLine(),
             ]);
+
             return [false, [], 500, 'فشل في لرسال كود التحقق من البريد الإلكتروني.'];
         }
     }

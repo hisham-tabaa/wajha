@@ -24,4 +24,3 @@ class ProfileService implements ProfileServiceInterface
         }
     }
 }
-

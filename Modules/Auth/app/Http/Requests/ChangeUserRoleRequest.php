@@ -28,7 +28,7 @@ class ChangeUserRoleRequest extends FormRequest
     {
         return [
             'role_id.required' => 'حقل الدور مطلوب.',
-            'role_id.exists'   => 'يجب أن يكون الدور المحدد إما مستخدم أو بائع.',
+            'role_id.exists' => 'يجب أن يكون الدور المحدد إما مستخدم أو بائع.',
         ];
     }
 

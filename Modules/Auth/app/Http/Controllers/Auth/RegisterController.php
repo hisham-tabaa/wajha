@@ -1,14 +1,12 @@
 <?php
 
 namespace Modules\Auth\Http\Controllers\Auth;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
+
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Modules\Auth\Http\Requests\RegisterRequest;
 use Modules\Auth\Services\Register\RegisterInterface;
-use Modules\Auth\Services\Register\RegisterService;
 use Modules\Auth\Transformers\UserResource\UserResource;
-use Modules\Auth\Services\Verify\VerifyEmailService;
 
 class RegisterController extends Controller
 {
@@ -22,6 +20,7 @@ class RegisterController extends Controller
     public function register(RegisterRequest $request): JsonResponse
     {
         [$status, $data, $code, $message] = $this->userService->register($request);
+
         return $status ?
             $this->successResponse(new UserResource($data), $code, $message)
             : $this->errorResponse($data, $code, $message);

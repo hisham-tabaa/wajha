@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-     Schema::create('email_verifications', function (Blueprint $table) {
-    $table->id();
-    $table->string('email')->index();
-    $table->string('code');
-    $table->timestamp('expires_at');
-    $table->timestamps();
-});
+        Schema::create('email_verifications', function (Blueprint $table) {
+            $table->id();
+            $table->string('email')->index();
+            $table->string('code');
+            $table->timestamp('expires_at');
+            $table->timestamps();
+        });
 
     }
 

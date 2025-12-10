@@ -23,7 +23,7 @@ class PasswordResetService implements PasswordResetInterface
 
             /** @var User|null $user */
             $user = User::where('email', $email)->first();
-            if (!$user) {
+            if (! $user) {
                 return [false, [], 404, 'User not found.'];
             }
 
@@ -62,7 +62,7 @@ class PasswordResetService implements PasswordResetInterface
                 ->where('expires_at', '>', Carbon::now())
                 ->first();
 
-            if (!$verification) {
+            if (! $verification) {
                 return [false, [], 400, 'Invalid or expired reset code.'];
             }
 
@@ -92,13 +92,13 @@ class PasswordResetService implements PasswordResetInterface
                     ->lockForUpdate()
                     ->first();
 
-                if (!$verification) {
+                if (! $verification) {
                     return [false, [], 400, 'Invalid or expired reset code.'];
                 }
 
                 /** @var User|null $user */
                 $user = User::where('email', $email)->first();
-                if (!$user) {
+                if (! $user) {
                     return [false, [], 404, 'User not found.'];
                 }
 

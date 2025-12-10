@@ -9,8 +9,8 @@ class PermissionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name_ar' => 'required|string|unique:permissions,name_ar,' . $this->route('id'),
-            'name_en' => 'required|string|unique:permissions,name_en,' . $this->route('id'),
+            'name_ar' => 'required|string|unique:permissions,name_ar,'.$this->route('id'),
+            'name_en' => 'required|string|unique:permissions,name_en,'.$this->route('id'),
         ];
     }
 

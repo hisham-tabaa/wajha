@@ -7,10 +7,9 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class PermissionResource extends JsonResource
 {
-
     public function toArray(Request $request): array
     {
-       
+
         return [
             'group' => $this['group'],
             'group_en' => $this['group_en'],

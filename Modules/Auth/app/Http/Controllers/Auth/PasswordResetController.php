@@ -11,9 +11,8 @@ use Modules\Auth\Services\PasswordReset\PasswordResetInterface;
 
 class PasswordResetController extends Controller
 {
-    public function __construct(private readonly PasswordResetInterface $passwordResetService)
-    {
-    }
+    public function __construct(private readonly PasswordResetInterface $passwordResetService) {}
+
     public function requestReset(RequestPasswordResetRequest $request): JsonResponse
     {
         [$status, $data, $code, $message] = $this->passwordResetService->requestReset($request->validated());

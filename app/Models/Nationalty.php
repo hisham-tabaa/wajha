@@ -2,16 +2,14 @@
 
 namespace App\Models;
 
-use App\Models\BaseModel;
-use Modules\Auth\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Auth\Models\User;
 
 /**
  * Class Nationalty
  *
- * @package Modules\Auth\Models
  *
- * @property int    $id
+ * @property int $id
  * @property string $name_ar
  * @property string $name_en
  */
@@ -35,6 +33,7 @@ class Nationalty extends BaseModel
         'name_ar',
         'name_en',
     ];
+
     public function getAllowColumnsFilter(): array
     {
         return ['name_ar', 'name_en'];
