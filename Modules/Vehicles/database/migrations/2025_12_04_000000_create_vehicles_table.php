@@ -20,6 +20,8 @@ return new class extends Migration
             // Publisher name (could be dealer or individual)
             $table->string('publisher')->nullable();
 
+            // Publisher type
+            $table->enum('publisher_type', ['owner', 'showroom', 'agent', 'broker'])->nullable();
 
             // Offer details
             $table->string('offer_type')->nullable(); // e.g., "sale", "rent"
@@ -32,6 +34,7 @@ return new class extends Migration
             // Pricing and payment details
             $table->decimal('price', 15, 2)->nullable();
             $table->string('payment_type')->nullable(); // e.g., "cash", "installment"
+            $table->unsignedInteger('installment_years')->nullable(); // 1, 2, 3, 4 years
             $table->string('rent_type')->nullable(); // e.g., "monthly", "yearly"
 
             // City
@@ -44,6 +47,11 @@ return new class extends Migration
             $table->string('color')->nullable(); // e.g., "black", "white"
             $table->string('transmission')->nullable(); // e.g., "automatic", "manual"
             $table->string('fuel_type')->nullable(); // e.g., "petrol", "diesel", "electric"
+            $table->string('country_of_origin')->nullable();
+            $table->unsignedInteger('cylinder')->nullable(); // 3, 4, 5, 6, 7, 8, 9, 10+
+            $table->enum('insurance', ['mandatory', 'optional', 'comprehensive'])->nullable();
+            $table->decimal('engine_capacity', 10, 2)->nullable();
+            $table->unsignedInteger('power_horses')->nullable();
 
             // Vehicle condition and status
             $table->decimal('mileage', 10, 2)->nullable(); // Kilometers or miles

@@ -23,13 +23,8 @@ class PasswordResetService implements PasswordResetInterface
 
             /** @var User|null $user */
             $user = User::where('email', $email)->first();
-            if (!$user) {
-                return [
-                    false,
-                    [],
-                    404,
-                    __('auth::messages.user_not_found')
-                ];
+            if (! $user) {
+                return [false, [], 404, 'User not found.'];
             }
 
             $code = random_int(100000, 999999);
@@ -76,13 +71,8 @@ class PasswordResetService implements PasswordResetInterface
                 ->where('expires_at', '>', Carbon::now())
                 ->first();
 
-            if (!$verification) {
-                return [
-                    false,
-                    [],
-                    400,
-                    __('auth::messages.invalid_or_expired_reset_code')
-                ];
+            if (! $verification) {
+                return [false, [], 400, 'Invalid or expired reset code.'];
             }
             return [
                 true,
@@ -119,25 +109,14 @@ class PasswordResetService implements PasswordResetInterface
                     ->lockForUpdate()
                     ->first();
 
-                if (!$verification) {
-                    return [
-                        false,
-                        [],
-                        400,
-                        __('auth::messages.invalid_or_expired_reset_code')
-                    ];
+                if (! $verification) {
+                    return [false, [], 400, 'Invalid or expired reset code.'];
                 }
 
                 /** @var User|null $user */
                 $user = User::where('email', $email)->first();
-                if (!$user) {
-
-                    return [
-                        false,
-                        [],
-                        404,
-                        __('auth::messages.user_not_found')
-                    ];
+                if (! $user) {
+                    return [false, [], 404, 'User not found.'];
                 }
 
                 $user->update(['password' => Hash::make($password)]);

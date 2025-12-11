@@ -12,7 +12,7 @@ class AwadTestController extends Controller
     public function index()
     {
         $realEstate = RealEstate::findOrFail(1);
-$result=[];
+        $result = [];
         // هنا تمرر الكائن، وليس الكلاس
         [$status,$data,$code,$message] = $this->authorizeArray('viewAny', RealEstate::class);
         $result['viewAny'] = ['status' => $status, 'data' => $data, 'code' => $code, 'message' => $message];

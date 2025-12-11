@@ -2,16 +2,12 @@
 
 namespace Modules\Auth\Http\Controllers\Auth;
 
-use App\Http\Middleware\CheckPermission;
-use Modules\Auth\Services\GetRole\UserService;
-use Modules\Auth\Services\GetRole\UserInterface;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Modules\Auth\Transformers\UserResource\UserResource;
 use App\Http\Controllers\Controller;
-use Modules\System\Transformers\Role\RoleCollection;
+use App\Http\Middleware\CheckPermission;
+use Illuminate\Http\JsonResponse;
 use Modules\Auth\Http\Requests\ChangeUserRoleRequest;
-
+use Modules\Auth\Services\GetRole\UserService;
+use Modules\System\Transformers\Role\RoleCollection;
 
 class UserController extends Controller
 {
@@ -20,7 +16,7 @@ class UserController extends Controller
     public function __construct(UserService $userService)
     {
         $this->userService = $userService;
-        $this->middleware(CheckPermission::class . ':choice_role', ['only' => ['getRoles', 'changeRole']]);
+        $this->middleware(CheckPermission::class.':choice_role', ['only' => ['getRoles', 'changeRole']]);
     }
 
     public function getRoles(): JsonResponse
@@ -31,9 +27,9 @@ class UserController extends Controller
             ? $this->successResponse(new RoleCollection($data), $code, $message)
             : $this->errorResponse([], $code, $message);
     }
+
     public function changeRole(ChangeUserRoleRequest $request)
     {
-
 
         [$status, $data, $code, $message] = $this->userService->changeUserRole($request);
 

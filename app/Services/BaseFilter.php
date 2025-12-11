@@ -2,10 +2,9 @@
 
 namespace App\Services;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 /**
  * Class BaseFilter
@@ -17,23 +16,18 @@ class BaseFilter
 {
     /**
      * The model class to filter.
-     *
-     * @var string
      */
     protected string $modelClass;
+
     protected $model;
 
     /**
      * The filters extracted from the request.
-     *
-     * @var array
      */
     protected array $filters;
 
     /**
      * Data types considered searchable via LIKE.
-     *
-     * @var array
      */
     protected array $searchableTypes = [
         'string',
@@ -45,13 +39,11 @@ class BaseFilter
         'tinytext',
         'enum',
         'ntext',
-        'nvarchar'
+        'nvarchar',
     ];
 
     /**
      * Data types considered numeric.
-     *
-     * @var array
      */
     protected array $numericTypes = [
         'int',
@@ -64,13 +56,11 @@ class BaseFilter
         'real',
         'tinyint',
         'mediumint',
-        'numeric'
+        'numeric',
     ];
 
     /**
      * Data types considered date or datetime.
-     *
-     * @var array
      */
     protected array $dateTypes = [
         'date',
@@ -78,13 +68,11 @@ class BaseFilter
         'timestamp',
         'timestamptz',
         'time',
-        'year'
+        'year',
     ];
 
     /**
      * Data types considered boolean.
-     *
-     * @var array
      */
     protected array $booleanTypes = [
         'boolean',
@@ -92,14 +80,11 @@ class BaseFilter
         'tinyint(1)',
         'bit',
         'smallint(1)',
-        'int(1)'
+        'int(1)',
     ];
 
     /**
      * BaseFilter constructor.
-     *
-     * @param string $modelClass
-     * @param Request $request
      */
     public function __construct(string $modelClass, Request $request)
     {
@@ -111,14 +96,9 @@ class BaseFilter
             $this->filters['search'] = $request->search;
         }
     }
-/**
- 
- *
- */
+
     /**
      * Apply filters and return a query builder.
-     *
-     * @return Builder
      */
     public function execute(): Builder
     {
@@ -132,14 +112,14 @@ class BaseFilter
         $query = $this->model->newQuery();
 
         // Global search feature on all searchable fields
-        if (isset($this->filters['search']) && !empty($this->filters['search'])) {
+        if (isset($this->filters['search']) && ! empty($this->filters['search'])) {
             $searchTerm = $this->filters['search'];
             unset($this->filters['search']);
 
             $query->where(function ($q) use ($columns, $columnTypes, $searchTerm) {
                 foreach ($columns as $column) {
                     if (in_array($columnTypes[$column], $this->searchableTypes)) {
-                        $q->orWhere($column, 'like', '%' . $searchTerm . '%');
+                        $q->orWhere($column, 'like', '%'.$searchTerm.'%');
                     }
                 }
             });
@@ -147,20 +127,22 @@ class BaseFilter
 
         // Loop through each filter field and apply appropriate filtering
         foreach ($this->filters as $field => $value) {
-            if (!in_array($field, $columns)) {
+            if (! in_array($field, $columns)) {
                 continue;
             }
 
             $type = $columnTypes[$field];
 
             // Check for null / notNull
-            if ($value === "null") {
+            if ($value === 'null') {
                 $query->whereNull($field);
+
                 continue;
             }
 
-            if ($value === "notNull") {
+            if ($value === 'notNull') {
                 $query->whereNotNull($field);
+
                 continue;
             }
 
@@ -170,6 +152,7 @@ class BaseFilter
                 if ($boolValue !== null) {
                     $query->where($field, $boolValue);
                 }
+
                 continue;
             }
 
@@ -181,7 +164,7 @@ class BaseFilter
                         $val = trim($val);
                         if (str_starts_with($val, '!')) {
                             $q->where($field, '!=', ltrim($val, '!'));
-                        } else if (str_starts_with($val, '>')) {
+                        } elseif (str_starts_with($val, '>')) {
                             $q->where($field, '>', ltrim($val, '>'));
                         } elseif (str_starts_with($val, '<')) {
                             $q->where($field, '<', ltrim($val, '<'));
@@ -202,6 +185,7 @@ class BaseFilter
             if ($this->isDateType($type) && str_contains($value, ' to ')) {
                 [$start, $end] = explode(' to ', $value);
                 $query->whereBetween($field, [trim($start), trim($end)]);
+
                 continue;
             }
 
@@ -216,18 +200,17 @@ class BaseFilter
                         if ($isEnum) {
                             $q->where($field, '!=', $cleaned);
                         } else {
-                            $q->where($field, 'not like', '%' . $cleaned . '%');
+                            $q->where($field, 'not like', '%'.$cleaned.'%');
                         }
                     } else {
                         if ($isEnum) {
                             $q->orWhere($field, '=', $val);
                         } else {
-                            $q->orWhere($field, 'like', '%' . $val . '%');
+                            $q->orWhere($field, 'like', '%'.$val.'%');
                         }
                     }
                 }
             });
-
 
         }
 
@@ -236,10 +219,6 @@ class BaseFilter
 
     /**
      * Get the column types for a table.
-     *
-     * @param string $table
-     * @param array $columns
-     * @return array
      */
     protected function getColumnTypes(string $table, array $columns): array
     {
@@ -247,14 +226,12 @@ class BaseFilter
         foreach ($columns as $column) {
             $types[$column] = Schema::getColumnType($table, $column);
         }
+
         return $types;
     }
 
     /**
      * Check if a type is numeric.
-     *
-     * @param string $type
-     * @return bool
      */
     protected function isNumericType(string $type): bool
     {
@@ -263,9 +240,6 @@ class BaseFilter
 
     /**
      * Check if a type is date-like.
-     *
-     * @param string $type
-     * @return bool
      */
     protected function isDateType(string $type): bool
     {

@@ -9,15 +9,14 @@ use Modules\System\Responce\Permission\PermissionNameResponce;
 class MyRoleResource extends JsonResource
 {
     private $policies;
+
     /**
      * Transform the resource into an array.
-     *
-     * @param Request $request
-     * @return array
      */
-    public function toArray(Request $request): array 
+    public function toArray(Request $request): array
     {
         $this->policies = config('role_policy.policy');
+
         return [
             'name' => $this->name,
             'name_ar' => $this->name_ar,
