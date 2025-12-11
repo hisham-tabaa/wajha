@@ -14,17 +14,18 @@ class SendVerificationCodeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email|max:100|exists:users,email',
+            'email' => 'required|email|max:255|exists:users,email',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'email.required' => 'حقل البريد الإلكتروني مطلوب.',
-            'email.email' => 'يجب أن يكون البريد الإلكتروني بصيغة صحيحة.',
-            'email.max' => 'يجب ألا يتجاوز البريد الإلكتروني 100 حرف.',
-            'email.exists' => 'البريد الإلكتروني غير مسجل لدينا.',
+            'email.required' => __('auth::validation.email_required'),
+            'email.email' => __('auth::validation.email_email'),
+            'email.exists' => __('auth::validation.email_not_exists'),
+            'email.max' => __('auth::validation.email_max', ['max' => 255]),
+
         ];
     }
 }

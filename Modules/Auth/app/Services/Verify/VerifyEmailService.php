@@ -43,8 +43,12 @@ class VerifyEmailService implements VerifyEmailInterface
 
             // 🧹 حذف الكود بعد نجاح التحقق
             $verification->delete();
-
-            return [true, [], 201, 'تم تأكيد البريد الإلكتروني بنجاح.'];
+            return [
+                true,
+                [],
+                201,
+                __('auth::messages.email_verified_successfully')
+            ];
         } catch (Exception $e) {
             Log::error('VerifyEmailService@verify', [
                 'Message' => $e->getMessage(),
@@ -64,8 +68,13 @@ class VerifyEmailService implements VerifyEmailInterface
         try {
             $user = User::where('email', $email)->first();
 
-            if (! $user) {
-                return [false, [], 404, 'هذا البريد الإلكتروني غير موجود.'];
+            if (!$user) {
+                return [
+                    false,
+                    [],
+                    404,
+                    __('auth::messages.user_not_found')
+                ];
             }
 
             // 🔢 إنشاء رمز تحقق جديد

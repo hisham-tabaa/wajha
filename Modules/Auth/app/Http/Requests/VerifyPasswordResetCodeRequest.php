@@ -14,7 +14,7 @@ class VerifyPasswordResetCodeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email|max:255',
+            'email' => 'required|email|max:255|exists:users,email',
             'code' => 'required|string',
         ];
     }
@@ -22,11 +22,12 @@ class VerifyPasswordResetCodeRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'email.required' => 'The email field is required.',
-            'email.email' => 'The email must be a valid email address.',
-            'email.max' => 'The email may not be greater than 255 characters.',
-            'code.required' => 'The reset code is required.',
-            'code.string' => 'The reset code must be a string.',
+            'email.required' => __('auth::validation.email_required'),
+            'email.email' => __('auth::validation.email_email'),
+            'email.max' => __('auth::validation.email_max', ['max' => 255]),
+            'email.exists' => __('auth::validation.email_not_exists'),
+            'code.required' => __('auth::validation.code_required'),
+            'code.string' => __('auth::validation.code_string'),
         ];
     }
 }

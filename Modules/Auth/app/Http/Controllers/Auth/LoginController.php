@@ -7,6 +7,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\Auth\Services\Login\ILoginService;
 use Modules\Auth\Transformers\UserResource\UserResource;
+use Modules\Auth\Http\Requests\LoginRequest;
+
 
 class LoginController extends Controller
 {
@@ -17,7 +19,7 @@ class LoginController extends Controller
         $this->loginService = $loginService;
     }
 
-    public function login(Request $request): JsonResponse
+    public function login(LoginRequest $request): JsonResponse
     {
         [$status, $data, $code, $message] = $this->loginService->login($request);
 
@@ -25,4 +27,5 @@ class LoginController extends Controller
             $this->successResponse(new UserResource($data), $code, $message)
             : $this->errorResponse($data, $code, $message);
     }
+
 }

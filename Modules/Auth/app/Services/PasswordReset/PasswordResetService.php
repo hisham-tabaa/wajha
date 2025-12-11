@@ -38,8 +38,12 @@ class PasswordResetService implements PasswordResetInterface
             );
 
             Mail::to($email)->queue(new SendVerificationCode((string) $code, $email));
-
-            return [true, [], 200, 'Password reset code sent successfully.'];
+            return [
+                true,
+                [],
+                200,
+                __('auth::messages.password_reset_code_sent')
+            ];
         } catch (Exception $exception) {
             Log::error('PasswordResetService@requestReset', [
                 'message' => $exception->getMessage(),
@@ -47,7 +51,12 @@ class PasswordResetService implements PasswordResetInterface
                 'line' => $exception->getLine(),
             ]);
 
-            return [false, [], 500, 'Unable to send reset code.'];
+            return [
+                false,
+                [],
+                500,
+                __('auth::messages.failed_to_send_reset_code')
+            ];
         }
     }
 
@@ -65,16 +74,24 @@ class PasswordResetService implements PasswordResetInterface
             if (! $verification) {
                 return [false, [], 400, 'Invalid or expired reset code.'];
             }
-
-            return [true, [], 200, 'Reset code verified successfully.'];
+            return [
+                true,
+                [],
+                200,
+                __('auth::messages.reset_code_verified')
+            ];
         } catch (Exception $exception) {
             Log::error('PasswordResetService@verifyCode', [
                 'message' => $exception->getMessage(),
                 'file' => $exception->getFile(),
                 'line' => $exception->getLine(),
             ]);
-
-            return [false, [], 500, 'Unable to verify reset code.'];
+            return [
+                false,
+                [],
+                500,
+                __('auth::messages.failed_to_verify_code')
+            ];
         }
     }
 
@@ -106,7 +123,12 @@ class PasswordResetService implements PasswordResetInterface
 
                 $verification->delete();
 
-                return [true, [], 200, 'Password reset successfully.'];
+                return [
+                    true,
+                    [],
+                    200,
+                    __('auth::messages.password_reset_success')
+                ];
             });
         } catch (Exception $exception) {
             Log::error('PasswordResetService@reset', [
@@ -115,7 +137,12 @@ class PasswordResetService implements PasswordResetInterface
                 'line' => $exception->getLine(),
             ]);
 
-            return [false, [], 500, 'Unable to reset password.'];
+            return [
+                false,
+                [],
+                500,
+                __('auth::messages.password_reset_failed')
+            ];
         }
     }
 }

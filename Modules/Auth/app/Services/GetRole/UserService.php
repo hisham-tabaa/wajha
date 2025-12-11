@@ -16,7 +16,7 @@ class UserService implements UserInterface
         try {
             $roles = Role::whereIn('name', ['user', 'seller'])->get();
 
-            return [true, $roles, 200, 'تم جلب الأدوار بنجاح'];
+            return [true, $roles, 200,  __('auth::messages.roles_retrieved_successfully')];
         } catch (Exception $e) {
             Log::error(' UserService@getRoles', [
                 'File' => $e->getFile(),
@@ -57,7 +57,7 @@ class UserService implements UserInterface
             $user->is_choiced_account = true;
             $user->save();
 
-            return [true, $user, 200, 'تم تغيير الرول بنجاح.'];
+            return [true, $user, 200,  __('auth::messages.role_changed_successfully')];
         } catch (Exception $e) {
             Log::error('UserService@changeUserRole', [
                 'File' => $e->getFile(),

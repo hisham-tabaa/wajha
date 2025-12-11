@@ -14,7 +14,7 @@ class VerifyEmailRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|max:100|email|exists:users,email',
+            'email' => 'required|max:255|email|exists:users,email',
             'code' => 'required|string',
         ];
     }
@@ -22,12 +22,12 @@ class VerifyEmailRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'email.required' => 'حقل البريد الإلكتروني مطلوب.',
-            'email.max' => 'يجب ألا يتجاوز البريد الإلكتروني 100 حرف.',
-            'email.email' => 'يجب أن يكون البريد الإلكتروني بصيغة صحيحة.',
-            'email.exists' => 'هذا البريد الإلكتروني غير مسجل لدينا.',
-            'code.required' => 'رمز التحقق مطلوب.',
-            'code.string' => 'يجب أن يكون رمز التحقق نصيًا.',
+            'email.required' => __('auth::validation.email_required'),
+            'email.max' => __('auth::validation.email_max', ['max' => 255]),
+            'email.email' => __('auth::validation.email_email'),
+            'email.exists' => __('auth::validation.email_not_exists'),
+            'code.required' => __('auth::validation.code_required'),
+            'code.string' => __('auth::validation.code_string'),
         ];
     }
 }

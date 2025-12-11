@@ -14,16 +14,17 @@ class RequestPasswordResetRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email|max:255',
+            'email' => 'required|email|max:255|exists:users,email',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'email.required' => 'The email field is required.',
-            'email.email' => 'The email must be a valid email address.',
-            'email.max' => 'The email may not be greater than 255 characters.',
+            'email.required' => __('auth::validation.email_required'),
+            'email.email' => __('auth::validation.email_email'),
+            'email.max' => __('auth::validation.email_max', ['max' => 255]),
+            'email.exists' => __('auth::validation.email_not_exists'),
         ];
     }
 }

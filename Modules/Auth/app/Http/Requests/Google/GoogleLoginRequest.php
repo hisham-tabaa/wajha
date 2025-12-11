@@ -32,6 +32,8 @@ class GoogleLoginRequest extends FormRequest
         return [
             'id_token.required' => 'رمز تعريف Google مطلوب.',
             'id_token.string' => 'رمز تعريف Google يجب أن يكون صالحًا.',
+            'id_token.required' => __('auth::validation.id_token_required'),
+            'id_token.string'   => __('auth::validation.id_token_string'),
         ];
     }
 }

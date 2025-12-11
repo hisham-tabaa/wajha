@@ -32,6 +32,7 @@ class UpdateProfileRequest extends FormRequest
 
     public function messages(): array
     {
+
         return [
             'first_name.required' => 'First name is required',
             'first_name.string' => 'First name must be a string',
@@ -53,7 +54,7 @@ class UpdateProfileRequest extends FormRequest
             'phone.string' => 'Phone number must be a string',
             'phone.max' => 'Phone number must not exceed 20 characters',
 
-            'nationalty_id.exists' => 'Selected nationality is invalid',
+            'nationality_id.exists' => __('auth::validation.nationality_exists'),
         ];
     }
 }

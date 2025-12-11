@@ -8,30 +8,53 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Modules\Auth\Models\User;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Modules\Auth\Models\User;
+use Modules\Auth\Http\Requests\LoginRequest;
 
 class LoginService implements ILoginService
 {
-    public function login(Request $request): array
+    public function login(LoginRequest $request): array
     {
         try {
-            $email = $request->input('email');
-            $password = $request->input('password');
+            $validated = $request->validated();
+            $email = $validated['email'];
+            $password = $validated['password'];
 
             // Find user by email
             $user = User::where('email', $email)->first();
 
-            if (! $user) {
-                return [false, ['error' => 'Invalid credentials'], 400, 'Invalid credentials'];
+            // Check if user exists validate email
+            if (!$user) {
+                return [
+                    false,
+                    ['error' => __('auth::messages.email_incorrect')],
+                    401,
+                    __('auth::messages.email_incorrect')
+                ];
             }
 
-            if (! Hash::check($password, $user->password)) {
-                return [false, ['error' => 'Invalid credentials'], 400, 'Invalid credentials'];
+            // Check if password is correct
+            if (!Hash::check($password, $user->password)) {
+                return [
+                    false,
+                    ['error' => __('auth::messages.password_incorrect')],
+                    401,
+                    __('auth::messages.password_incorrect')
+                ];
             }
 
-            // Validation if user have verification email
-            if (! $user->confirmed_at) {
-                return [false, ['error' => 'Email not verified'], 400, 'Email not verified'];
-            }
+            // Check if email is verified (if required)
+            // if (!$user->hasVerifiedEmail()) {
+            //     return [
+            //         false,
+            //         [],
+            //         403,
+            //         __('auth::messages.email_not_verified')
+            //     ];
+            // }
 
             // Load role and permissions
             $user->load(['role', 'permissions']);
@@ -39,14 +62,29 @@ class LoginService implements ILoginService
             // Create token
             $token = $user->createToken('wejha-token-plain-text')->plainTextToken;
 
-            return [true, ['user' => $user, 'token' => $token], 201, 'Login successful'];
+            return [
+                true,
+                [
+                    'user' => $user,
+                    'token' => $token,
+                    'token_type' => 'Bearer'
+                ],
+                200,
+                __('auth::messages.login_success')
+            ];
         } catch (Exception $e) {
-            Log::error('LoginService@login', [
-                'Message' => $e->getMessage(),
+            Log::error("LoginService@login", [
                 'File' => $e->getFile(),
                 'Line' => $e->getLine(),
+                'Message' => $e->getMessage(),
             ]);
-            throw $e;
+
+            return [
+                false,
+                [],
+                500,
+                __('auth::messages.login_failed')
+            ];
         }
     }
 }

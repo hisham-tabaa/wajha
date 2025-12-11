@@ -14,7 +14,7 @@ class GoogleAuthService implements IGoogleAuthService
     public function loginWithGoogleToken(Request $request): array
     {
         try {
-            $client = new Google_Client(['client_id' => env('GOOGLE_CLIENT_ID')]); // verify the same client_id
+            $client = new Google_Client (['client_id' => env('GOOGLE_CLIENT_ID')]); // verify the same client_id
             $payload = $client->verifyIdToken($request->id_token);
 
             if (! $payload) {
@@ -57,14 +57,14 @@ class GoogleAuthService implements IGoogleAuthService
             $token = $user->createToken('wejha-token-plain-text')->plainTextToken;
 
             return [true, ['user' => $user, 'token' => $token], 201, 'Authenticated successfully'];
+            return [true, ['user' => $user, 'token' => $token], 201, ('auth::messages.google_login_success')];
         } catch (Exception $e) {
             Log::error('Custom error message', [
                 'file' => $e->getFile(),     // اسم الملف اللي حصل فيه الخطأ
                 'line' => $e->getLine(),     // رقم السطر
                 'message' => $e->getMessage(), // رسالة الخطأ
             ]);
-
-            return [false, [], 500, 'Google authentication failed'];
+            return [false, [], 500, __('auth::messages.google_login_failed')];
         }
     }
 }
