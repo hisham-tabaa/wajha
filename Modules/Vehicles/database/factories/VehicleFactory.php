@@ -13,6 +13,7 @@ class VehicleFactory extends Factory
     {
         return [
             'publisher' => $this->faker->name(),
+            'publisher_type' => $this->faker->randomElement(['owner', 'showroom', 'agent', 'broker']),
             'offer_type' => $this->faker->randomElement(['sale', 'rent']),
             'main_address' => $this->faker->address(),
             'lat' => $this->faker->latitude(),

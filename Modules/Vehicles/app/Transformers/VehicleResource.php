@@ -13,6 +13,7 @@ class VehicleResource extends JsonResource
             'id' => $this->id,
             'user_id' => $this->user_id,
             'publisher' => $this->publisher,
+            'publisher_type' => $this->publisher_type,
             'offer_type' => $this->offer_type,
             'main_address' => $this->main_address,
             'lat' => $this->lat,

@@ -20,6 +20,9 @@ return new class extends Migration
             // Publisher name (could be dealer or individual)
             $table->string('publisher')->nullable();
 
+            // Publisher type
+            $table->enum('publisher_type', ['owner', 'showroom', 'agent', 'broker'])->nullable();
+
             // Offer details
             $table->string('offer_type')->nullable(); // e.g., "sale", "rent"
             $table->string('main_address')->nullable();
