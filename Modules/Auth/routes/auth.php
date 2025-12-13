@@ -22,5 +22,5 @@ Route::middleware(['throttle.custom'])->group(function () {
         Route::get('/roles', [UserController::class, 'getRoles']);
         Route::patch('/users/change-role', [UserController::class, 'changeRole']);
     });
-});    Route::post('/google-auth', [GoogleAuthController::class, 'authenticate']);
+    // });    Route::post('/google-auth', [GoogleAuthController::class, 'authenticate']);
 });
