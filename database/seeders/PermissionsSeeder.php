@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class PermissionsSeeder extends Seeder
 {
@@ -18,9 +19,8 @@ class PermissionsSeeder extends Seeder
                 ->unique('name')
                 ->values();
             foreach ($allPermissions as $permission) {
-                if (! isset($permission['name'], $permission['name_ar'], $permission['name_en'])) {
+                if (!isset($permission['name'], $permission['name_ar'], $permission['name_en'])) {
                     Log::warning('Permission missing keys', $permission);
-
                     continue;
                 }
 

@@ -12,7 +12,9 @@ use Modules\Vehicles\Transformers\VehicleResource;
 
 class VehicleController extends Controller
 {
-    public function __construct(private readonly IVehicleService $vehicleService) {}
+    public function __construct(private readonly IVehicleService $vehicleService)
+    {
+    }
 
     public function index(IndexVehicleRequest $request): JsonResponse
     {

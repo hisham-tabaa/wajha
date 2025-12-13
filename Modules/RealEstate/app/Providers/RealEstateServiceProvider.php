@@ -2,14 +2,20 @@
 
 namespace Modules\RealEstate\Providers;
 
+use Modules\Auth\Models\User;
+use RecursiveIteratorIterator;
+use RecursiveDirectoryIterator;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Modules\RealEstate\Services\RealEstateRent\IRealEstateRentService;
+use Nwidart\Modules\Traits\PathNamespace;
+use Modules\RealEstate\Policies\SellerPolicy;
+use Modules\RealEstate\Services\RealEstateService;
+use Modules\RealEstate\Services\RealEstateServiceInterface;
 use Modules\RealEstate\Services\RealEstateRent\RealEstateRentService;
 use Modules\RealEstate\Services\RealEstateSale\RealEstateSaleService;
-use Nwidart\Modules\Traits\PathNamespace;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
+use Modules\RealEstate\Services\RealEstateRent\IRealEstateRentService;
+use Modules\RealEstate\Services\RealEstateSale\IRealEstateSaleService;
 
 class RealEstateServiceProvider extends ServiceProvider
 {

@@ -3,9 +3,11 @@
 namespace Modules\RealEstate\Models;
 
 use App\Models\BaseModel;
+use Modules\Auth\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Modules\RealEstate\Models\RealEstate;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 // use Modules\RealEstate\Database\Factories\RealEstateFactory;
 
 class RealEstatePhoto extends BaseModel
@@ -25,7 +27,6 @@ class RealEstatePhoto extends BaseModel
     {
         return [];
     }
-
     /**
      * The attributes that should be cast.
      *

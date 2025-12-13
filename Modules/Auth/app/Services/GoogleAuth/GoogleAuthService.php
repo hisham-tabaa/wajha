@@ -4,10 +4,13 @@ namespace Modules\Auth\Services\GoogleAuth;
 
 use Exception;
 use Google_Client;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Modules\Auth\Models\User;
+use Firebase\Auth\Token\Verifier;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Log;
+use Firebase\Auth\Token\Exception\InvalidToken;
 
 class GoogleAuthService implements IGoogleAuthService
 {
@@ -17,19 +20,29 @@ class GoogleAuthService implements IGoogleAuthService
             $client = new Google_Client (['client_id' => env('GOOGLE_CLIENT_ID')]); // verify the same client_id
             $payload = $client->verifyIdToken($request->id_token);
 
-            if (! $payload) {
-                return [false,  [], 401, 'Invalid Google token'];
+            if (!$payload) {
+                return [
+                    false,
+                    [],
+                    401,
+                    __(key: 'auth::messages.invalid_google_token')
+                ];
             }
 
             $uid = $payload['sub'];
             $email = $payload['email'];
             $name = $payload['name'];
             $role = Role::where('name', 'default')->first();
-            if (! $role) {
-                return [false, [], 404, 'The Role(default) not found'];
+            if (!$role) {
+                return [
+                    false,
+                    [],
+                    404,
+                    __('auth::messages.role_not_found')
+                ];
             }
             $user = User::where(['email' => $email])->first();
-            if (! $user) {
+            if (!$user) {
                 $user = User::create(
                     [
                         'email' => $email,
@@ -55,14 +68,12 @@ class GoogleAuthService implements IGoogleAuthService
             // Token strategy: if Sanctum installed, issue token; otherwise return null
             $token = null;
             $token = $user->createToken('wejha-token-plain-text')->plainTextToken;
-
-            return [true, ['user' => $user, 'token' => $token], 201, 'Authenticated successfully'];
             return [true, ['user' => $user, 'token' => $token], 201, ('auth::messages.google_login_success')];
         } catch (Exception $e) {
             Log::error('Custom error message', [
                 'file' => $e->getFile(),     // اسم الملف اللي حصل فيه الخطأ
                 'line' => $e->getLine(),     // رقم السطر
-                'message' => $e->getMessage(), // رسالة الخطأ
+                'message' => $e->getMessage() // رسالة الخطأ
             ]);
             return [false, [], 500, __('auth::messages.google_login_failed')];
         }

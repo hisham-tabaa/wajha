@@ -1,6 +1,7 @@
 <?php
 
 namespace Modules\System\Services\Permission;
+use Spatie\Permission\Models\Permission;
 
 interface IPermissionService
 {

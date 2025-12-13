@@ -10,10 +10,17 @@ class RoleResource extends JsonResource
 {
     private $policies;
 
-    public function toArray(Request $request): array
+    /**
+     *
+     * @param Request $request
+     * @return array
+     */
+
+
+
+   public function toArray(Request $request): array
     {
         $this->policies = config('role_policy.policy');
-
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -28,3 +35,4 @@ class RoleResource extends JsonResource
         ];
     }
 }
+

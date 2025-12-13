@@ -3,12 +3,17 @@
 namespace Modules\RealEstate\Models;
 
 use App\Models\BaseModel;
+use Modules\Auth\Models\User;
+use Illuminate\Database\Eloquent\Model;
+use Modules\RealEstate\Models\RealEstate;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-
 // use Modules\RealEstate\Database\Factories\RealEstateFactory;
 
 class Feature extends BaseModel
 {
+
     /**
      * The attributes that are mass assignable.
      *
@@ -19,9 +24,7 @@ class Feature extends BaseModel
         'name_en',
         'type',
     ];
-
-    public function getAllowColumnsFilter(): array
-    {
+      public function getAllowColumnsFilter(): array{
         return [];
     }
 
@@ -40,7 +43,7 @@ class Feature extends BaseModel
     public function realEstates(): BelongsToMany
     {
         return $this->belongsToMany(RealEstate::class, 'real_estate_features')
-            ->withTimestamps();
+                    ->withTimestamps();
     }
 
     /**
@@ -65,7 +68,7 @@ class Feature extends BaseModel
     public function scopeSearch($query, $search)
     {
         return $query->where('name_ar', 'LIKE', "%{$search}%")
-            ->orWhere('name_en', 'LIKE', "%{$search}%");
+                    ->orWhere('name_en', 'LIKE', "%{$search}%");
     }
 
     /**

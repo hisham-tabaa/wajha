@@ -1,5 +1,4 @@
 <?php
-
 return [
     'permissions' => [
 
@@ -9,9 +8,18 @@ return [
         ['name' => 'update_role', 'group' => 'role', 'group_en' => 'Users Management | Roles', 'group_ar' => 'إدارة المستخدمين | الادوار',  'order' => 0, 'name_ar' => 'تعديل', 'name_en' => 'Update'],
         ['name' => 'delete_role', 'group' => 'role', 'group_en' => 'Users Management | Roles', 'group_ar' => 'إدارة المستخدمين | الادوار',  'order' => 0, 'name_ar' => 'حذف', 'name_en' => 'Delete'],
 
-        // User
+        //User
         ['name' => 'update_profile', 'group' => 'user', 'group_en' => 'User', 'group_ar' => 'مستخدم', 'order' => 1, 'name_en' => 'Update Profile', 'name_ar' => 'تعديل الملف السخصي'],
         ['name' => 'choice_role', 'group' => 'user', 'group_en' => 'User', 'group_ar' => 'مستخدم', 'order' => 1, 'name_en' => 'Choice Role', 'name_ar' => 'اختيار نوع الحساب'],
+
+
+
+
+
+
+
+
+
 
     ],
     'roles' => [
@@ -21,17 +29,18 @@ return [
         ['name' => 'default', 'name_ar' => 'افتراضي', 'name_en' => 'Default'],
     ],
 
+
     'admin' => [
         'update_profile',
         'read_all_roles',
         'create_role',
         'update_role',
-        'delete_role',
+        'delete_role'
     ],
     'user' => [
-        'update_profile',
+        'update_profile'
     ],
     'default' => [
-        'choice_role',
+        'choice_role'
     ],
 ];

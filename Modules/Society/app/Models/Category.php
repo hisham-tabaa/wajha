@@ -4,8 +4,8 @@ namespace Modules\Society\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Category extends Model
 {
@@ -19,12 +19,12 @@ class Category extends Model
         'color',
         'sort_order',
         'is_active',
-        'parent_id',
+        'parent_id'
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
-        'sort_order' => 'integer',
+        'sort_order' => 'integer'
     ];
 
     /**

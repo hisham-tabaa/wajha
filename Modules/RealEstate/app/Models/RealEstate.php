@@ -3,10 +3,11 @@
 namespace Modules\RealEstate\Models;
 
 use App\Models\BaseModel;
+use Modules\Auth\Models\User;
+use Modules\RealEstate\Models\Feature;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Modules\Auth\Models\User;
-
 // use Modules\RealEstate\Database\Factories\RealEstateFactory;
 
 class RealEstate extends BaseModel
@@ -41,7 +42,6 @@ class RealEstate extends BaseModel
         'floor',
         'description',
     ];
-
     public function getAllowColumnsFilter(): array
     {
         return [];

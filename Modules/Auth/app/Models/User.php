@@ -16,12 +16,13 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements BaseModelInterface
 {
-    use BaseFilterable;
     use HasApiTokens;
     use HasFactory;
-    use HasRoles;
     use Notifiable;
     use SoftDeletes;
+    use HasRoles;
+    use BaseFilterable;
+
 
     protected $table = 'users';
 
@@ -80,6 +81,8 @@ class User extends Authenticatable implements BaseModelInterface
     {
         $this->attributes['password'] = Hash::make($value);
     }
+
+
 
     /*
     |--------------------------------------------------------------------------

@@ -2,9 +2,9 @@
 
 namespace Modules\RealEstate\Providers;
 
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Modules\RealEstate\Models\RealEstate;
 use Modules\RealEstate\Policies\SellerPolicy;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {

@@ -2,13 +2,13 @@
 
 namespace Modules\System\Providers;
 
+use RecursiveIteratorIterator;
+use RecursiveDirectoryIterator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Modules\System\Services\Role\IRoleService;
-use Modules\System\Services\Role\RoleService;
 use Nwidart\Modules\Traits\PathNamespace;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
+use Modules\System\Services\Role\RoleService;
+use Modules\System\Services\Role\IRoleService;
 
 class SystemServiceProvider extends ServiceProvider
 {
@@ -133,7 +133,7 @@ class SystemServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->nameLower);
 
-        Blade::componentNamespace(config('modules.namespace').'\\'.$this->name.'\\View\\Components', $this->nameLower);
+        Blade::componentNamespace(config('modules.namespace').'\\' . $this->name . '\\View\\Components', $this->nameLower);
     }
 
     /**

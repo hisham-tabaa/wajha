@@ -12,7 +12,9 @@ use Modules\RealEstate\Transformers\RealEstateSale\RealEstateSaleResource;
 
 class RealEstateSaleController extends Controller
 {
-    public function __construct(private readonly IRealEstateSaleService $realEstateSaleService) {}
+    public function __construct(private readonly IRealEstateSaleService $realEstateSaleService)
+    {
+    }
 
     public function index(IndexRealEstateRequest $request): JsonResponse
     {

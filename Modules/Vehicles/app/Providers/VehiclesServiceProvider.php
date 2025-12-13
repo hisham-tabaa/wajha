@@ -42,9 +42,13 @@ class VehiclesServiceProvider extends ServiceProvider
         );
     }
 
-    protected function registerCommands(): void {}
+    protected function registerCommands(): void
+    {
+    }
 
-    protected function registerCommandSchedules(): void {}
+    protected function registerCommandSchedules(): void
+    {
+    }
 
     public function registerTranslations(): void
     {

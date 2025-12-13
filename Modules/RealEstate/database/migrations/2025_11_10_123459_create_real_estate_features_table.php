@@ -12,12 +12,12 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('real_estate_id')
-                ->constrained('real_estates')
-                ->cascadeOnDelete();
+                  ->constrained('real_estates')
+                  ->cascadeOnDelete();
 
             $table->foreignId('feature_id')
-                ->constrained('features')
-                ->cascadeOnDelete();
+                  ->constrained('features')
+                  ->cascadeOnDelete();
 
             $table->timestamps();
 

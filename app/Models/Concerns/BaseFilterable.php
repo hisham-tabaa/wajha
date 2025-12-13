@@ -1,10 +1,9 @@
 <?php
-
 namespace App\Models\Concerns;
 
 use App\Services\BaseFilter;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 trait BaseFilterable
 {
@@ -12,4 +11,5 @@ trait BaseFilterable
     {
         return (new BaseFilter(static::class, $request))->execute();
     }
+
 }

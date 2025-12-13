@@ -2,8 +2,8 @@
 
 return [
 
-    'categories' => [
-        'type' => ['society', 'shopping'],
+    "categories"=> [
+        "type"=>['society','shopping'],
     ],
 
 ];

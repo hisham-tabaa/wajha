@@ -19,9 +19,11 @@ class Controller extends BaseController
     /**
      * Return a standardized success response.
      *
-     * @param  mixed  $data  Response payload
-     * @param  int  $statusCode  HTTP status code (default: 200)
-     * @param  string  $message  Success message
+     * @param mixed       $data        Response payload
+     * @param int         $statusCode  HTTP status code (default: 200)
+     * @param string      $message     Success message
+     *
+     * @return JsonResponse
      */
     protected function successResponse($data, int $statusCode = 200, string $message = 'It done successfully'): JsonResponse
     {
@@ -34,9 +36,11 @@ class Controller extends BaseController
     /**
      * Return a standardized error response.
      *
-     * @param  mixed  $data  Error details or null
-     * @param  int  $statusCode  HTTP status code (default: 400)
-     * @param  string  $errorMessage  Error message
+     * @param mixed       $data         Error details or null
+     * @param int         $statusCode   HTTP status code (default: 400)
+     * @param string      $errorMessage Error message
+     *
+     * @return JsonResponse
      */
     protected function errorResponse($data, int $statusCode = 400, string $errorMessage = 'error'): JsonResponse
     {

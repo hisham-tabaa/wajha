@@ -4,9 +4,10 @@ namespace Modules\Auth\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
-use Modules\Auth\Http\Requests\UpdateProfileRequest;
+use Illuminate\Http\Request;
 use Modules\Auth\Services\UpdateProfile\ProfileServiceInterface;
 use Modules\Auth\Transformers\UserResource\UserResource;
+use Modules\Auth\Http\Requests\UpdateProfileRequest;
 
 class ProfileController extends Controller
 {
