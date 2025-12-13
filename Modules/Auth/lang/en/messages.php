@@ -22,10 +22,10 @@ return [
 
 
     // Login services done
-    'email_incorrect' => 'Email address is incorrect.',
+    'email_incorrect' => 'Login data is incorrect.',
 
     //'email_not_verified' => 'Email not verified. Please verify your email first.',
-    'password_incorrect' => 'Password is incorrect.',
+    'password_incorrect' => 'Login data is incorrect.',
     'login_success' => 'Login successful.',
     'login_failed' => 'Login failed.',
     // end Login services

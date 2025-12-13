@@ -19,9 +19,9 @@ return [
 
 
     //login services done
-    'email_incorrect' => 'البريد الإلكتروني غير صحيح.',
+    'email_incorrect' => 'معلومات تسجبل الدخول غير صحيحة.',
     //'email_not_verified' => 'البريد الإلكتروني غير مفعل. الرجاء تفعيل البريد أولاً.',
-    'password_incorrect' => 'كلمة المرور غير صحيحة.',
+    'password_incorrect' =>  'معلومات تسجبل الدخول غير صحيحة.',
     'login_success' => 'تم تسجيل الدخول بنجاح.',
     'login_failed' => 'فشل في عملية تسجيل الدخول.',
     //end login services
