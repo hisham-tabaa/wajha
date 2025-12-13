@@ -2,40 +2,34 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Controllers\Controller;
 use Closure;
 use Illuminate\Http\Request;
-use App\Response\AppResponse;
-use Modules\Auth\Models\User;
-use Illuminate\Support\Facades\Log;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Modules\Auth\Models\User;
 
 class CheckPermission
 {
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure                 $next
-     * @param  string                   $names  Permission names separated by |
+     * @param  string  $names  Permission names separated by |
      * @return mixed
      */
     public function handle(Request $request, Closure $next, $names)
     {
         $user = User::find(Auth::id());
-        if (!$user) {
+        if (! $user) {
             Log::warning('Unauthorized access attempt', [
                 'ip' => $request->ip(),
                 'route' => $request->path(),
             ]);
-            return response()->json(
-                new AppResponse(
-                    'failed',
-                    null,
-                    401,
-                    __('errors.not_logged_in')
-                ),
-                401
+
+            return (new Controller)->errorResponse(
+                null,
+                401,
+                'غير مسجل الدخول'
             );
         }
 
@@ -54,7 +48,7 @@ class CheckPermission
             'route' => $request->path(),
         ]);
 
-        return (new Controller())->errorResponse(
+        return (new Controller)->errorResponse(
             null,
             403,
             'غير مصرح بالدخول'

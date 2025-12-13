@@ -3,13 +3,14 @@
 namespace Modules\Auth\Transformers\UserResource;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 use Modules\Auth\Responce\Permission\PermissionNameResponce;
 
 class UserResource extends JsonResource
 {
     private $policies;
+
     /**
      * Transform the resource into an array.
      */
@@ -46,6 +47,7 @@ class UserResource extends JsonResource
 
             return $data;
         }
+
         return [
             'id' => $this->id,
             'first_name' => $this->first_name,

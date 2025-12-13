@@ -15,6 +15,7 @@ class LoginRequest extends FormRequest
     {
         return [
             'email' => 'required|email|max:255',
+            'email' => 'required|email|max:255|exists:users,email',
             'password' => 'required|string|min:8',
         ];
     }
@@ -22,12 +23,13 @@ class LoginRequest extends FormRequest
     public function messages()
     {
         return [
-            'email.required' => __('auth::validation.email_required'),
-            'email.email' => __('auth::validation.email_email'),
-            'email.max' => __('auth::validation.email_max', ['max' => 255]),
-            'email.exists' => __('auth::validation.email_not_exists'),
-            'password.required' => __('auth::validation.password_required'),
-            'password.min' => __('auth::validation.password_min', ['min' => 8]),
+            'email.required' => 'البريد الإلكتروني هو حقل مطلوب.',
+            'email.email' => 'البريد الإلكتروني يجب أن يكون عنوان بريد إلكتروني صالح.',
+            'email.max' => 'البريد الإلكتروني يجب أن لا يتجاوز 255 حرفًا.',
+
+            'password.required' => 'كلمة المرور هي حقل مطلوب.',
+            'password.string' => 'كلمة المرور يجب أن تكون نصًا.',
+            'password.min' => 'كلمة المرور يجب أن تحتوي على 8 أحرف على الأقل.',
         ];
     }
 }

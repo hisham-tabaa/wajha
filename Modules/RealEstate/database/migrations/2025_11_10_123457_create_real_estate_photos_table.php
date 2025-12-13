@@ -16,8 +16,8 @@ return new class extends Migration
 
             // Foreign key to real_estates table
             $table->foreignId('real_estate_id')
-                  ->constrained('real_estates')
-                  ->cascadeOnDelete(); // لو تم حذف العقار، تحذف صوره تلقائياً
+                ->constrained('real_estates')
+                ->cascadeOnDelete(); // لو تم حذف العقار، تحذف صوره تلقائياً
 
             // Photo path (يمكن حفظ المسار أو اسم الملف)
             $table->string('photo_path');

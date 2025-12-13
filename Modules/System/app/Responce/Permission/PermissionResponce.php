@@ -4,9 +4,7 @@ namespace Modules\System\Responce\Permission;
 
 class PermissionResponce
 {
-
     public array $data = [];
-
 
     public function __construct(array $array)
     {
@@ -21,4 +19,3 @@ class PermissionResponce
         }
     }
 }
-

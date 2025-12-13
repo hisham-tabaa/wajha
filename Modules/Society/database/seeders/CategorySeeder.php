@@ -10,8 +10,6 @@ use Modules\Society\Models\Category;
  *
  * This seeder populates the 'categories' table with predefined data.
  * It uses the updateOrCreate method to prevent duplicate entries.
- *
- * @package Modules\Society\Database\Seeders
  */
 class CategorySeeder extends Seeder
 {
@@ -20,8 +18,6 @@ class CategorySeeder extends Seeder
      *
      * This method creates or updates predefined categories in the database.
      * It ensures that categories are not duplicated when the seeder is run multiple times.
-     *
-     * @return void
      */
     public function run(): void
     {
@@ -54,11 +50,11 @@ class CategorySeeder extends Seeder
                 'description' => null,
                 'sort_order' => 4,
                 'children' => [
-                    ['type' => 'society', 'name_ar' => 'سيارات جديدة', 'name_en' => 'New Cars', 'description' => null, 'sort_order' => 1,],
-                    ['type' => 'society', 'name_ar' => 'سيارات مستعملة', 'name_en' => 'Used Cars', 'description' => null, 'sort_order' => 2,],
-                    ['type' => 'society', 'name_ar' => 'سيارات للإيجار', 'name_en' => 'Cars for Rent', 'description' => null, 'sort_order' => 3,],
-                    ['type' => 'society', 'name_ar' => 'اليات ثقيلة', 'name_en' => 'Heavy Equipment', 'description' => null, 'sort_order' => 4,],
-                ]
+                    ['type' => 'society', 'name_ar' => 'سيارات جديدة', 'name_en' => 'New Cars', 'description' => null, 'sort_order' => 1],
+                    ['type' => 'society', 'name_ar' => 'سيارات مستعملة', 'name_en' => 'Used Cars', 'description' => null, 'sort_order' => 2],
+                    ['type' => 'society', 'name_ar' => 'سيارات للإيجار', 'name_en' => 'Cars for Rent', 'description' => null, 'sort_order' => 3],
+                    ['type' => 'society', 'name_ar' => 'اليات ثقيلة', 'name_en' => 'Heavy Equipment', 'description' => null, 'sort_order' => 4],
+                ],
             ],
             [
                 'type' => 'society',
@@ -117,7 +113,7 @@ class CategorySeeder extends Seeder
                     ['type' => 'society', 'name_ar' => 'تصميم شعار', 'name_en' => 'Logo Design', 'description' => null, 'sort_order' => 41],
                     ['type' => 'society', 'name_ar' => 'تصميم 3D', 'name_en' => '3D Design', 'description' => null, 'sort_order' => 42],
                     ['type' => 'society', 'name_ar' => 'التصميم الصناعي', 'name_en' => 'Industrial Design', 'description' => null, 'sort_order' => 43],
-                ]
+                ],
 
             ],
             [
@@ -141,43 +137,43 @@ class CategorySeeder extends Seeder
                         'description' => null,
                         'sort_order' => 1,
                         'children' => [
-                                ['type' => 'society', 'name_ar' => 'المحاسبة والمالية', 'name_en' => 'Accounting and Finance', 'description' => null, 'sort_order' => 1],
-                                ['type' => 'society', 'name_ar' => 'السيارات والنقل', 'name_en' => 'Automotive and Transportation', 'description' => null, 'sort_order' => 2],
-                                ['type' => 'society', 'name_ar' => 'الصحة والجمال', 'name_en' => 'Health and Beauty', 'description' => null, 'sort_order' => 3],
-                                ['type' => 'society', 'name_ar' => 'مبرمج', 'name_en' => 'Programmer', 'description' => null, 'sort_order' => 4],
-                                ['type' => 'society', 'name_ar' => 'التنظيف والتدبير المنزلي', 'name_en' => 'Cleaning and Housekeeping', 'description' => null, 'sort_order' => 5],
-                                ['type' => 'society', 'name_ar' => 'الإنشاءات', 'name_en' => 'Construction', 'description' => null, 'sort_order' => 6],
-                                ['type' => 'society', 'name_ar' => 'شيف - مطبخ', 'name_en' => 'Chef - Kitchen', 'description' => null, 'sort_order' => 7],
-                                ['type' => 'society', 'name_ar' => 'إدارة وتحليل البيانات', 'name_en' => 'Data Management and Analysis', 'description' => null, 'sort_order' => 8],
-                                ['type' => 'society', 'name_ar' => 'التصميم', 'name_en' => 'Design', 'description' => null, 'sort_order' => 9],
-                                ['type' => 'society', 'name_ar' => 'سائق توصيل', 'name_en' => 'Delivery Driver', 'description' => null, 'sort_order' => 10],
-                                ['type' => 'society', 'name_ar' => 'تعليم', 'name_en' => 'Education', 'description' => null, 'sort_order' => 11],
-                                ['type' => 'society', 'name_ar' => 'هندسة', 'name_en' => 'Engineering', 'description' => null, 'sort_order' => 12],
-                                ['type' => 'society', 'name_ar' => 'إدارة الفعاليات', 'name_en' => 'Event Management', 'description' => null, 'sort_order' => 13],
-                                ['type' => 'society', 'name_ar' => 'عامل - فني', 'name_en' => 'Worker - Technician', 'description' => null, 'sort_order' => 14],
-                                ['type' => 'society', 'name_ar' => 'موارد بشرية', 'name_en' => 'Human Resources', 'description' => null, 'sort_order' => 15],
-                                ['type' => 'society', 'name_ar' => 'تكنولوجيا المعلومات', 'name_en' => 'Information Technology', 'description' => null, 'sort_order' => 16],
-                                ['type' => 'society', 'name_ar' => 'خدمة قانونية', 'name_en' => 'Legal Service', 'description' => null, 'sort_order' => 17],
-                                ['type' => 'society', 'name_ar' => 'التصنيع والتخزين', 'name_en' => 'Manufacturing and Warehousing', 'description' => null, 'sort_order' => 18],
-                                ['type' => 'society', 'name_ar' => 'كابتن بحري / بحار', 'name_en' => 'Sea Captain / Sailor', 'description' => null, 'sort_order' => 19],
-                                ['type' => 'society', 'name_ar' => 'الإعلام والفنون والترفيه', 'name_en' => 'Media, Arts and Entertainment', 'description' => null, 'sort_order' => 20],
-                                ['type' => 'society', 'name_ar' => 'الطب والتمريض / الرعاية الصحية', 'name_en' => 'Medicine, Nursing and Healthcare', 'description' => null, 'sort_order' => 21],
-                                ['type' => 'society', 'name_ar' => 'عقار', 'name_en' => 'Real Estate', 'description' => null, 'sort_order' => 22],
-                                ['type' => 'society', 'name_ar' => 'تشغيل مطاعم وفنادق', 'name_en' => 'Restaurant and Hotel Operations', 'description' => null, 'sort_order' => 23],
-                                ['type' => 'society', 'name_ar' => 'السكرتاريا والأعمال المكتبية', 'name_en' => 'Secretarial and Office Work', 'description' => null, 'sort_order' => 24],
-                                ['type' => 'society', 'name_ar' => 'الأمن والحماية', 'name_en' => 'Security and Protection', 'description' => null, 'sort_order' => 25],
-                                ['type' => 'society', 'name_ar' => 'السفر والضيافة', 'name_en' => 'Travel and Hospitality', 'description' => null, 'sort_order' => 26],
-                                ['type' => 'society', 'name_ar' => 'التسويق والمبيعات', 'name_en' => 'Marketing and Sales', 'description' => null, 'sort_order' => 27],
-                                ['type' => 'society', 'name_ar' => 'الإنتاج الإعلامي', 'name_en' => 'Media Production', 'description' => null, 'sort_order' => 28],
-                                ['type' => 'society', 'name_ar' => 'الإنتاج الموسيقي', 'name_en' => 'Music Production', 'description' => null, 'sort_order' => 29],
-                                ['type' => 'society', 'name_ar' => 'الإنتاج الحيواني', 'name_en' => 'Animal Production', 'description' => null, 'sort_order' => 30],
-                                ['type' => 'society', 'name_ar' => 'الإنتاج الصناعي', 'name_en' => 'Industrial Production', 'description' => null, 'sort_order' => 31],
-                                ['type' => 'society', 'name_ar' => 'خدمات عسكرية', 'name_en' => 'Military Services', 'description' => null, 'sort_order' => 32],
-                                ['type' => 'society', 'name_ar' => 'خدمات اجتماعية', 'name_en' => 'Social Services', 'description' => null, 'sort_order' => 33],
-                                ['type' => 'society', 'name_ar' => 'خدمات شخصية', 'name_en' => 'Personal Services', 'description' => null, 'sort_order' => 34],
-                                ['type' => 'society', 'name_ar' => 'خدمة فنية وتدريبية', 'name_en' => 'Technical and Training Services', 'description' => null, 'sort_order' => 35],
-                                ['type' => 'society', 'name_ar' => 'المنظمات غير الربحية', 'name_en' => 'Nonprofit Organizations', 'description' => null, 'sort_order' => 36],
-                                ['type' => 'society', 'name_ar' => 'أخرى', 'name_en' => 'Other', 'description' => null, 'sort_order' => 37],
+                            ['type' => 'society', 'name_ar' => 'المحاسبة والمالية', 'name_en' => 'Accounting and Finance', 'description' => null, 'sort_order' => 1],
+                            ['type' => 'society', 'name_ar' => 'السيارات والنقل', 'name_en' => 'Automotive and Transportation', 'description' => null, 'sort_order' => 2],
+                            ['type' => 'society', 'name_ar' => 'الصحة والجمال', 'name_en' => 'Health and Beauty', 'description' => null, 'sort_order' => 3],
+                            ['type' => 'society', 'name_ar' => 'مبرمج', 'name_en' => 'Programmer', 'description' => null, 'sort_order' => 4],
+                            ['type' => 'society', 'name_ar' => 'التنظيف والتدبير المنزلي', 'name_en' => 'Cleaning and Housekeeping', 'description' => null, 'sort_order' => 5],
+                            ['type' => 'society', 'name_ar' => 'الإنشاءات', 'name_en' => 'Construction', 'description' => null, 'sort_order' => 6],
+                            ['type' => 'society', 'name_ar' => 'شيف - مطبخ', 'name_en' => 'Chef - Kitchen', 'description' => null, 'sort_order' => 7],
+                            ['type' => 'society', 'name_ar' => 'إدارة وتحليل البيانات', 'name_en' => 'Data Management and Analysis', 'description' => null, 'sort_order' => 8],
+                            ['type' => 'society', 'name_ar' => 'التصميم', 'name_en' => 'Design', 'description' => null, 'sort_order' => 9],
+                            ['type' => 'society', 'name_ar' => 'سائق توصيل', 'name_en' => 'Delivery Driver', 'description' => null, 'sort_order' => 10],
+                            ['type' => 'society', 'name_ar' => 'تعليم', 'name_en' => 'Education', 'description' => null, 'sort_order' => 11],
+                            ['type' => 'society', 'name_ar' => 'هندسة', 'name_en' => 'Engineering', 'description' => null, 'sort_order' => 12],
+                            ['type' => 'society', 'name_ar' => 'إدارة الفعاليات', 'name_en' => 'Event Management', 'description' => null, 'sort_order' => 13],
+                            ['type' => 'society', 'name_ar' => 'عامل - فني', 'name_en' => 'Worker - Technician', 'description' => null, 'sort_order' => 14],
+                            ['type' => 'society', 'name_ar' => 'موارد بشرية', 'name_en' => 'Human Resources', 'description' => null, 'sort_order' => 15],
+                            ['type' => 'society', 'name_ar' => 'تكنولوجيا المعلومات', 'name_en' => 'Information Technology', 'description' => null, 'sort_order' => 16],
+                            ['type' => 'society', 'name_ar' => 'خدمة قانونية', 'name_en' => 'Legal Service', 'description' => null, 'sort_order' => 17],
+                            ['type' => 'society', 'name_ar' => 'التصنيع والتخزين', 'name_en' => 'Manufacturing and Warehousing', 'description' => null, 'sort_order' => 18],
+                            ['type' => 'society', 'name_ar' => 'كابتن بحري / بحار', 'name_en' => 'Sea Captain / Sailor', 'description' => null, 'sort_order' => 19],
+                            ['type' => 'society', 'name_ar' => 'الإعلام والفنون والترفيه', 'name_en' => 'Media, Arts and Entertainment', 'description' => null, 'sort_order' => 20],
+                            ['type' => 'society', 'name_ar' => 'الطب والتمريض / الرعاية الصحية', 'name_en' => 'Medicine, Nursing and Healthcare', 'description' => null, 'sort_order' => 21],
+                            ['type' => 'society', 'name_ar' => 'عقار', 'name_en' => 'Real Estate', 'description' => null, 'sort_order' => 22],
+                            ['type' => 'society', 'name_ar' => 'تشغيل مطاعم وفنادق', 'name_en' => 'Restaurant and Hotel Operations', 'description' => null, 'sort_order' => 23],
+                            ['type' => 'society', 'name_ar' => 'السكرتاريا والأعمال المكتبية', 'name_en' => 'Secretarial and Office Work', 'description' => null, 'sort_order' => 24],
+                            ['type' => 'society', 'name_ar' => 'الأمن والحماية', 'name_en' => 'Security and Protection', 'description' => null, 'sort_order' => 25],
+                            ['type' => 'society', 'name_ar' => 'السفر والضيافة', 'name_en' => 'Travel and Hospitality', 'description' => null, 'sort_order' => 26],
+                            ['type' => 'society', 'name_ar' => 'التسويق والمبيعات', 'name_en' => 'Marketing and Sales', 'description' => null, 'sort_order' => 27],
+                            ['type' => 'society', 'name_ar' => 'الإنتاج الإعلامي', 'name_en' => 'Media Production', 'description' => null, 'sort_order' => 28],
+                            ['type' => 'society', 'name_ar' => 'الإنتاج الموسيقي', 'name_en' => 'Music Production', 'description' => null, 'sort_order' => 29],
+                            ['type' => 'society', 'name_ar' => 'الإنتاج الحيواني', 'name_en' => 'Animal Production', 'description' => null, 'sort_order' => 30],
+                            ['type' => 'society', 'name_ar' => 'الإنتاج الصناعي', 'name_en' => 'Industrial Production', 'description' => null, 'sort_order' => 31],
+                            ['type' => 'society', 'name_ar' => 'خدمات عسكرية', 'name_en' => 'Military Services', 'description' => null, 'sort_order' => 32],
+                            ['type' => 'society', 'name_ar' => 'خدمات اجتماعية', 'name_en' => 'Social Services', 'description' => null, 'sort_order' => 33],
+                            ['type' => 'society', 'name_ar' => 'خدمات شخصية', 'name_en' => 'Personal Services', 'description' => null, 'sort_order' => 34],
+                            ['type' => 'society', 'name_ar' => 'خدمة فنية وتدريبية', 'name_en' => 'Technical and Training Services', 'description' => null, 'sort_order' => 35],
+                            ['type' => 'society', 'name_ar' => 'المنظمات غير الربحية', 'name_en' => 'Nonprofit Organizations', 'description' => null, 'sort_order' => 36],
+                            ['type' => 'society', 'name_ar' => 'أخرى', 'name_en' => 'Other', 'description' => null, 'sort_order' => 37],
                         ],
                     ],
                     [
@@ -187,43 +183,43 @@ class CategorySeeder extends Seeder
                         'description' => null,
                         'sort_order' => 2,
                         'children' => [
-                                ['type' => 'society', 'name_ar' => 'المحاسبة والمالية', 'name_en' => 'Accounting and Finance', 'description' => null, 'sort_order' => 1],
-                                ['type' => 'society', 'name_ar' => 'السيارات والنقل', 'name_en' => 'Automotive and Transportation', 'description' => null, 'sort_order' => 2],
-                                ['type' => 'society', 'name_ar' => 'الصحة والجمال', 'name_en' => 'Health and Beauty', 'description' => null, 'sort_order' => 3],
-                                ['type' => 'society', 'name_ar' => 'مبرمج', 'name_en' => 'Programmer', 'description' => null, 'sort_order' => 4],
-                                ['type' => 'society', 'name_ar' => 'التنظيف والتدبير المنزلي', 'name_en' => 'Cleaning and Housekeeping', 'description' => null, 'sort_order' => 5],
-                                ['type' => 'society', 'name_ar' => 'الإنشاءات', 'name_en' => 'Construction', 'description' => null, 'sort_order' => 6],
-                                ['type' => 'society', 'name_ar' => 'شيف - مطبخ', 'name_en' => 'Chef - Kitchen', 'description' => null, 'sort_order' => 7],
-                                ['type' => 'society', 'name_ar' => 'إدارة وتحليل البيانات', 'name_en' => 'Data Management and Analysis', 'description' => null, 'sort_order' => 8],
-                                ['type' => 'society', 'name_ar' => 'التصميم', 'name_en' => 'Design', 'description' => null, 'sort_order' => 9],
-                                ['type' => 'society', 'name_ar' => 'سائق توصيل', 'name_en' => 'Delivery Driver', 'description' => null, 'sort_order' => 10],
-                                ['type' => 'society', 'name_ar' => 'تعليم', 'name_en' => 'Education', 'description' => null, 'sort_order' => 11],
-                                ['type' => 'society', 'name_ar' => 'هندسة', 'name_en' => 'Engineering', 'description' => null, 'sort_order' => 12],
-                                ['type' => 'society', 'name_ar' => 'إدارة الفعاليات', 'name_en' => 'Event Management', 'description' => null, 'sort_order' => 13],
-                                ['type' => 'society', 'name_ar' => 'عامل - فني', 'name_en' => 'Worker - Technician', 'description' => null, 'sort_order' => 14],
-                                ['type' => 'society', 'name_ar' => 'موارد بشرية', 'name_en' => 'Human Resources', 'description' => null, 'sort_order' => 15],
-                                ['type' => 'society', 'name_ar' => 'تكنولوجيا المعلومات', 'name_en' => 'Information Technology', 'description' => null, 'sort_order' => 16],
-                                ['type' => 'society', 'name_ar' => 'خدمة قانونية', 'name_en' => 'Legal Service', 'description' => null, 'sort_order' => 17],
-                                ['type' => 'society', 'name_ar' => 'التصنيع والتخزين', 'name_en' => 'Manufacturing and Warehousing', 'description' => null, 'sort_order' => 18],
-                                ['type' => 'society', 'name_ar' => 'كابتن بحري / بحار', 'name_en' => 'Sea Captain / Sailor', 'description' => null, 'sort_order' => 19],
-                                ['type' => 'society', 'name_ar' => 'الإعلام والفنون والترفيه', 'name_en' => 'Media, Arts and Entertainment', 'description' => null, 'sort_order' => 20],
-                                ['type' => 'society', 'name_ar' => 'الطب والتمريض / الرعاية الصحية', 'name_en' => 'Medicine, Nursing and Healthcare', 'description' => null, 'sort_order' => 21],
-                                ['type' => 'society', 'name_ar' => 'عقار', 'name_en' => 'Real Estate', 'description' => null, 'sort_order' => 22],
-                                ['type' => 'society', 'name_ar' => 'تشغيل مطاعم وفنادق', 'name_en' => 'Restaurant and Hotel Operations', 'description' => null, 'sort_order' => 23],
-                                ['type' => 'society', 'name_ar' => 'السكرتاريا والأعمال المكتبية', 'name_en' => 'Secretarial and Office Work', 'description' => null, 'sort_order' => 24],
-                                ['type' => 'society', 'name_ar' => 'الأمن والحماية', 'name_en' => 'Security and Protection', 'description' => null, 'sort_order' => 25],
-                                ['type' => 'society', 'name_ar' => 'السفر والضيافة', 'name_en' => 'Travel and Hospitality', 'description' => null, 'sort_order' => 26],
-                                ['type' => 'society', 'name_ar' => 'التسويق والمبيعات', 'name_en' => 'Marketing and Sales', 'description' => null, 'sort_order' => 27],
-                                ['type' => 'society', 'name_ar' => 'الإنتاج الإعلامي', 'name_en' => 'Media Production', 'description' => null, 'sort_order' => 28],
-                                ['type' => 'society', 'name_ar' => 'الإنتاج الموسيقي', 'name_en' => 'Music Production', 'description' => null, 'sort_order' => 29],
-                                ['type' => 'society', 'name_ar' => 'الإنتاج الحيواني', 'name_en' => 'Animal Production', 'description' => null, 'sort_order' => 30],
-                                ['type' => 'society', 'name_ar' => 'الإنتاج الصناعي', 'name_en' => 'Industrial Production', 'description' => null, 'sort_order' => 31],
-                                ['type' => 'society', 'name_ar' => 'خدمات عسكرية', 'name_en' => 'Military Services', 'description' => null, 'sort_order' => 32],
-                                ['type' => 'society', 'name_ar' => 'خدمات اجتماعية', 'name_en' => 'Social Services', 'description' => null, 'sort_order' => 33],
-                                ['type' => 'society', 'name_ar' => 'خدمات شخصية', 'name_en' => 'Personal Services', 'description' => null, 'sort_order' => 34],
-                                ['type' => 'society', 'name_ar' => 'خدمة فنية وتدريبية', 'name_en' => 'Technical and Training Services', 'description' => null, 'sort_order' => 35],
-                                ['type' => 'society', 'name_ar' => 'المنظمات غير الربحية', 'name_en' => 'Nonprofit Organizations', 'description' => null, 'sort_order' => 36],
-                                ['type' => 'society', 'name_ar' => 'أخرى', 'name_en' => 'Other', 'description' => null, 'sort_order' => 37],
+                            ['type' => 'society', 'name_ar' => 'المحاسبة والمالية', 'name_en' => 'Accounting and Finance', 'description' => null, 'sort_order' => 1],
+                            ['type' => 'society', 'name_ar' => 'السيارات والنقل', 'name_en' => 'Automotive and Transportation', 'description' => null, 'sort_order' => 2],
+                            ['type' => 'society', 'name_ar' => 'الصحة والجمال', 'name_en' => 'Health and Beauty', 'description' => null, 'sort_order' => 3],
+                            ['type' => 'society', 'name_ar' => 'مبرمج', 'name_en' => 'Programmer', 'description' => null, 'sort_order' => 4],
+                            ['type' => 'society', 'name_ar' => 'التنظيف والتدبير المنزلي', 'name_en' => 'Cleaning and Housekeeping', 'description' => null, 'sort_order' => 5],
+                            ['type' => 'society', 'name_ar' => 'الإنشاءات', 'name_en' => 'Construction', 'description' => null, 'sort_order' => 6],
+                            ['type' => 'society', 'name_ar' => 'شيف - مطبخ', 'name_en' => 'Chef - Kitchen', 'description' => null, 'sort_order' => 7],
+                            ['type' => 'society', 'name_ar' => 'إدارة وتحليل البيانات', 'name_en' => 'Data Management and Analysis', 'description' => null, 'sort_order' => 8],
+                            ['type' => 'society', 'name_ar' => 'التصميم', 'name_en' => 'Design', 'description' => null, 'sort_order' => 9],
+                            ['type' => 'society', 'name_ar' => 'سائق توصيل', 'name_en' => 'Delivery Driver', 'description' => null, 'sort_order' => 10],
+                            ['type' => 'society', 'name_ar' => 'تعليم', 'name_en' => 'Education', 'description' => null, 'sort_order' => 11],
+                            ['type' => 'society', 'name_ar' => 'هندسة', 'name_en' => 'Engineering', 'description' => null, 'sort_order' => 12],
+                            ['type' => 'society', 'name_ar' => 'إدارة الفعاليات', 'name_en' => 'Event Management', 'description' => null, 'sort_order' => 13],
+                            ['type' => 'society', 'name_ar' => 'عامل - فني', 'name_en' => 'Worker - Technician', 'description' => null, 'sort_order' => 14],
+                            ['type' => 'society', 'name_ar' => 'موارد بشرية', 'name_en' => 'Human Resources', 'description' => null, 'sort_order' => 15],
+                            ['type' => 'society', 'name_ar' => 'تكنولوجيا المعلومات', 'name_en' => 'Information Technology', 'description' => null, 'sort_order' => 16],
+                            ['type' => 'society', 'name_ar' => 'خدمة قانونية', 'name_en' => 'Legal Service', 'description' => null, 'sort_order' => 17],
+                            ['type' => 'society', 'name_ar' => 'التصنيع والتخزين', 'name_en' => 'Manufacturing and Warehousing', 'description' => null, 'sort_order' => 18],
+                            ['type' => 'society', 'name_ar' => 'كابتن بحري / بحار', 'name_en' => 'Sea Captain / Sailor', 'description' => null, 'sort_order' => 19],
+                            ['type' => 'society', 'name_ar' => 'الإعلام والفنون والترفيه', 'name_en' => 'Media, Arts and Entertainment', 'description' => null, 'sort_order' => 20],
+                            ['type' => 'society', 'name_ar' => 'الطب والتمريض / الرعاية الصحية', 'name_en' => 'Medicine, Nursing and Healthcare', 'description' => null, 'sort_order' => 21],
+                            ['type' => 'society', 'name_ar' => 'عقار', 'name_en' => 'Real Estate', 'description' => null, 'sort_order' => 22],
+                            ['type' => 'society', 'name_ar' => 'تشغيل مطاعم وفنادق', 'name_en' => 'Restaurant and Hotel Operations', 'description' => null, 'sort_order' => 23],
+                            ['type' => 'society', 'name_ar' => 'السكرتاريا والأعمال المكتبية', 'name_en' => 'Secretarial and Office Work', 'description' => null, 'sort_order' => 24],
+                            ['type' => 'society', 'name_ar' => 'الأمن والحماية', 'name_en' => 'Security and Protection', 'description' => null, 'sort_order' => 25],
+                            ['type' => 'society', 'name_ar' => 'السفر والضيافة', 'name_en' => 'Travel and Hospitality', 'description' => null, 'sort_order' => 26],
+                            ['type' => 'society', 'name_ar' => 'التسويق والمبيعات', 'name_en' => 'Marketing and Sales', 'description' => null, 'sort_order' => 27],
+                            ['type' => 'society', 'name_ar' => 'الإنتاج الإعلامي', 'name_en' => 'Media Production', 'description' => null, 'sort_order' => 28],
+                            ['type' => 'society', 'name_ar' => 'الإنتاج الموسيقي', 'name_en' => 'Music Production', 'description' => null, 'sort_order' => 29],
+                            ['type' => 'society', 'name_ar' => 'الإنتاج الحيواني', 'name_en' => 'Animal Production', 'description' => null, 'sort_order' => 30],
+                            ['type' => 'society', 'name_ar' => 'الإنتاج الصناعي', 'name_en' => 'Industrial Production', 'description' => null, 'sort_order' => 31],
+                            ['type' => 'society', 'name_ar' => 'خدمات عسكرية', 'name_en' => 'Military Services', 'description' => null, 'sort_order' => 32],
+                            ['type' => 'society', 'name_ar' => 'خدمات اجتماعية', 'name_en' => 'Social Services', 'description' => null, 'sort_order' => 33],
+                            ['type' => 'society', 'name_ar' => 'خدمات شخصية', 'name_en' => 'Personal Services', 'description' => null, 'sort_order' => 34],
+                            ['type' => 'society', 'name_ar' => 'خدمة فنية وتدريبية', 'name_en' => 'Technical and Training Services', 'description' => null, 'sort_order' => 35],
+                            ['type' => 'society', 'name_ar' => 'المنظمات غير الربحية', 'name_en' => 'Nonprofit Organizations', 'description' => null, 'sort_order' => 36],
+                            ['type' => 'society', 'name_ar' => 'أخرى', 'name_en' => 'Other', 'description' => null, 'sort_order' => 37],
                         ],
                     ],
 
@@ -238,31 +234,31 @@ class CategorySeeder extends Seeder
             ],
         ];
 
-       $this->createCategories($categories);
+        $this->createCategories($categories);
 
-    $this->command->info('✅ Categories seeded successfully!');
-    $this->command->info('📊 Total categories in database: ' . Category::count());
+        $this->command->info('✅ Categories seeded successfully!');
+        $this->command->info('📊 Total categories in database: '.Category::count());
 
     }
 
     private function createCategories(array $categories, ?int $parentId = null): void
-{
-    foreach ($categories as $categoryData) {
-        $children = $categoryData['children'] ?? [];
-        unset($categoryData['children']);
+    {
+        foreach ($categories as $categoryData) {
+            $children = $categoryData['children'] ?? [];
+            unset($categoryData['children']);
 
-        // إذا parentId موجود، أضفه للبيانات
-        if ($parentId) {
-            $categoryData['parent_id'] = $parentId;
-        }
+            // إذا parentId موجود، أضفه للبيانات
+            if ($parentId) {
+                $categoryData['parent_id'] = $parentId;
+            }
 
-        // إنشاء الفئة
-        $category = Category::create($categoryData);
+            // إنشاء الفئة
+            $category = Category::create($categoryData);
 
-        // استدعاء نفس الدالة لإنشاء الأطفال إذا وجدوا
-        if (!empty($children)) {
-            $this->createCategories($children, $category->id);
+            // استدعاء نفس الدالة لإنشاء الأطفال إذا وجدوا
+            if (! empty($children)) {
+                $this->createCategories($children, $category->id);
+            }
         }
     }
-}
 }

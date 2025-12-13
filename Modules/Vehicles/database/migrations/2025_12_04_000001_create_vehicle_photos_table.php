@@ -16,8 +16,8 @@ return new class extends Migration
 
             // Foreign key to vehicles table
             $table->foreignId('vehicle_id')
-                  ->constrained('vehicles')
-                  ->cascadeOnDelete();
+                ->constrained('vehicles')
+                ->cascadeOnDelete();
 
             // Photo path
             $table->string('photo_path');

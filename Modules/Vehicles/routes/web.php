@@ -2,5 +2,4 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('vehicles')->group(function () {
-});
+Route::prefix('vehicles')->group(function () {});

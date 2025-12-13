@@ -4,10 +4,10 @@ namespace Modules\System\Services\Role;
 
 use Exception;
 use Illuminate\Support\Facades\DB;
-use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Log;
 use Modules\System\Http\Requests\Role\AddRoleRequest;
 use Modules\System\Http\Requests\Role\UpdateRoleRequest;
+use Spatie\Permission\Models\Role;
 
 /**
  * Class RoleService
@@ -25,9 +25,11 @@ class RoleService implements IRoleService
     {
         try {
             $roles = Role::get();
+
             return [true, $roles, 200, 'تم جلب الأدوار بنجاح.'];
         } catch (Exception $e) {
-            Log::error('Failed to get roles: ' . $e->getMessage());
+            Log::error('Failed to get roles: '.$e->getMessage());
+
             return [false, [], 500, 'فشل في جلب الأدوار.'];
         }
     }
@@ -35,7 +37,6 @@ class RoleService implements IRoleService
     /**
      * إنشاء دور جديد
      *
-     * @param AddRoleRequest $request
      * @return array [status, data, code, message]
      */
     public function create(AddRoleRequest $request): array
@@ -48,7 +49,7 @@ class RoleService implements IRoleService
                 'name_en' => $data['name_en'],
                 'name_ar' => $data['name_ar'],
                 'name' => strtolower(str_replace(' ', '-', $data['name_en'])),
-                'policy' => config('role_policy.policy.' . $data['policy']),
+                'policy' => config('role_policy.policy.'.$data['policy']),
                 'can_delete' => $data['can_delete'],
             ]);
 
@@ -57,7 +58,8 @@ class RoleService implements IRoleService
 
             return [true, $role, 201, 'تم إنشاء الدور بنجاح.'];
         } catch (Exception $e) {
-            Log::error('Failed to create role: ' . $e->getMessage());
+            Log::error('Failed to create role: '.$e->getMessage());
+
             return [false, [], 500, 'فشل في إنشاء الدور.'];
         }
     }
@@ -65,8 +67,6 @@ class RoleService implements IRoleService
     /**
      * تحديث دور محدد
      *
-     * @param int $id
-     * @param UpdateRoleRequest $request
      * @return array [status, data, code, message]
      */
     public function update(int $id, UpdateRoleRequest $request): array
@@ -75,7 +75,7 @@ class RoleService implements IRoleService
             $data = $request->validated();
             $role = Role::find($id);
 
-            if (!$role) {
+            if (! $role) {
                 return [false, [], 404, 'الدور غير موجود.'];
             }
 
@@ -92,7 +92,7 @@ class RoleService implements IRoleService
             }
 
             if (isset($data['policy'])) {
-                $data['policy'] = config('role_policy.policy.' . $data['policy']);
+                $data['policy'] = config('role_policy.policy.'.$data['policy']);
             }
 
             $role->update($data);
@@ -105,7 +105,8 @@ class RoleService implements IRoleService
 
             return [true, $role, 201, 'تم تحديث الدور بنجاح.'];
         } catch (Exception $e) {
-            Log::error('Failed to update role: ' . $e->getMessage());
+            Log::error('Failed to update role: '.$e->getMessage());
+
             return [false, [], 500, 'فشل في تحديث الدور.'];
         }
     }
@@ -113,7 +114,6 @@ class RoleService implements IRoleService
     /**
      * حذف دور محدد
      *
-     * @param int $id
      * @return array [status, data, code, message]
      */
     public function delete(int $id): array
@@ -121,12 +121,12 @@ class RoleService implements IRoleService
         try {
             $role = Role::find($id);
 
-            if (!$role) {
+            if (! $role) {
                 return [false, [], 404, 'الدور غير موجود.'];
             }
 
-            if (!$role->can_delete) {
-                return [false, [], 400, "لا يمكن حذف هذا الدور."];
+            if (! $role->can_delete) {
+                return [false, [], 400, 'لا يمكن حذف هذا الدور.'];
             }
 
             DB::transaction(function () use ($role) {
@@ -144,7 +144,8 @@ class RoleService implements IRoleService
 
             return [true, [], 201, 'تم حذف الدور بنجاح.'];
         } catch (Exception $e) {
-            Log::error('Failed to delete role: ' . $e->getMessage());
+            Log::error('Failed to delete role: '.$e->getMessage());
+
             return [false, [], 500, 'فشل في حذف الدور.'];
         }
     }
@@ -152,19 +153,20 @@ class RoleService implements IRoleService
     /**
      * عرض دور محدد مع صلاحياته
      *
-     * @param int $id
      * @return array [status, data, code, message]
      */
     public function get(int $id): array
     {
         try {
             $role = Role::with('permissions')->find($id);
-            if (!$role) {
+            if (! $role) {
                 return [false, [], 404, 'الدور غير موجود.'];
             }
+
             return [true, $role, 200, 'تم جلب الدور بنجاح.'];
         } catch (Exception $e) {
-            Log::error('Failed to get role ID=' . $id . ': ' . $e->getMessage());
+            Log::error('Failed to get role ID='.$id.': '.$e->getMessage());
+
             return [false, [], 500, 'فشل في جلب الدور.'];
         }
     }

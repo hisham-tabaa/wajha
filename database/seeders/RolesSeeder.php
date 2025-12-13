@@ -1,10 +1,12 @@
 <?php
-//Database\Seeders\RolesSeeder
+
+// Database\Seeders\RolesSeeder
+
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 
 class RolesSeeder extends Seeder
 {
@@ -16,7 +18,7 @@ class RolesSeeder extends Seeder
 
             foreach ($uniqueRoles as $roleData) {
                 $existingRole = Role::where('name', $roleData['name'])->first();
-                if (!$existingRole) {
+                if (! $existingRole) {
                     $newRoleData = [
                         'name' => $roleData['name'],
                         'guard_name' => 'web',
@@ -24,7 +26,7 @@ class RolesSeeder extends Seeder
                         'name_en' => $roleData['name_en'],
                     ];
 
-                    if (in_array($roleData['name'], ['admin','default'])) {
+                    if (in_array($roleData['name'], ['admin', 'default'])) {
                         $newRoleData['can_delete'] = false;
                     }
 
@@ -39,7 +41,7 @@ class RolesSeeder extends Seeder
                     $roleModel = $existingRole;
                 }
 
-                $permissions = collect(config('roles_permissions.' . $roleData['name']));
+                $permissions = collect(config('roles_permissions.'.$roleData['name']));
                 $roleModel->givePermissionTo($permissions->toArray());
             }
         });

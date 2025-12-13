@@ -23,10 +23,10 @@ class AppResponse
     /**
      * AppResponse constructor.
      *
-     * @param string $status      "success" or "failed"
-     * @param mixed  $data        Response payload
-     * @param int    $statusCode  HTTP status code
-     * @param string $message     Response message
+     * @param  string  $status  "success" or "failed"
+     * @param  mixed  $data  Response payload
+     * @param  int  $statusCode  HTTP status code
+     * @param  string  $message  Response message
      */
     public function __construct(string $status, $data, int $statusCode = 200, string $message = '')
     {
@@ -38,8 +38,6 @@ class AppResponse
 
     /**
      * Check if the response indicates success.
-     *
-     * @return bool
      */
     public function succeed(): bool
     {
