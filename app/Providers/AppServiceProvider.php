@@ -48,14 +48,14 @@ class AppServiceProvider extends ServiceProvider
         
         // Check if the database connection is available when the app boots up
         // Only in production/web requests, not during builds
+        // Note: Disabled exit on failure to prevent 500 errors - errors will be logged instead
         if (!app()->runningInConsole()) {
             try {
                 DB::connection()->getPdo();
             } catch (\Exception $e) {
-                // If the database connection fails, display an error message and stop the execution
-                echo "❌ [DATABASE ERROR] MySQL is not running or .env config is invalid.\n";
-                echo "Reason: " . $e->getMessage() . "\n";
-                exit(1); // Stop the execution of the app
+                // Log the error instead of exiting - this prevents 500 errors
+                \Log::error('Database connection failed on boot: ' . $e->getMessage());
+                // Don't exit - let the app continue and handle DB errors gracefully
             }
         }
     }
