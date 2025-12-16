@@ -24,6 +24,17 @@ class AppServiceProvider extends ServiceProvider
     {
         JsonResource::withoutWrapping();
         Paginator::useBootstrapFive();
+        
+        // Skip database check during build-time cache commands
+        if (app()->runningInConsole() && isset($_SERVER['argv'][1])) {
+            $command = $_SERVER['argv'][1];
+            $cacheCommands = ['config:cache', 'route:cache', 'view:cache', 'event:cache', 'package:discover'];
+            
+            if (in_array($command, $cacheCommands)) {
+                return;
+            }
+        }
+        
         // Check if the database connection is available when the app boots up
         try {
             DB::connection()->getPdo();
