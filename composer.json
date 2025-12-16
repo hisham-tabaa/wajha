@@ -32,7 +32,21 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
-            "Modules\\": "Modules/"
+            "Modules\\Auth\\": "Modules/Auth/app/",
+            "Modules\\Auth\\Database\\Factories\\": "Modules/Auth/database/factories/",
+            "Modules\\Auth\\Database\\Seeders\\": "Modules/Auth/database/seeders/",
+            "Modules\\RealEstate\\": "Modules/RealEstate/app/",
+            "Modules\\RealEstate\\Database\\Factories\\": "Modules/RealEstate/database/factories/",
+            "Modules\\RealEstate\\Database\\Seeders\\": "Modules/RealEstate/database/seeders/",
+            "Modules\\Society\\": "Modules/Society/app/",
+            "Modules\\Society\\Database\\Factories\\": "Modules/Society/database/factories/",
+            "Modules\\Society\\Database\\Seeders\\": "Modules/Society/database/seeders/",
+            "Modules\\System\\": "Modules/System/app/",
+            "Modules\\System\\Database\\Factories\\": "Modules/System/database/factories/",
+            "Modules\\System\\Database\\Seeders\\": "Modules/System/database/seeders/",
+            "Modules\\Vehicles\\": "Modules/Vehicles/app/",
+            "Modules\\Vehicles\\Database\\Factories\\": "Modules/Vehicles/database/factories/",
+            "Modules\\Vehicles\\Database\\Seeders\\": "Modules/Vehicles/database/seeders/"
         }
     },
     "autoload-dev": {
