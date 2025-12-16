@@ -25,24 +25,38 @@ class AppServiceProvider extends ServiceProvider
         JsonResource::withoutWrapping();
         Paginator::useBootstrapFive();
         
-        // Skip database check during build-time cache commands
-        if (app()->runningInConsole() && isset($_SERVER['argv'][1])) {
-            $command = $_SERVER['argv'][1];
-            $cacheCommands = ['config:cache', 'route:cache', 'view:cache', 'event:cache', 'package:discover'];
+        // Skip database check during build-time cache commands or when running in console with cache commands
+        if (app()->runningInConsole()) {
+            $command = $_SERVER['argv'][1] ?? null;
+            $cacheCommands = ['config:cache', 'route:cache', 'view:cache', 'event:cache', 'package:discover', 'optimize'];
             
-            if (in_array($command, $cacheCommands)) {
+            // Also skip if command contains 'cache' (covers variations)
+            if ($command && (in_array($command, $cacheCommands) || str_contains($command, 'cache'))) {
+                return;
+            }
+        }
+        
+        // Skip database check if no database is configured (common during builds)
+        $dbConnection = config('database.default');
+        if (!$dbConnection || $dbConnection === 'sqlite') {
+            $dbPath = config("database.connections.{$dbConnection}.database");
+            if ($dbConnection === 'sqlite' && !file_exists($dbPath)) {
+                // Skip check if SQLite file doesn't exist (common during builds)
                 return;
             }
         }
         
         // Check if the database connection is available when the app boots up
-        try {
-            DB::connection()->getPdo();
-        } catch (\Exception $e) {
-            // If the database connection fails, display an error message and stop the execution
-            echo "❌ [DATABASE ERROR] MySQL is not running or .env config is invalid.\n";
-            echo "Reason: " . $e->getMessage() . "\n";
-            exit(1); // Stop the execution of the app
+        // Only in production/web requests, not during builds
+        if (!app()->runningInConsole()) {
+            try {
+                DB::connection()->getPdo();
+            } catch (\Exception $e) {
+                // If the database connection fails, display an error message and stop the execution
+                echo "❌ [DATABASE ERROR] MySQL is not running or .env config is invalid.\n";
+                echo "Reason: " . $e->getMessage() . "\n";
+                exit(1); // Stop the execution of the app
+            }
         }
     }
 }
