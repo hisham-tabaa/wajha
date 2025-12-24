@@ -1,0 +1,101 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: wajha_app
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+      - ./storage:/var/www/html/storage
+    networks:
+      - wajha_network
+    depends_on:
+      - mysql
+      - redis
+    environment:
+      - DB_CONNECTION=mysql
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=wajha
+      - DB_USERNAME=wajha_user
+      - DB_PASSWORD=wajha_password
+      - REDIS_HOST=redis
+      - CACHE_DRIVER=redis
+      - SESSION_DRIVER=redis
+      - QUEUE_CONNECTION=redis
+
+  nginx:
+    image: nginx:alpine
+    container_name: wajha_nginx
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - wajha_network
+    depends_on:
+      - app
+
+  mysql:
+    image: mysql:8.0
+    container_name: wajha_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: wajha
+      MYSQL_USER: wajha_user
+      MYSQL_PASSWORD: wajha_password
+      MYSQL_ROOT_PASSWORD: root_password
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    networks:
+      - wajha_network
+
+  redis:
+    image: redis:alpine
+    container_name: wajha_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    networks:
+      - wajha_network
+
+  queue:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: wajha_queue
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - wajha_network
+    depends_on:
+      - mysql
+      - redis
+    environment:
+      - DB_CONNECTION=mysql
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=wajha
+      - DB_USERNAME=wajha_user
+      - DB_PASSWORD=wajha_password
+      - REDIS_HOST=redis
+      - CACHE_DRIVER=redis
+      - SESSION_DRIVER=redis
+      - QUEUE_CONNECTION=redis
+    command: php artisan queue:work --tries=3 --timeout=90
+
+networks:
+  wajha_network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local
